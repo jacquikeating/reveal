@@ -22,3 +22,11 @@ Reveal aims to address these pain points by providing a network specifically des
 - listings of events, perfomers, troupes, organizations, venues, and schools/teachers
 - direct messaging
 - strong privacy and security
+
+# User Stories
+
+- As a site visitor, I can see a list of all upcoming shows in my area, and click on one to view its full details, so that I can find events to go to.
+- As a site visitor, I can seamlessly purchase tickets from the event page so that I don't have to navigate there myself.
+- As a burlesque performer, I can promote myself and my upcoming shows via both my profile page and posts, so that I can grow my audience.
+- As a burlesque fan, I can easily see all of my favourite performers' media (such as videos) on their profle page, so that I don't have to dig through YouTube, Instagram, or TikTok to search for them individually.
+- As a venue owner, I can organize and promote upcoming events to an interested target audience so that I can sell more tickets.
