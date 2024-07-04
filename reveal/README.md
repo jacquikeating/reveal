@@ -54,7 +54,7 @@ Burlesque performers of all experience levels may be Reveal's most important use
 
 ### Sitemap
 
-- Login/Signup
+- See sitemap.png
 
 ### Mockups
 
