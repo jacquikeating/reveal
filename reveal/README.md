@@ -44,13 +44,17 @@ Burlesque performers of all experience levels may be Reveal's most important use
 - HTML
 - CSS
 - Sass
+- JavaScript
 - React
 - Axios
 - MySQL
 - Knex
-- OAuth?
+- OAuth? Or auth of some sort
+- socket.io?
 
 ### Sitemap
+
+- Login/Signup
 
 ### Mockups
 
@@ -79,3 +83,5 @@ Burlesque performers of all experience levels may be Reveal's most important use
 ## Roadmap
 
 ## Nice-to-Haves
+
+- venue/business pages
