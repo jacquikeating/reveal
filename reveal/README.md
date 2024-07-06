@@ -60,6 +60,8 @@ Burlesque performers of all experience levels may be Reveal's most important use
 
 ### Data
 
+- See data-diagram.png
+
 ### Endpoints
 
 - GET posts (with various filters/parameters)
