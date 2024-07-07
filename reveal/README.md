@@ -27,15 +27,14 @@ Burlesque performers of all experience levels may be Reveal's most important use
 ## Features
 
 - robust user profile pages
-- friends & followers
+- followers
 - posts with text, images, and video
 - like, comment on, share, and report posts
 - newsfeed
 - photo & video albums
 - detailed event pages
-- listings of events, perfomers, troupes, organizations, venues, and schools/teachers
+- event listings
 - direct messaging
-- strong privacy and security
 
 ### Implementation
 
@@ -49,7 +48,7 @@ Burlesque performers of all experience levels may be Reveal's most important use
 - Axios
 - MySQL
 - Knex
-- OAuth? Or auth of some sort
+- OAuth
 - socket.io?
 
 ### Sitemap
@@ -82,8 +81,29 @@ Burlesque performers of all experience levels may be Reveal's most important use
 
 ### Auth
 
+- Facebook/Instagram OAuth
+
 ## Roadmap
+
+Philosophy: Begin with barebones construction of all components and functionality. Refine in stages. Test and address bugs throughout. Alternate frontend and backend tasks.
+
+Sprint 1
+
+- Monday: Build skeleton React components with layout styling only, beginning with mobile and then adjusting for tablet and desktop sizes
+- Tuesday: Review past projects and use as reference to begin building functionality
+- Wednesday: Backend — integrate database and API
+- Thursday: Aesthetic styling, first pass — base theme and typography for all components
+- Friday: Complete backend-frontend integration and functionality
+- Saturday: Aesthetic styling, second pass — refine design
+- Sunday: Squash bugs and finalize deliverables
 
 ## Nice-to-Haves
 
-- venue/business pages
+- Venue/business pages
+- Expanded scope: During early development, the content scope will be limited to Toronto only. This will later be expanded to all of Canada, then to an international audience.
+- Integration with other social media APIs: for instance, "cloning" the user's own Instagram feed to Reveal, or offering a centralized "dashboard" to see data from or manage all of the user's social media profiles through Reveal
+- Light theme: Reveal is prioritizing dark theme for a more comfortable user experience while actually at burlesque shows, but it would be great to offer a light option for users who prefer it
+- Live chat
+- Email auth option
+- Expanded listings: in addition to events, provide directories for local burlesque organizations, teachers/schools, venues, or performers
+- Improved security and privacy: Given the nature of the app, these are important considerations. While not strictly needed during the prototype stage (since no real user data is in play), strong security features will need to be in place before a public launch.
