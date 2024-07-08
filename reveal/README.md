@@ -21,8 +21,8 @@ Burlesque performers of all experience levels may be Reveal's most important use
 - As a site visitor, I can see a list of all upcoming shows in my area, and click on one to view its full details, so that I can find events to go to.
 - As a site visitor, I can seamlessly purchase tickets from the event page so that I don't have to navigate there myself.
 - As a burlesque performer, I can promote myself and my upcoming shows via both my profile page and posts, so that I can grow my audience.
-- As a burlesque fan, I can easily see all of my favourite performers' media (such as videos) on their profle page, so that I don't have to dig through YouTube, Instagram, or TikTok to search for them individually.
-- As a venue owner, I can organize and promote upcoming events to an interested target audience so that I can sell more tickets.
+- As a burlesque fan, I can easily see all of my favourite performers' media on their profle page, so that I don't have to dig through YouTube, Instagram, or TikTok to search for them individually.
+- As a producer or venue owner, I can organize and promote upcoming events to an interested target audience so that I can sell more tickets.
 
 ## Features
 
@@ -36,7 +36,7 @@ Burlesque performers of all experience levels may be Reveal's most important use
 - event listings
 - direct messaging
 
-### Implementation
+## Implementation
 
 ### Tech Stack
 
@@ -49,17 +49,18 @@ Burlesque performers of all experience levels may be Reveal's most important use
 - MySQL
 - Knex
 - OAuth
-- socket.io?
 
 ### Sitemap
 
-- See sitemap.png
+- See development/sitemap.png
 
 ### Mockups
 
+- See development/mockups/
+
 ### Data
 
-- See data-diagram.png
+- See development/data-diagram.png
 
 ### Endpoints
 
@@ -107,3 +108,4 @@ Sprint 1
 - Email auth option
 - Expanded listings: in addition to events, provide directories for local burlesque organizations, teachers/schools, venues, or performers
 - Improved security and privacy: Given the nature of the app, these are important considerations. While not strictly needed during the prototype stage (since no real user data is in play), strong security features will need to be in place before a public launch.
+- Buy tickets directly through Reveal, rather than linking to external sites
