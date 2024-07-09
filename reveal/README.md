@@ -8,7 +8,7 @@ Reveal is a social media site built especially for local burlesque communities. 
 
     2. Fragmentation: Performers and organizers must use several different social media sites for promotion. This can be difficult to manage.
 
-    3. Poor discoverability: Existing search functionalities are lacking, making it a challenge to find local events. Several communities have resorted to keeping a plain text Google Doc of all upcoming shows in their area. Not only must these lists be manually maintained, they are not visually appealing and do little to encourage ticket sales.
+    3. Poor discoverability: Existing search functionalities are lacking, making it a challenge to find local events. Some communities have resorted to keeping a plain text Google Doc of all upcoming shows in their area. Not only must these lists be manually maintained, they are not visually appealing and do little to encourage ticket sales.
 
 Reveal aims to address these pain points by providing a network specifically designed for the burlesque world.
 
@@ -19,7 +19,6 @@ Burlesque performers of all experience levels may be Reveal's most important use
 ## User Stories
 
 - As a site visitor, I can see a list of all upcoming shows in my area, and click on one to view its full details, so that I can find events to go to.
-- As a site visitor, I can seamlessly purchase tickets from the event page so that I don't have to navigate there myself.
 - As a burlesque performer, I can promote myself and my upcoming shows via both my profile page and posts, so that I can grow my audience.
 - As a burlesque fan, I can easily see all of my favourite performers' media on their profle page, so that I don't have to dig through YouTube, Instagram, or TikTok to search for them individually.
 - As a producer or venue owner, I can organize and promote upcoming events to an interested target audience so that I can sell more tickets.
@@ -28,13 +27,12 @@ Burlesque performers of all experience levels may be Reveal's most important use
 
 - robust user profile pages
 - followers
-- posts with text, images, and video
-- like, comment on, share, and report posts
+- text posts (similar to tweets, with higher character limit)
+- like, comment on, and share posts
 - newsfeed
 - photo & video albums
 - detailed event pages
 - event listings
-- direct messaging
 
 ## Implementation
 
@@ -64,21 +62,23 @@ Burlesque performers of all experience levels may be Reveal's most important use
 
 ### Endpoints
 
-- GET posts (with various filters/parameters)
-- GET single post
-- GET user profiles
-- GET listings
-- GET direct messages
-- POST posts
-- POST your profile
-- POST a listing
-- POST direct messages
-- PUT posts
-- PUT your profile
-- PUT a listing
-- DELETE posts
-- DELETE profile
-- DELETE a listing
+- GET /users
+- GET /users/:userId
+- POST /users
+- PUT /users/:userId
+- DELETE /users/:userId
+
+- GET /events
+- GET /events/:eventId
+- POST /events
+- PUT /events/:eventId
+- DELETE /events/:eventId
+
+- GET /posts
+- GET /posts/:postId
+- POST /posts
+- PUT /posts/:postId
+- DELETE /posts/:postId
 
 ### Auth
 
@@ -104,8 +104,16 @@ Sprint 1
 - Expanded scope: During early development, the content scope will be limited to Toronto only. This will later be expanded to all of Canada, then to an international audience.
 - Integration with other social media APIs: for instance, "cloning" the user's own Instagram feed to Reveal, or offering a centralized "dashboard" to see data from or manage all of the user's social media profiles through Reveal
 - Light theme: Reveal is prioritizing dark theme for a more comfortable user experience while actually at burlesque shows, but it would be great to offer a light option for users who prefer it
-- Live chat
+- Live chat/DMs
 - Email auth option
 - Expanded listings: in addition to events, provide directories for local burlesque organizations, teachers/schools, venues, or performers
 - Improved security and privacy: Given the nature of the app, these are important considerations. While not strictly needed during the prototype stage (since no real user data is in play), strong security features will need to be in place before a public launch.
 - Buy tickets directly through Reveal, rather than linking to external sites
+- Calender view for events listings
+- Images and videos in posts
+- Upload videos
+- Search
+- Settings
+- Block users
+- Report posts
+- Save events (Users can create a list of events they are interested in so that it's more convenient to check the details again later)
