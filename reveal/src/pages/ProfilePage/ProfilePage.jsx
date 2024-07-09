@@ -1,9 +1,15 @@
-import './ProfilePage.scss';
+import "./ProfilePage.scss";
+import EventPreview from "../../components/EventPreview/EventPreview";
+import Post from "../../components/Post/Post";
+import Hero from "../../components/Hero/Hero";
 
 const ProfilePage = () => {
-    return (
-        <h1>This will be a user profile someday!</h1>
-    );
+  return (
+    <>
+      <Hero img="" />
+      <main className="profile"></main>
+    </>
+  );
 };
 
 export default ProfilePage;
