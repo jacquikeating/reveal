@@ -1,0 +1,12 @@
+.socials {
+    margin: 1.6rem 0;
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+
+    &__icon {
+        height: 1.5rem;
+        filter: brightness(0) saturate(100%) invert(75%) sepia(65%) saturate(2%) hue-rotate(131deg) brightness(103%) contrast(99%);
+    }
+
+}
