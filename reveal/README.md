@@ -63,22 +63,400 @@ Burlesque performers of all experience levels may be Reveal's most important use
 ### Endpoints
 
 - GET /users
+  [{
+  "id": 1,
+  "name": "John Doe",
+  "avatar": "/path/image.png"
+  }]
+
 - GET /users/:userId
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar": "/path/image.png",
+  "cover_photo": "/path/bigger-image.png",
+  "bio": "Lorem ipsum dolor sit amet...",
+  "events": [{
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/event-image.png",
+  "date": "1 January 2025"
+  }],
+  "gallery": [{
+  "id": 1,
+  "image": "/path/image.png",
+  "caption": "Lorem ipsum dolor sit amet..."
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0
+  }]
+  }]
+  }
+
 - POST /users
+  {
+  "id": 1,
+  "name": "John Doe",
+  "email": "johns-email@email.com",
+  "home_city": "City",
+  "password": "password",
+  "avatar": "/path/image.png",
+  "cover_photo": "/path/bigger-image.png",
+  "bio": "Lorem ipsum dolor sit amet...",
+  "events": [],
+  "gallery": [],
+  "posts": []
+  }
+
 - PUT /users/:userId
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar": "/path/image.png",
+  "cover_photo": "/path/bigger-image.png",
+  "bio": "Lorem ipsum dolor sit amet...",
+  "events": [{
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/event-image.png",
+  "date": "1 January 2025"
+  }],
+  "gallery": [{
+  "id": 1,
+  "image": "/path/image.png",
+  "caption": "Lorem ipsum dolor sit amet..."
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0
+  }]
+  }]
+  }
+
 - DELETE /users/:userId
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar": "/path/image.png",
+  "cover_photo": "/path/bigger-image.png",
+  "bio": "Lorem ipsum dolor sit amet...",
+  "events": [{
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/event-image.png",
+  "date": "1 January 2025"
+  }],
+  "gallery": [{
+  "id": 1,
+  "image": "/path/image.png",
+  "caption": "Lorem ipsum dolor sit amet..."
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0
+  }]
+  }]
+  }
 
 - GET /events
+  [{
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/image.png",
+  "date": "1 January 2025"
+  }]
+
 - GET /events/:eventId
+  {
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/image.png",
+  "date": "1 January 2025",
+  "doors_time": "7:00 PM",
+  "start_time": "8:00 PM",
+  "end_time": "11:00 PM",
+  "city": "City",
+  "venue": "Imaginary Place",
+  "venue_address": "123 Fake Street",
+  "ticket_prices": {
+  "general": 25.00,
+  "vip": 50.00,
+  "table": 120.00
+  },
+  "producer": "Jane Doe",
+  "performers": [
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar: "/path/image.png"
+  }],
+  "gallery": [
+  {"id": 1,
+  "image": "/path/image.png"
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0
+  }]
+  }]
+  }
+
 - POST /events
+  {
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/image.png",
+  "date": "1 January 2025",
+  "doors_time": "7:00 PM",
+  "start_time": "8:00 PM",
+  "end_time": "11:00 PM",
+  "city": "City",
+  "venue": "Imaginary Place",
+  "venue_address": "123 Fake Street",
+  "ticket_prices": {
+  "general": 25.00,
+  "vip": 50.00,
+  "table": 120.00
+  },
+  "producer": "Jane Doe",
+  "performers": [
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar: "/path/image.png"
+  }],
+  "gallery": [
+  {"id": 1,
+  "image": "/path/image.png"
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0
+  }]
+  }]
+  }
+
 - PUT /events/:eventId
+  {
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/image.png",
+  "date": "1 January 2025",
+  "doors_time": "7:00 PM",
+  "start_time": "8:00 PM",
+  "end_time": "11:00 PM",
+  "city": "City",
+  "venue": "Imaginary Place",
+  "venue_address": "123 Fake Street",
+  "ticket_prices": {
+  "general": 25.00,
+  "vip": 50.00,
+  "table": 120.00
+  },
+  "producer": "Jane Doe",
+  "performers": [
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar: "/path/image.png"
+  }],
+  "gallery": [
+  {"id": 1,
+  "image": "/path/image.png"
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0
+  }]
+  }]
+  }
+
 - DELETE /events/:eventId
+  {
+  "id": 1,
+  "name": "Some Event",
+  "main_image": "/path/image.png",
+  "date": "1 January 2025",
+  "doors_time": "7:00 PM",
+  "start_time": "8:00 PM",
+  "end_time": "11:00 PM",
+  "city": "City",
+  "venue": "Imaginary Place",
+  "venue_address": "123 Fake Street",
+  "ticket_prices": {
+  "general": 25.00,
+  "vip": 50.00,
+  "table": 120.00
+  },
+  "producer": "Jane Doe",
+  "performers": [
+  {
+  "id": 1,
+  "name": "John Doe",
+  "avatar: "/path/image.png"
+  }],
+  "gallery": [
+  {"id": 1,
+  "image": "/path/image.png"
+  }],
+  "posts": [{
+  "id": 1,
+  "user_id": 1,
+  "avatar": "/path/image.png",
+  "content": "Lorem ipsum dolor sit amet...",
+  "likes": 0
+  }],
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "likes": 0
+  }]
+  }]
+  }
 
 - GET /posts
+  [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0
+  }]
+
 - GET /posts/:postId
+  {
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "likes": 0
+  }]
+  }
+
 - POST /posts
+  {
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": []
+  }
+
 - PUT /posts/:postId
+  {
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "likes": 0
+  }]
+  }
 - DELETE /posts/:postId
+  {
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "timestamp": 12345678901234567,
+  "hashtags": ["hashtag1", "hashtag2"],
+  "likes": 0,
+  "comments": [{
+  "id": 1,
+  "user_id": 1,
+  "content": "Lorem ipsum dolor sit amet...",
+  "likes": 0
+  }]
+  }
 
 ### Auth
 
