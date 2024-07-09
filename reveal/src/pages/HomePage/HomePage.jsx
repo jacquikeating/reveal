@@ -1,9 +1,20 @@
-import './HomePage.scss';
+import "./HomePage.scss";
+import EventPreview from "../../components/EventPreview/EventPreview";
+import Post from "../../components/Post/Post";
 
 const HomePage = () => {
-    return (
-        <h1>This is what users will see when they log in!</h1>
-    );
+  return (
+    <main className="home">
+      <section className="home__section">
+        <h2 className="home__section-heading">This Week in City</h2>
+        <EventPreview />
+      </section>
+      <section className="home__section">
+        <h2 className="home__section-heading">Hot Posts</h2>
+        <Post />
+      </section>
+    </main>
+  );
 };
 
 export default HomePage;
