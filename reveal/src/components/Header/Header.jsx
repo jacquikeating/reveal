@@ -1,9 +1,12 @@
-import './Header.scss';
+import "./Header.scss";
+import Logo from "../../components/Logo/Logo";
 
 const Header = () => {
-    return (
-        <p>Hi, I'm the header!</p>
-    );
+  return (
+    <header>
+      <Logo />
+    </header>
+  );
 };
 
 export default Header;

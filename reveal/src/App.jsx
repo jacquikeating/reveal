@@ -1,15 +1,16 @@
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '/src/pages/HomePage/HomePage.jsx';
-import AboutPage from '/src/pages/AboutPage/AboutPage.jsx';
-import SignupPage from './pages/SignupPage/SignupPage';
-import ProfilePage from '/src/pages/ProfilePage/ProfilePage.jsx';
-import EventPage from '/src/pages/EventPage/EventPage.jsx';
-import EventListingPage from '/src/pages/EventListingsPage/EventListingsPage.jsx';
-import VenuePage from '/src/pages/VenuePage/VenuePage.jsx';
-import PostPage from '/src/pages/PostPage/PostPage.jsx';
-import Header from '/src/components/Header/Header.jsx';
-import Footer from '/src/components/Footer/Footer.jsx';
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "/src/pages/HomePage/HomePage.jsx";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "/src/pages/ProfilePage/ProfilePage.jsx";
+import EventDetailsPage from "/src/pages/EventDetailsPage/EventDetailsPage.jsx";
+import EventListingPage from "/src/pages/EventListingsPage/EventListingsPage.jsx";
+import VenuePage from "/src/pages/VenuePage/VenuePage.jsx";
+import PostPage from "/src/pages/PostPage/PostPage.jsx";
+import Header from "/src/components/Header/Header.jsx";
+import Footer from "/src/components/Footer/Footer.jsx";
+import "./App.scss";
 
 function App() {
   return (
@@ -18,10 +19,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/event" element={<EventPage />} />
+          <Route path="/event" element={<EventDetailsPage />} />
           <Route path="/find-events" element={<EventListingPage />} />
           <Route path="/venue" element={<VenuePage />} />
           <Route path="/post" element={<PostPage />} />
@@ -30,6 +31,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-};
+}
 
 export default App;

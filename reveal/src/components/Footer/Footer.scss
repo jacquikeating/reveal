@@ -1,0 +1,18 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid black;
+    padding: 2rem;
+    width: 100vw;
+    height: 6rem;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    &__icon {
+        width: 4rem;
+        height: 4rem;
+        filter: brightness(0) saturate(100%) invert(75%) sepia(65%) saturate(2%) hue-rotate(131deg) brightness(103%) contrast(99%);
+    }
+}
