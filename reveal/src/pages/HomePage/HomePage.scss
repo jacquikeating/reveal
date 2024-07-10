@@ -4,17 +4,4 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-
-    &__section {
-        border-bottom: 1px solid black;
-        padding: 4rem 0;
-
-        &:last-child {
-            border-bottom: none;
-        }
-    }
-
-        &__section-heading {
-            text-align: center;
-        }
 }
