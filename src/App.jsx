@@ -5,7 +5,7 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "/src/pages/ProfilePage/ProfilePage.jsx";
 import EventDetailsPage from "/src/pages/EventDetailsPage/EventDetailsPage.jsx";
-import EventListingPage from "/src/pages/EventListingsPage/EventListingsPage.jsx";
+import EventListingsPage from "/src/pages/EventListingsPage/EventListingsPage.jsx";
 import VenuePage from "/src/pages/VenuePage/VenuePage.jsx";
 import PostPage from "/src/pages/PostPage/PostPage.jsx";
 import Header from "/src/components/Header/Header.jsx";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/event" element={<EventDetailsPage />} />
-          <Route path="/find-events" element={<EventListingPage />} />
+          <Route path="/events" element={<EventListingsPage />} />
           <Route path="/venue" element={<VenuePage />} />
           <Route path="/post" element={<PostPage />} />
         </Routes>

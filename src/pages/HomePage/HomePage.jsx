@@ -1,6 +1,5 @@
 import "./HomePage.scss";
-import { React, useState } from "react";
-import EventPreview from "../../components/EventPreview/EventPreview";
+import { React } from "react";
 import Post from "../../components/Post/Post";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 
