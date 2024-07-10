@@ -1,5 +1,4 @@
 import "./ProfilePage.scss";
-import EventPreview from "../../components/EventPreview/EventPreview";
 import Post from "../../components/Post/Post";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
