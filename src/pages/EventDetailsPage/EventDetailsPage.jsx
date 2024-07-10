@@ -12,7 +12,7 @@ const EventDetailsPage = () => {
       <main className="event">
         <section className="event__section">
           <h1 className="event__name">Event Name</h1>
-          <DateCircle />
+          <DateCircle month="JUN" day="25" />
           <p className="event__description">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis,
             explicabo iure saepe aliquid libero dolorum maxime nam eligendi
