@@ -8,7 +8,7 @@ const PostsContainer = () => {
       id: 1,
       username: "Scarlet Siren",
       avatar: "../src/assets/icons/avatar-placeholder.png",
-      timestamp: new Date(),
+      timestamp: new Date().toLocaleDateString("en-US"),
       content:
         "I'm the hottest post on this site! (Mostly because I'm the first post.)",
       likes: 0,
@@ -18,7 +18,7 @@ const PostsContainer = () => {
       id: 2,
       username: "Test User",
       avatar: "../src/assets/icons/avatar-placeholder.png",
-      timestamp: new Date(),
+      timestamp: new Date().toLocaleDateString("en-US"),
       content:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eos inventore natus corrupti.",
       likes: 0,
@@ -31,14 +31,7 @@ const PostsContainer = () => {
       {postsData.map((post) => {
         return (
           <li className="post" key={post.id}>
-            <Post
-              postData={post}
-              //   username={post.username}
-              //   avatar={post.image}
-              //   timestamp={post.timestamp}
-              //   likes={post.likes}
-              //   comments={post.comments}
-            />
+            <Post postData={post} />
           </li>
         );
       })}

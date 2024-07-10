@@ -9,7 +9,7 @@ const Post = ({ postData }) => {
     <article className="post">
       <img className="post__avatar" alt={`${username}'s avatar`} src={avatar} />
       <p className="post__username">{username}</p>
-      <p className="post__timestamp">{}</p>
+      <p className="post__timestamp">{timestamp}</p>
 
       <div className="post__spacer"></div>
       <p className="post__content">{content}</p>
