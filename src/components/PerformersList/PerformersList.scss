@@ -26,7 +26,7 @@
     }
 
     &__avatar {
-        @include avatar;
+        @include avatar(4.5rem);
     }
 
     &__name {

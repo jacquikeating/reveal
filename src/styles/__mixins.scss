@@ -23,10 +23,11 @@
   }
 }
 
-@mixin avatar() {
+@mixin avatar($size) {
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
+  width: $size;
+  height: $size;
+  object-fit: cover;
 }
 
 @mixin gradient-overlay() {
