@@ -1,3 +1,5 @@
+@use "/src/styles/__globals" as *;
+
 .post {
     padding: 1rem 0;
     width: 100%;
@@ -44,13 +46,10 @@
     }
 
     &__icon {
-        width: 1.5rem;
-        height: 1.5rem;
-        filter: brightness(0) saturate(100%) invert(75%) sepia(65%) saturate(2%) hue-rotate(131deg) brightness(103%) contrast(99%);
+        @include icon(1.5rem);
     }
 
     &__likes {
         margin-right: 1rem;
     }
-
 }

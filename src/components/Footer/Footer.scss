@@ -1,3 +1,5 @@
+@use "/src/styles/__globals" as *;
+
 .footer {
     position: fixed;
     bottom: 0;
@@ -11,8 +13,8 @@
     align-items: center;
 
     &__icon {
+        margin-top: 1rem;
+        @include icon(4rem);
         width: 4rem;
-        height: 4rem;
-        filter: brightness(0) saturate(100%) invert(75%) sepia(65%) saturate(2%) hue-rotate(131deg) brightness(103%) contrast(99%);
     }
 }
