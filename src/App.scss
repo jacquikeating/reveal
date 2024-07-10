@@ -17,15 +17,13 @@ h1 {
 }
 
 main {
-    margin: 3rem 2rem;
 
     & section {
         border-top: 1px solid black;
-        padding: 2rem 0;
+        padding: 3rem 2rem;
 
         &:first-child {
             border-top: none;
-            padding: 0 0 2rem 0;
         }
 
         & h1, h2 {
