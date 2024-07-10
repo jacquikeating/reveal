@@ -1,1 +1,20 @@
 @use "/src/styles/__globals" as *;
+
+.events-list {
+    &__month-subheading {
+        margin-bottom: 0;
+        line-height: 1.5;        
+    }
+
+    &__pagination {
+        margin: auto;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__arrow {
+        @include icon(2rem);
+    }
+}
