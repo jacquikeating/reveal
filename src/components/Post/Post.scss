@@ -2,7 +2,7 @@
 
 .post {
     padding: 1rem 0;
-    width: 100%;
+    width: calc(100vw - 4rem);
     display: grid;
     grid-template-areas: "avatar username timestamp",
                         "spacer content content",

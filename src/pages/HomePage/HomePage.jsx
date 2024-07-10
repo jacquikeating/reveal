@@ -1,6 +1,7 @@
 import "./HomePage.scss";
 import { React } from "react";
 import Post from "../../components/Post/Post";
+import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 
 const HomePage = () => {
@@ -12,7 +13,7 @@ const HomePage = () => {
       </section>
       <section className="home__section">
         <h2 className="home__section-heading">Hot Posts</h2>
-        <Post />
+        <PostsContainer />
       </section>
     </main>
   );
