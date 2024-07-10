@@ -2,12 +2,14 @@ import React from "react";
 import SeeMoreBtn from "../../components/SeeMoreBtn/SeeMoreBtn";
 import "./EventPreview.scss";
 
-const EventPreview = () => {
+const EventPreview = ({ name, date, image }) => {
   return (
     <article className="event-preview">
-      <h3>Event Name</h3>
-      <p>July 19 at 8 PM</p>
-      <SeeMoreBtn />
+      <h3>{name}</h3>
+      <p>{date}</p>
+      <div className="event-preview__gradient-overlay"></div>
+      <img src={image} className="event-preview__image" />
+      {/* <SeeMoreBtn /> */}
     </article>
   );
 };

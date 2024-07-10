@@ -1,13 +1,15 @@
 import "./HomePage.scss";
+import { React, useState } from "react";
 import EventPreview from "../../components/EventPreview/EventPreview";
 import Post from "../../components/Post/Post";
+import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 
 const HomePage = () => {
   return (
     <main className="home">
       <section className="home__section">
         <h2 className="home__section-heading">This Week in City</h2>
-        <EventPreview />
+        <EmblaCarousel />
       </section>
       <section className="home__section">
         <h2 className="home__section-heading">Hot Posts</h2>
