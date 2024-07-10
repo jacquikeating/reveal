@@ -1,0 +1,24 @@
+@use "/src/styles/__globals" as *;
+
+.date-circle {
+    position: absolute;
+    top: -3rem;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    background: $red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+
+    &__month {
+        font-size: 1.2rem;
+    }
+
+    &__day {
+        font-size: 2.4rem;
+        font-weight: bold;
+    }
+}
