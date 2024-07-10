@@ -1,7 +1,9 @@
-import "./EventDetailsPage.scss";
+import { Link } from "react-router-dom";
 import Post from "../../components/Post/Post";
 import Hero from "../../components/Hero/Hero";
-import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
+import DateCircle from "../../components/DateCircle/DateCircle";
+import PerformersList from "../../components/PerformersList/PerformersList";
+import "./EventDetailsPage.scss";
 
 const EventDetailsPage = () => {
   return (
@@ -10,6 +12,7 @@ const EventDetailsPage = () => {
       <main className="event">
         <section className="event__section">
           <h1 className="event__name">Event Name</h1>
+          <DateCircle />
           <p className="event__description">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis,
             explicabo iure saepe aliquid libero dolorum maxime nam eligendi
@@ -20,6 +23,7 @@ const EventDetailsPage = () => {
 
         <section className="event__section">
           <h2 className="event__section-heading">Featuring...</h2>
+          <PerformersList />
         </section>
 
         <section className="event__section">

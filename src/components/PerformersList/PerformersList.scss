@@ -1,0 +1,36 @@
+@use "/src/styles/__globals" as *;
+
+.performers-list {
+    margin: 2rem 0 1rem 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    gap: 2rem;
+    list-style: none;
+}
+
+.performer {
+
+    &__link {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        color: $light;
+
+        &:hover {
+            color: $purple;
+        }
+    }
+
+    &__avatar {
+        @include avatar;
+    }
+
+    &__name {
+        width: min-content;
+        text-align: center;
+        font-size: 1.6rem;
+    }
+}
