@@ -1,8 +1,8 @@
 import "./ProfilePage.scss";
-import Post from "../../components/Post/Post";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
+import PostsContainer from "../../components/PostsContainer/PostsContainer";
 
 const ProfilePage = () => {
   return (
@@ -27,6 +27,11 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Gallery</h2>
+        </section>
+
+        <section className="profile__section">
+          <h2 className="profile__section-heading">Posts</h2>
+          <PostsContainer />
         </section>
       </main>
     </>

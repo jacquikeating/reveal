@@ -3,7 +3,6 @@ import "./Post.scss";
 
 const Post = ({ postData }) => {
   const { avatar, username, timestamp, content, likes, comments } = postData;
-  console.log(timestamp);
 
   return (
     <article className="post">

@@ -1,6 +1,5 @@
 import "./HomePage.scss";
 import { React } from "react";
-import Post from "../../components/Post/Post";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 

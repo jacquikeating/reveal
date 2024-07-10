@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Post from "../../components/Post/Post";
 import Hero from "../../components/Hero/Hero";
 import DateCircle from "../../components/DateCircle/DateCircle";
 import PerformersList from "../../components/PerformersList/PerformersList";
+import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import "./EventDetailsPage.scss";
 
 const EventDetailsPage = () => {
@@ -32,6 +32,7 @@ const EventDetailsPage = () => {
 
         <section className="event__section">
           <h2 className="event__section-heading">Posts</h2>
+          <PostsContainer />
         </section>
       </main>
     </>
