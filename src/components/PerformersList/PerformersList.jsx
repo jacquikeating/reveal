@@ -40,12 +40,6 @@ const PerformersList = () => {
     <ul className="performers-list">
       {performersList.map((performer) => {
         return (
-          //   <EventPreview
-          //     key={performer.id}
-          //     name={performer.name}
-          //     avatar={performer.avatar}
-          //   />
-
           <li className="performer" key={performer.id}>
             <Link to="/profile" className="performer__link">
               <img
@@ -58,67 +52,6 @@ const PerformersList = () => {
           </li>
         );
       })}
-
-      {/* <li className="performer">
-        <Link to="/profile" className="performer__link">
-          <img
-            className="performer__avatar"
-            src="/src/assets/icons/avatar-placeholder.png"
-            alt="Performer's avatar"
-          />
-          <p className="performer__name">Performer Name</p>
-        </Link>
-      </li>
-      <li className="performer">
-        <Link to="/profile" className="performer__link">
-          <img
-            className="performer__avatar"
-            src="/src/assets/icons/avatar-placeholder.png"
-            alt="Performer's avatar"
-          />
-          <p className="performer__name">Performer Name</p>
-        </Link>
-      </li>
-      <li className="performer">
-        <Link to="/profile" className="performer__link">
-          <img
-            className="performer__avatar"
-            src="/src/assets/icons/avatar-placeholder.png"
-            alt="Performer's avatar"
-          />
-          <p className="performer__name">Performer Name</p>
-        </Link>
-      </li>
-      <li className="performer">
-        <Link to="/profile" className="performer__link">
-          <img
-            className="performer__avatar"
-            src="/src/assets/icons/avatar-placeholder.png"
-            alt="Performer's avatar"
-          />
-          <p className="performer__name">Performer Name</p>
-        </Link>
-      </li>
-      <li className="performer">
-        <Link to="/profile" className="performer__link">
-          <img
-            className="performer__avatar"
-            src="/src/assets/icons/avatar-placeholder.png"
-            alt="Performer's avatar"
-          />
-          <p className="performer__name">Performer Name</p>
-        </Link>
-      </li>
-      <li className="performer">
-        <Link to="/profile" className="performer__link">
-          <img
-            className="performer__avatar"
-            src="/src/assets/icons/avatar-placeholder.png"
-            alt="Performer's avatar"
-          />
-          <p className="performer__name">Performer Name</p>
-        </Link>
-      </li> */}
     </ul>
   );
 };
