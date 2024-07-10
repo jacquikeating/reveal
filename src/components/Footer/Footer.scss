@@ -14,7 +14,7 @@
 
     &__icon {
         margin-top: 1rem;
-        @include icon(4rem);
         width: 4rem;
+        @include icon(4rem);
     }
 }
