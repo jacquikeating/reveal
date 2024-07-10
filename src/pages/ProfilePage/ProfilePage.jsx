@@ -3,6 +3,7 @@ import EventPreview from "../../components/EventPreview/EventPreview";
 import Post from "../../components/Post/Post";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
+import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 
 const ProfilePage = () => {
   return (
@@ -22,7 +23,7 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Events</h2>
-          <EventPreview />
+          <EmblaCarousel />
         </section>
 
         <section className="profile__section">
