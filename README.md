@@ -59,6 +59,7 @@ Burlesque performers of all experience levels may be Reveal's most important use
 ### Data
 
 - See development/data-diagram.png
+  ![data diagram](./development/data-diagram.png)
 
 ### Endpoints
 
