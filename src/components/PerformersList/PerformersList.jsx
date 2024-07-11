@@ -1,40 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./PerformersList.scss";
 
-const PerformersList = ({ performers }) => {
-  const performersList = [
-    {
-      id: 1,
-      name: "Velvet Vixen",
-      avatar: "/src/assets/icons/avatar-placeholder.png",
-    },
-    {
-      id: 2,
-      name: "Mister Midnight",
-      avatar: "/src/assets/icons/avatar-placeholder.png",
-    },
-    {
-      id: 3,
-      name: " Pearl Noir",
-      avatar: "/src/assets/icons/avatar-placeholder.png",
-    },
-    {
-      id: 4,
-      name: "Duke DeLuxe",
-      avatar: "/src/assets/icons/avatar-placeholder.png",
-    },
-    {
-      id: 5,
-      name: "Ivory Empress",
-      avatar: "/src/assets/icons/avatar-placeholder.png",
-    },
-    {
-      id: 6,
-      name: "Jasper Jinx",
-      avatar: "/src/assets/icons/avatar-placeholder.png",
-    },
-  ];
+const PerformersList = ({ performerIDs, allUsersList }) => {
+  let performersList = allUsersList.filter((user) =>
+    performerIDs.includes(user.id)
+  );
 
   return (
     <ul className="performers-list">

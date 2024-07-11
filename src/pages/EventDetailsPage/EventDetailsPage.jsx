@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState, Suspense, lazy } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { getSingleEventEndpoint, emptyEventData } from "../../utils/api-utils";
+import {
+  getSingleEventEndpoint,
+  getUsersListEndpoint,
+  emptyEventData,
+} from "../../utils/api-utils";
 import Hero from "../../components/Hero/Hero";
 import DateCircle from "../../components/DateCircle/DateCircle";
-import PerformersList from "../../components/PerformersList/PerformersList";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
+import PerformersList from "../../components/PerformersList/PerformersList";
 import "./EventDetailsPage.scss";
 
 const EventDetailsPage = () => {
   const { eventID } = useParams();
   const [eventData, setEventData] = useState(emptyEventData);
+  const [performerIDs, setPerformerIDs] = useState([]);
+  const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const {
@@ -37,6 +43,8 @@ const EventDetailsPage = () => {
         const response = await axios.get(getSingleEventEndpoint(eventID));
         setEventData(response.data);
         setLoading(false);
+        fetchUsersList(response.data.performers);
+        setPerformerIDs(response.data.performers);
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
@@ -46,6 +54,18 @@ const EventDetailsPage = () => {
 
     fetchEventData();
   }, []);
+
+  const fetchUsersList = async () => {
+    try {
+      const response = await axios.get(getUsersListEndpoint());
+      setUsersData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setError(error);
+      setLoading(false);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
@@ -61,7 +81,10 @@ const EventDetailsPage = () => {
 
         <section className="event__section">
           <h2 className="event__section-heading">Featuring...</h2>
-          <PerformersList performers={performers} />
+          <PerformersList
+            performerIDs={performerIDs}
+            allUsersList={usersData}
+          />
         </section>
 
         <section className="event__section">

@@ -13,7 +13,6 @@ const EventListingsPage = () => {
     const fetchEventsData = async () => {
       try {
         const response = await axios.get(getEventsListEndpoint());
-        console.log(response.data);
         setEventsData(response.data);
         setLoading(false);
       } catch (error) {
