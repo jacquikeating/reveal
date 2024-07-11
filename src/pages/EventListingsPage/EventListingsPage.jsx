@@ -78,6 +78,7 @@ const EventListingsPage = () => {
           return (
             <EventPreview
               key={show.id}
+              id={show.id}
               name={show.name}
               date={`${show.month} ${show.day}`}
               image={show.main_image}

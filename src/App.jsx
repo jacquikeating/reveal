@@ -24,7 +24,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/:userID" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
-          <Route path="/events/1" element={<EventDetailsPage />} />
+          <Route path="/events/:eventID" element={<EventDetailsPage />} />
           <Route path="/venue" element={<VenuePage />} />
           <Route path="/post" element={<PostPage />} />
         </Routes>
