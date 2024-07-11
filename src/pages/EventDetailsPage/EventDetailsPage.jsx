@@ -37,7 +37,6 @@ const EventDetailsPage = () => {
         const response = await axios.get(getSingleEventEndpoint(eventID));
         setEventData(response.data);
         setLoading(false);
-        console.log(name);
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
@@ -56,13 +55,13 @@ const EventDetailsPage = () => {
       <main className="event">
         <section className="event__section">
           <h1 className="event__name">{name}</h1>
-          <DateCircle month={month} day={day} />
+          <DateCircle month={month.slice(0, 3)} day={day} />
           <p className="event__description">{description}</p>
         </section>
 
         <section className="event__section">
           <h2 className="event__section-heading">Featuring...</h2>
-          <PerformersList />
+          <PerformersList performers={performers} />
         </section>
 
         <section className="event__section">

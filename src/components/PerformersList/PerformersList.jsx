@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./PerformersList.scss";
 
-const PerformersList = () => {
+const PerformersList = ({ performers }) => {
   const performersList = [
     {
       id: 1,
