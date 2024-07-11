@@ -5,34 +5,6 @@ import EventPreview from "../../components/EventPreview/EventPreview";
 import { getEventsListEndpoint } from "../../utils/api-utils";
 
 const EventListingsPage = () => {
-  // TEMPORARY TEST DATA
-  // const eventsData = [
-  //   {
-  //     id: 0,
-  //     name: "A",
-  //     date: "July 19",
-  //     image: "/src/assets/image-placeholder.png",
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "B",
-  //     date: "July 20",
-  //     image: "/src/assets/image-placeholder.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "C",
-  //     date: "July 21",
-  //     image: "/src/assets/image-placeholder.png",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "D",
-  //     date: "July 22",
-  //     image: "/src/assets/image-placeholder.png",
-  //   },
-  // ];
-
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
