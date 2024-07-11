@@ -7,3 +7,7 @@ export function getUsersListEndpoint() {
 export function getSingleUserEndpoint(id) {
   return API_URL + "/users/" + id;
 }
+
+export function getEventsListEndpoint() {
+  return API_URL + "/events";
+}
