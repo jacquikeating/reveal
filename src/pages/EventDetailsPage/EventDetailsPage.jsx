@@ -32,7 +32,7 @@ const EventDetailsPage = () => {
   } = eventData;
 
   useEffect(() => {
-    const fetchEventData = async () => {
+    const fetchEventData = async (req) => {
       try {
         const response = await axios.get(getSingleEventEndpoint(eventID));
         setEventData(response.data);
@@ -46,23 +46,18 @@ const EventDetailsPage = () => {
     };
 
     fetchEventData();
-  }, [eventID]);
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
   return (
     <>
-      <Hero />
+      <Hero img={main_image} />
       <main className="event">
         <section className="event__section">
-          <h1 className="event__name">Event Name</h1>
-          <DateCircle month="JUN" day="25" />
-          <p className="event__description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis,
-            explicabo iure saepe aliquid libero dolorum maxime nam eligendi
-            cumque. Excepturi quia error qui beatae iusto odit expedita
-            molestias at fuga?
-          </p>
+          <h1 className="event__name">{name}</h1>
+          <DateCircle month={month} day={day} />
+          <p className="event__description">{description}</p>
         </section>
 
         <section className="event__section">
