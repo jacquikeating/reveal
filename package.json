@@ -11,10 +11,12 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "aws-sdk": "^2.1658.0",
     "embla-carousel": "^8.1.6",
     "embla-carousel-react": "^8.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-upload-to-s3": "^1.0.16",
     "sass": "^1.77.7"
   },
   "devDependencies": {
