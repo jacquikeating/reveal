@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { getSingleEventEndpoint, emptyEventData } from "../../utils/api-utils";
 import Hero from "../../components/Hero/Hero";
 import DateCircle from "../../components/DateCircle/DateCircle";
 import PerformersList from "../../components/PerformersList/PerformersList";
@@ -6,6 +9,47 @@ import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import "./EventDetailsPage.scss";
 
 const EventDetailsPage = () => {
+  const { eventID } = useParams();
+  const [eventData, setEventData] = useState(emptyEventData);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const {
+    name,
+    city,
+    month,
+    day,
+    main_image,
+    description,
+    venue,
+    venue_address,
+    doors_time,
+    start_time,
+    end_time,
+    producer,
+    ticket_prices,
+    performers,
+    buy_tickets,
+  } = eventData;
+
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        const response = await axios.get(getSingleEventEndpoint(eventID));
+        setEventData(response.data);
+        setLoading(false);
+        console.log(name);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchEventData();
+  }, [eventID]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data: {error.message}</p>;
   return (
     <>
       <Hero />
