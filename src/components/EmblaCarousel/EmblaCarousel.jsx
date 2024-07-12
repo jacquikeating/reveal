@@ -3,7 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import "./EmblaCarousel.scss";
 import EventPreview from "../EventPreview/EventPreview";
 
-const EmblaCarousel = () => {
+const EmblaCarousel = ({ eventsData }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const scrollPrev = useCallback(() => {
@@ -13,38 +13,6 @@ const EmblaCarousel = () => {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-
-  // TEMPORARY TEST DATA
-  const eventsData = [
-    {
-      id: 1,
-      name: "A",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-    {
-      id: 2,
-      name: "B",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-    {
-      id: 3,
-      name: "C",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-    {
-      id: 4,
-      name: "D",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-  ];
 
   return (
     <div className="embla">
