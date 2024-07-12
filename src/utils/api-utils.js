@@ -9,6 +9,12 @@ export function getSingleUserEndpoint(id) {
   return API_URL + "/users/" + id;
 }
 
+export const emptyUserData = {
+  name: "Unknown Name",
+  bio: "No bio available",
+  cover_photo: "/src/assets/icons/arrow-right.svg",
+};
+
 // EVENTS ----------------------------------------------------------
 export function getEventsListEndpoint() {
   return API_URL + "/events";

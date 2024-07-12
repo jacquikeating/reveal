@@ -43,8 +43,8 @@ const EventDetailsPage = () => {
         const response = await axios.get(getSingleEventEndpoint(eventID));
         setEventData(response.data);
         setLoading(false);
-        fetchUsersList(response.data.performers);
         setPerformerIDs(response.data.performers);
+        fetchUsersList();
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
@@ -69,6 +69,7 @@ const EventDetailsPage = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
+
   return (
     <>
       <Hero img={main_image} />

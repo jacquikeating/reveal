@@ -5,21 +5,21 @@ import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
-import { getSingleUserEndpoint } from "../../utils/api-utils";
+import {
+  getSingleUserEndpoint,
+  emptyUserData,
+  getEventsListEndpoint,
+} from "../../utils/api-utils";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
-  const emptyUserData = {
-    name: "Unknown Name",
-    bio: "No bio available",
-    cover_photo: "/src/assets/icons/arrow-right.svg",
-  };
-
   const { userID } = useParams();
   const [userData, setUserData] = useState(emptyUserData);
+  const [eventIDs, setEventIDs] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { name, bio, cover_photo } = userData;
+  const { name, bio, cover_photo, events } = userData;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,6 +27,8 @@ const ProfilePage = () => {
         const response = await axios.get(getSingleUserEndpoint(userID));
         setUserData(response.data);
         setLoading(false);
+        setEventIDs(response.data.events);
+        fetchEventsList();
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
@@ -37,39 +39,51 @@ const ProfilePage = () => {
     fetchUserData();
   }, [userID]);
 
+  const fetchEventsList = async () => {
+    try {
+      const response = await axios.get(getEventsListEndpoint());
+      setEventsData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setError(error);
+      setLoading(false);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
 
-  const eventsData = [
-    {
-      id: 1,
-      name: "A",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-    {
-      id: 2,
-      name: "B",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-    {
-      id: 3,
-      name: "C",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-    {
-      id: 4,
-      name: "D",
-      month: "July",
-      day: "20",
-      main_image: "/src/assets/image-placeholder.png",
-    },
-  ];
+  // const eventsData = [
+  //   {
+  //     id: 1,
+  //     name: "A",
+  //     month: "July",
+  //     day: "20",
+  //     main_image: "/src/assets/image-placeholder.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "B",
+  //     month: "July",
+  //     day: "20",
+  //     main_image: "/src/assets/image-placeholder.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "C",
+  //     month: "July",
+  //     day: "20",
+  //     main_image: "/src/assets/image-placeholder.png",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "D",
+  //     month: "July",
+  //     day: "20",
+  //     main_image: "/src/assets/image-placeholder.png",
+  //   },
+  // ];
 
   return (
     <>
@@ -83,7 +97,7 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Events</h2>
-          <EmblaCarousel eventsData={eventsData} />
+          <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
         </section>
 
         <section className="profile__section">

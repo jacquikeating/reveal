@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import "./PerformersList.scss";
 
 const PerformersList = ({ performerIDs, allUsersList }) => {
-  let performersList = allUsersList.filter((user) =>
+  let performersInShow = allUsersList.filter((user) =>
     performerIDs.includes(user.id)
   );
 
   return (
     <ul className="performers-list">
-      {performersList.map((performer) => {
+      {performersInShow.map((performer) => {
         return (
           <li className="performer" key={performer.id}>
             <Link to={`/profile/${performer.id}`} className="performer__link">

@@ -32,7 +32,7 @@ const HomePage = () => {
     <main className="home">
       <section className="home__section">
         <h2 className="home__section-heading">This Week in City</h2>
-        <EmblaCarousel eventsData={eventsData} />
+        <EmblaCarousel allEventsList={eventsData} />
       </section>
       <section className="home__section">
         <h2 className="home__section-heading">Hot Posts</h2>
