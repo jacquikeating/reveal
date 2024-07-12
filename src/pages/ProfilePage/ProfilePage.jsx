@@ -4,7 +4,6 @@ import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
-import EventPreview from "../../components/EventPreview/EventPreview";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import { getSingleUserEndpoint } from "../../utils/api-utils";
 import "./ProfilePage.scss";
@@ -85,13 +84,6 @@ const ProfilePage = () => {
         <section className="profile__section">
           <h2 className="profile__section-heading">Events</h2>
           <EmblaCarousel eventsData={eventsData} />
-          <EventPreview
-            key={1}
-            id={1}
-            name={"blah"}
-            date={`august 1`}
-            image={"/src/assets/icons/arrow-right.svg"}
-          />
         </section>
 
         <section className="profile__section">
