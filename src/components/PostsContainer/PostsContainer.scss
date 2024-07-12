@@ -1,3 +1,5 @@
-// .posts-container {
-//     width: calc(100% - 3rem);
-// }
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    width: 100cw;
+}

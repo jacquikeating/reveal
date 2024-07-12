@@ -15,6 +15,14 @@
 
 :root {
     font-size: 10px;
+
+    @include tablet {
+        font-size: 12px;
+    }
+
+    @include desktop {
+        font-size: 13px;
+    }
 }
 
 body {
@@ -50,6 +58,8 @@ h2 {
 
 main {
     padding-bottom: 5rem; //prevents footer from overlapping content
+    display: block;
+    margin: auto;
 
     & section {
         border-top: 1px solid $purple;
@@ -63,5 +73,13 @@ main {
             text-align: center;
             margin-bottom: 1.2rem;
         }
+    }
+
+    @include tablet {
+        max-width: 600px;
+    }
+
+    @include desktop {
+        max-width: 1000px;
     }
 }
