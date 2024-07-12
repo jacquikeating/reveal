@@ -40,3 +40,17 @@
   bottom: 0;
   right: 0;
 }
+
+
+// BREAKPOINTS
+@mixin tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
