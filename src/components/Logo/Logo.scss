@@ -2,6 +2,9 @@
     font-family: "Altoys";
     font-size: 6rem;
     transform: rotateZ(350deg) translateY(1.5rem) translateX(-1rem);
-    z-index: 99;
     text-shadow: 2px 2px 7px black;
+
+    &__wrapper{ 
+        z-index: 99;
+    }
 }
