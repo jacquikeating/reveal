@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -13,6 +13,8 @@ import Footer from "/src/components/Footer/Footer.jsx";
 import "./App.scss";
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(6);
+
   return (
     <>
       <BrowserRouter>
@@ -21,7 +23,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={<Navigate replace to={`/profile/${loggedInUser}`} />}
+          />
           <Route path="/profile/:userID" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />
