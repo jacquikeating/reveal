@@ -3,25 +3,29 @@
 .date-circle {
     position: absolute;
     top: -3rem;
+    left: 0.9rem;
     border-radius: 50%;
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 5.7rem;
+    height: 5.7rem;
     background: $red-gradient;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.1rem;
     line-height: 1;
 
     &__month {
         font-size: 1.2rem;
         text-transform: uppercase;
         line-height: 1;
+        font-weight: 400;
     }
 
     &__day {
         font-size: 2.4rem;
         font-weight: bold;
         line-height: 1;
+        font-weight: 600;
     }
 }

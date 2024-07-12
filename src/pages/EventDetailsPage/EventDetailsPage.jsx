@@ -7,7 +7,7 @@ import {
   emptyEventData,
 } from "../../utils/api-utils";
 import Hero from "../../components/Hero/Hero";
-import DateCircle from "../../components/DateCircle/DateCircle";
+import DateDot from "../../components/DateDot/DateDot";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import PerformersList from "../../components/PerformersList/PerformersList";
 import "./EventDetailsPage.scss";
@@ -76,7 +76,7 @@ const EventDetailsPage = () => {
       <main className="event">
         <section className="event__section">
           <h1 className="event__name">{name}</h1>
-          <DateCircle month={month.slice(0, 3)} day={day} />
+          <DateDot month={month.slice(0, 3)} day={day} />
           <p className="event__description">{description}</p>
         </section>
 

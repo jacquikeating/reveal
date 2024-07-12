@@ -1,7 +1,7 @@
 import React from "react";
-import "./DateCircle.scss";
+import "./DateDot.scss";
 
-const DateCircle = ({ month, day }) => {
+const DateDot = ({ month, day }) => {
   return (
     <div className="date-circle">
       <p className="date-circle__month">{month}</p>
@@ -10,4 +10,4 @@ const DateCircle = ({ month, day }) => {
   );
 };
 
-export default DateCircle;
+export default DateDot;
