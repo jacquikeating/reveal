@@ -20,7 +20,7 @@ const EmblaCarousel = ({ eventsData }) => {
         <div className="embla__container">
           {eventsData.map((show) => {
             return (
-              <div className="embla__slide">
+              <div className="embla__slide" key={show.id}>
                 <EventPreview
                   id={show.id}
                   name={show.name}
