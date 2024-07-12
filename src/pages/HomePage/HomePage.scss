@@ -1,3 +1,5 @@
+@use "/src/styles/__globals" as *;
+
 .home {
     position: relative;
     display: flex;
@@ -6,6 +8,17 @@
 
     &__section:first-of-type {
         padding-top: 4rem;
-        padding-bottom: 0.5rem;
+
+        @include tablet {
+            padding-top:9rem;
+        }
+    }
+
+    &__section-heading{
+        margin-bottom: 0rem;
+
+        &:last-of-type {
+            padding-bottom: 1.5rem;
+        }
     }
 }

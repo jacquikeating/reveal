@@ -31,7 +31,7 @@ const HomePage = () => {
   return (
     <main className="home">
       <section className="home__section">
-        <h2 className="home__section-heading">This Week in City</h2>
+        <h2 className="home__section-heading">Upcoming in Toronto</h2>
         <EmblaCarousel allEventsList={eventsData} />
       </section>
       <section className="home__section">

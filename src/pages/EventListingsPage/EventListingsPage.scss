@@ -1,17 +1,28 @@
 @use "/src/styles/__globals" as *;
 
 .events-list {
+
+    &__heading {
+        margin-top: 2rem;
+
+        @include tablet {
+            margin-top: 5rem;
+        }
+    }
+    
     &__month-subheading {
         margin-bottom: 0;
-        line-height: 1.5;        
+        line-height: 1.5;  
+        font-size: 1.8rem;      
     }
 
     &__pagination {
         margin: auto;
         width: 80%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        gap: 3rem;
     }
 
     &__arrow {

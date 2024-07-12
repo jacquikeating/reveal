@@ -68,7 +68,9 @@ const ProfilePage = () => {
         </section>
 
         <section className="profile__section">
-          <h2 className="profile__section-heading">Events</h2>
+          <h2 className="profile__section-heading profile__section-heading--events">
+            Events
+          </h2>
           <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
         </section>
 

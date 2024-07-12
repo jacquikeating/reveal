@@ -16,8 +16,8 @@ const EventPreview = ({ id, name, date, image }) => {
         <DateDot
           month={date.slice(0, 3)}
           day={date.slice(-2)}
-          topOffset="10.2rem"
-          leftOffset="-1.3rem"
+          topOffset="7.3rem"
+          leftOffset="-1rem"
           scale="0.9"
         />
       </article>

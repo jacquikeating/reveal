@@ -2,9 +2,9 @@
 
 .event-preview {
     position: relative;
-    margin:  3rem 1rem;
+    margin:  3rem 1rem 1.5rem 1rem;
     padding: 1rem 1rem 0.5rem;
-    height:  150px;
+    height:  120px;
     display: flex;
     align-items: flex-end;
     gap: 2rem;
@@ -37,5 +37,26 @@
         color: white;
     }
 
+    @include tablet {
+        height: 200px;
+        width: 100;
+        
+        .date-dot {
+            top: 12rem!important;
+            left: -0.9rem!important;
+        }
+
+        &__name {
+            margin-left: 4.2rem;
+        }
+    }
+
+    @include desktop {
+        height: 250px;
+
+        .date-dot {
+            top: 15rem!important;
+        }
+    }
 
 }

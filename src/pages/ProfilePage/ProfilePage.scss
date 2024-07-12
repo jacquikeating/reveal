@@ -1,0 +1,11 @@
+.profile {
+    &__bio {
+        padding-bottom: 0.5rem;
+    }
+
+    &__section-heading {
+        &--events {
+            margin-bottom: 0;
+        }
+}
+}

@@ -4,7 +4,7 @@ import "./EmblaCarousel.scss";
 import EventPreview from "../EventPreview/EventPreview";
 
 const EmblaCarousel = ({ allEventsList, eventIDs }) => {
-  useEmblaCarousel.globalOptions = { loop: true };
+  // useEmblaCarousel.globalOptions = { loop: true };
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const scrollPrev = useCallback(() => {

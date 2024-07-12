@@ -25,29 +25,35 @@
 
     &__username {
         grid-area: "username";
+        width: 50%;
+        font-weight: bold;
     }
 
     &__timestamp {
         grid-area: "timestamp";
         text-align: right;
-    }
+        color: #b1a3cf;
+
+    width: 30%;    }
 
     &__spacer {
         grid-area: "spacer";
+        height: 1px;
+        width: 3rem;
     }
 
     &__content {
+        margin-top: -0.5rem;
         grid-area: "content";
-        width: 100%;
+        width: 80%;
         grid-column: span 2;
-        
     }
 
     &__reactions {
         grid-area: "reactions";
         display: flex;
         align-items: center;
-        margin-top: 0.5rem;
+        // margin-top: 0.5rem;
         gap: 0.6rem;
     }
 
@@ -57,5 +63,20 @@
 
     &__likes {
         margin-right: 1rem;
+    }
+
+    @include desktop {
+        &__spacer {
+            display: none;
+        }
+
+        &__content {
+            width: calc(100% - 3rem);
+            margin-left: 4rem;
+        }
+
+        &__reactions {
+            margin-left: 4rem;
+        }
     }
 }

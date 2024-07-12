@@ -13,6 +13,15 @@
 
     &__gradient-overlay {
         @include gradient-overlay(180deg);
-        
+        max-height: 120vh;
+        transform: translateY(-0.4rem);
+
+        @include tablet {
+            transform: translateY(-0.3rem);
+        }
+
+        @include desktop {
+            transform: translateY(0rem);
+        }
     }
 }

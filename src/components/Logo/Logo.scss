@@ -1,3 +1,5 @@
+@use "/src/styles/__globals" as *;
+
 .logo {
     font-family: "Altoys";
     font-size: 6rem;
@@ -6,5 +8,10 @@
 
     &__wrapper{ 
         z-index: 99;
+    }
+
+    @include tablet {
+        font-size: 8.5rem;
+        transform: rotateZ(350deg) translateY(3.2rem) translateX(-1rem);
     }
 }

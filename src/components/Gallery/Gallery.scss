@@ -1,9 +1,14 @@
 @use "/src/styles/__globals" as *;
 
 .gallery {
+    margin-bottom: 1rem;
     display: grid;
     gap: 2rem;
     &__image {
         max-width: 100%;
+    }
+
+    @include desktop {
+        margin-bottom: 2rem;
     }
 }

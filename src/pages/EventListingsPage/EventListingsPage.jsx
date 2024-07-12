@@ -31,7 +31,7 @@ const EventListingsPage = () => {
   return (
     <main className="events-list">
       <section className="events-list__section">
-        <h1 className="events-list__heading">Upcoming Events in City</h1>
+        <h1 className="events-list__heading">Upcoming Events in Toronto</h1>
         <div className="events-list__pagination">
           <img
             src="/src/assets/icons/arrow-left.svg"

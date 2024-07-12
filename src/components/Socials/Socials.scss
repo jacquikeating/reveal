@@ -7,7 +7,15 @@
     justify-content: center;
     gap: 2rem;
 
+    @include tablet {
+        gap: 3rem;
+    }
+
     &__icon {
         @include icon(1.7rem);
+
+        @include tablet {
+            @include icon(2.7rem);
+        }
     }
 }
