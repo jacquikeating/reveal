@@ -3,17 +3,16 @@
 .footer {
     position: fixed;
     bottom: 0;
-    border-top: 1px solid black;
     padding: 2rem;
     width: 100vw;
-    height: 6rem;
-
+    height: 5.5rem;
+    background: $dark-gradient;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 
     &__icon {
-        margin-top: 0.5rem;
+        margin-top: 0.35rem;
         width: 3rem;
         @include icon(3rem);
 

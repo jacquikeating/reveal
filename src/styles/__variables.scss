@@ -1,5 +1,9 @@
-// COLOUR PALETTE
+// COLOUR PALETTE - MUTED
 $purple: #5F4B8B;
-$dark: #2D2C4D;
+$dark: #2D2C4D; /// or 020024 for a pretty deep indigo-black
 $light: #EEEAE3;
 $red: #9B2335;
+
+$purple-gradient: linear-gradient(0deg, rgba(44,35,79,1) 0%, rgba(52,40,91,1) 72%);
+$dark-gradient: linear-gradient(180deg, rgba(29,28,55,1) 0%, rgba(22,22,47,1) 59%);
+$red-gradient: linear-gradient(180deg, rgba(155,35,53,1) 0%, rgba(124,28,42,1) 67%);
