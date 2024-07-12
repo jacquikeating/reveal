@@ -12,7 +12,7 @@ const PerformersList = ({ performerIDs, allUsersList }) => {
       {performersList.map((performer) => {
         return (
           <li className="performer" key={performer.id}>
-            <Link to="/profile" className="performer__link">
+            <Link to={`/profile/${performer.id}`} className="performer__link">
               <img
                 className="performer__avatar"
                 src={performer.avatar}

@@ -4,6 +4,7 @@ import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
+import EventPreview from "../../components/EventPreview/EventPreview";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import { getSingleUserEndpoint } from "../../utils/api-utils";
 import "./ProfilePage.scss";
@@ -12,7 +13,7 @@ const ProfilePage = () => {
   const emptyUserData = {
     name: "Unknown Name",
     bio: "No bio available",
-    cover_photo: "",
+    cover_photo: "/src/assets/icons/arrow-right.svg",
   };
 
   const { userID } = useParams();
@@ -40,6 +41,37 @@ const ProfilePage = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
 
+  const eventsData = [
+    {
+      id: 1,
+      name: "A",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
+    },
+    {
+      id: 2,
+      name: "B",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
+    },
+    {
+      id: 3,
+      name: "C",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
+    },
+    {
+      id: 4,
+      name: "D",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
+    },
+  ];
+
   return (
     <>
       <Hero img={cover_photo} />
@@ -52,7 +84,14 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Events</h2>
-          <EmblaCarousel />
+          <EmblaCarousel eventsData={eventsData} />
+          <EventPreview
+            key={1}
+            id={1}
+            name={"blah"}
+            date={`august 1`}
+            image={"/src/assets/icons/arrow-right.svg"}
+          />
         </section>
 
         <section className="profile__section">

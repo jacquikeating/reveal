@@ -17,28 +17,32 @@ const EmblaCarousel = () => {
   // TEMPORARY TEST DATA
   const eventsData = [
     {
-      id: 0,
-      name: "A",
-      date: "July 19",
-      image: "/src/assets/image-placeholder.png",
-    },
-    {
       id: 1,
-      name: "B",
-      date: "July 20",
-      image: "/src/assets/image-placeholder.png",
+      name: "A",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
     },
     {
       id: 2,
-      name: "C",
-      date: "July 21",
-      image: "/src/assets/image-placeholder.png",
+      name: "B",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
     },
     {
       id: 3,
+      name: "C",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
+    },
+    {
+      id: 4,
       name: "D",
-      date: "July 22",
-      image: "/src/assets/image-placeholder.png",
+      month: "July",
+      day: "20",
+      main_image: "/src/assets/image-placeholder.png",
     },
   ];
 
@@ -48,11 +52,12 @@ const EmblaCarousel = () => {
         <div className="embla__container">
           {eventsData.map((show) => {
             return (
-              <div className="embla__slide" key={show.id}>
+              <div className="embla__slide">
                 <EventPreview
+                  id={show.id}
                   name={show.name}
-                  date={show.date}
-                  image={show.image}
+                  date={`${show.month} ${show.day}`}
+                  image={show.main_image}
                 />
               </div>
             );
