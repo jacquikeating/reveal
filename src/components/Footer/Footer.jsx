@@ -7,16 +7,19 @@ const Footer = () => {
     <footer className="footer">
       <Link to="profile">
         <img
-          src="../src/assets/icons/nav-profile.svg"
-          className="footer__icon"
+          src="../src/assets/icons/simple-profile.svg"
+          className="footer__icon footer__icon--profile"
         />
       </Link>
       <Link to="/">
-        <img src="../src/assets/icons/nav-home.svg" className="footer__icon" />
+        <img
+          src="../src/assets/icons/simple-home.svg"
+          className="footer__icon"
+        />
       </Link>
       <Link to="events">
         <img
-          src="../src/assets/icons/nav-events.svg"
+          src="../src/assets/icons/simple-events.svg"
           className="footer__icon"
         />
       </Link>

@@ -13,8 +13,12 @@
     align-items: center;
 
     &__icon {
-        margin-top: 1rem;
-        width: 4rem;
-        @include icon(4rem);
+        margin-top: 0.5rem;
+        width: 3rem;
+        @include icon(3rem);
+
+        &--profile {
+            width: 3.5rem;
+        }
     }
 }
