@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
+const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 import {
   getSingleUserEndpoint,
   emptyUserData,
@@ -19,7 +20,9 @@ const ProfilePage = () => {
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { name, bio, cover_photo, events } = userData;
+  const { name, bio, cover_photo, events, gallery } = userData;
+
+  let userGallery = [];
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -54,37 +57,6 @@ const ProfilePage = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
 
-  // const eventsData = [
-  //   {
-  //     id: 1,
-  //     name: "A",
-  //     month: "July",
-  //     day: "20",
-  //     main_image: "/src/assets/image-placeholder.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "B",
-  //     month: "July",
-  //     day: "20",
-  //     main_image: "/src/assets/image-placeholder.png",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "C",
-  //     month: "July",
-  //     day: "20",
-  //     main_image: "/src/assets/image-placeholder.png",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "D",
-  //     month: "July",
-  //     day: "20",
-  //     main_image: "/src/assets/image-placeholder.png",
-  //   },
-  // ];
-
   return (
     <>
       <Hero img={cover_photo} />
@@ -102,6 +74,9 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Gallery</h2>
+          <Suspense fallback={<p>Loading images...</p>}>
+            <Gallery gallery={userData.gallery} />
+          </Suspense>
         </section>
 
         <section className="profile__section">

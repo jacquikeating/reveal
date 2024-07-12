@@ -10,6 +10,7 @@ import Hero from "../../components/Hero/Hero";
 import DateDot from "../../components/DateDot/DateDot";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import PerformersList from "../../components/PerformersList/PerformersList";
+const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 import "./EventDetailsPage.scss";
 
 const EventDetailsPage = () => {
@@ -35,6 +36,7 @@ const EventDetailsPage = () => {
     ticket_prices,
     performers,
     buy_tickets,
+    gallery,
   } = eventData;
 
   useEffect(() => {
@@ -95,6 +97,9 @@ const EventDetailsPage = () => {
 
         <section className="event__section">
           <h2 className="event__section-heading">Gallery</h2>
+          {/* <Suspense fallback={<p>Loading images...</p>}>
+            <Gallery gallery={eventData.gallery} />
+          </Suspense> */}
         </section>
 
         <section className="event__section">

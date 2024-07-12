@@ -1,0 +1,9 @@
+@use "/src/styles/__globals" as *;
+
+.gallery {
+    display: grid;
+    gap: 2rem;
+    &__image {
+        max-width: 100%;
+    }
+}
