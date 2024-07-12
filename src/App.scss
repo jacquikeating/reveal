@@ -27,10 +27,14 @@ p, input, div {
 p {
     line-height: 1.6;
     font-weight: 300;
+    text-align: center;
 }
 
-h1 {
+h1, h2 {
+    font-weight: 300;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 main {

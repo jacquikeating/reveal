@@ -13,6 +13,6 @@
     }
 
     &__gradient-overlay {
-        @include gradient-overlay;
+        @include gradient-overlay(180deg);
     }
 }

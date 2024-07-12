@@ -13,7 +13,7 @@
 
     &__gradient-overlay {
         z-index: -1;
-        @include gradient-overlay;
+        @include gradient-overlay(180deg);
     }
 
     &__image {
@@ -30,6 +30,11 @@
 
     &__name {
         text-decoration: none;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 3px black;
+        font-size: 2rem;
+        color: white;
     }
 
 
