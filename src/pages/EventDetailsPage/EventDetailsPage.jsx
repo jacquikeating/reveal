@@ -75,8 +75,13 @@ const EventDetailsPage = () => {
       <Hero img={main_image} />
       <main className="event">
         <section className="event__section">
+          <DateDot
+            month={month.slice(0, 3)}
+            day={day}
+            topOffset="-3rem"
+            leftOffset="0.9rem"
+          />
           <h1 className="event__name">{name}</h1>
-          <DateDot month={month.slice(0, 3)} day={day} />
           <p className="event__description">{description}</p>
         </section>
 

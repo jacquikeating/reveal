@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import SeeMoreBtn from "../../components/SeeMoreBtn/SeeMoreBtn";
+import DateDot from "../DateDot/DateDot";
 import "./EventPreview.scss";
 
 const EventPreview = ({ id, name, date, image }) => {
@@ -11,10 +11,15 @@ const EventPreview = ({ id, name, date, image }) => {
     >
       <article className="event-preview">
         <h3 className="event-preview__name">{name}</h3>
-        <p className="event-preview_date">{date}</p>
         <div className="event-preview__gradient-overlay"></div>
         <img src={image} className="event-preview__image" />
-        {/* <SeeMoreBtn /> */}
+        <DateDot
+          month={date.slice(0, 3)}
+          day={date.slice(-2)}
+          topOffset="10.2rem"
+          leftOffset="-1.3rem"
+          scale="0.9"
+        />
       </article>
     </Link>
   );

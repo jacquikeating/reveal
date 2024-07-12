@@ -1,11 +1,14 @@
 import React from "react";
 import "./DateDot.scss";
 
-const DateDot = ({ month, day }) => {
+const DateDot = ({ month, day, topOffset, leftOffset, scale }) => {
   return (
-    <div className="date-circle">
-      <p className="date-circle__month">{month}</p>
-      <p className="date-circle__day">{day}</p>
+    <div
+      className="date-dot"
+      style={{ top: topOffset, left: leftOffset, transform: `scale(${scale})` }}
+    >
+      <p className="date-dot__month">{month}</p>
+      <p className="date-dot__day">{day}</p>
     </div>
   );
 };

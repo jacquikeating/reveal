@@ -2,8 +2,8 @@
 
 .event-preview {
     position: relative;
-    margin-top: 1rem;
-    padding: 1rem;
+    margin:  3rem 1rem;
+    padding: 1rem 1rem 0.5rem;
     height:  150px;
     display: flex;
     align-items: flex-end;
@@ -28,6 +28,7 @@
     }
 
     &__name {
+        margin-left: 3.8rem;
         text-decoration: none;
         font-weight: 500;
         text-transform: uppercase;
