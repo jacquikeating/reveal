@@ -16,12 +16,24 @@
 @mixin icon($size) {
   height: $size;
   object-fit: cover;
-  filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
+  filter: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(2675%) hue-rotate(217deg) brightness(100%) contrast(88%);
   
   &:hover {
-    filter: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(2675%) hue-rotate(217deg) brightness(100%) contrast(88%);
+    filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
+    transform: scale(1.5);
   }
 }
+
+// Original icon colour scheme: white with purple hover
+// @mixin icon($size) {
+//   height: $size;
+//   object-fit: cover;
+//   filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
+  
+//   &:hover {
+//     filter: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(2675%) hue-rotate(217deg) brightness(100%) contrast(88%);
+//   }
+// }
 
 @mixin avatar($size) {
   border-radius: 50%;

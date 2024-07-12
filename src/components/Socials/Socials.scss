@@ -1,13 +1,13 @@
 @use "/src/styles/__globals" as *;
 
 .socials {
-    margin: 1.6rem 0 0;
+    margin: 3rem 0 0rem 0;
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 2rem;
 
     &__icon {
-        @include icon(1.5rem);
+        @include icon(1.7rem);
     }
-
 }
