@@ -2,15 +2,13 @@
 
 .event-preview {
     position: relative;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 1rem;
-    height: 120px;
+    height:  150px;
     display: flex;
     align-items: flex-end;
     gap: 2rem;
     z-index: 0;
-    width: calc(100% - 2.4rem);
-
 
     &__gradient-overlay {
         z-index: -1;
