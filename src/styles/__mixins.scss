@@ -1,3 +1,5 @@
+@use "/src/styles/__variables" as *;
+
 // RESPONSIVE BREAKPOINTS
 @mixin tablet {
   @media (min-width: 768px) {
@@ -23,17 +25,6 @@
   }
 }
 
-// Original icon colour scheme: white with purple hover
-// @mixin icon($size) {
-//   height: $size;
-//   object-fit: cover;
-//   filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
-  
-//   &:hover {
-//     filter: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(2675%) hue-rotate(217deg) brightness(100%) contrast(88%);
-//   }
-// }
-
 @mixin avatar($size) {
   border-radius: 50%;
   width: $size;
@@ -42,26 +33,47 @@
 }
 
 @mixin gradient-overlay($angle) {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient($angle, rgba(19,17,36,0) 60%, rgba(19,17,36,0.9) 97%);    top: 0;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient($angle, rgba(19,17,36,0) 60%, rgba(19,17,36,0.8) 90%);   
 }
 
+@mixin button {
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 4px;
+  padding: 1.2rem 4rem;
+  background-color: $purple;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: $light;
+  cursor: pointer;
 
-// BREAKPOINTS
-@mixin tablet {
-  @media (min-width: 768px) {
-    @content;
+  &:hover {
+    background-color: $light-purple;
+    transform: scale(1.05);
   }
 }
 
-@mixin desktop {
-  @media (min-width: 1200px) {
-    @content;
+@mixin text-link {
+  color: $light;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: -0.25rem;
+  padding: 0.5rem;
+
+  &:hover {
+      border-bottom: 2px solid $light-purple;
+      font-weight: 600;
+      letter-spacing: 0.15em;
   }
 }

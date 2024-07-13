@@ -3,25 +3,51 @@
 .hero {
     position: relative;
     width: 100vw;
-
+    max-height: 120vh;
+    // height: clamp(20vh, 30vh, 50vh);
+    // background-size: cover;
+    // background-position: center;
+    // background-image: linear-gradient(to bottom, rgba(19,17,36,0) 60%, rgba(19,17,36,0.9) 97%), var(--img);
+    
     &__img {
         width: 100%;
         max-height: 120vh;
-        background-color: grey;
         object-fit: cover;
+        object-position: top;
     }
 
     &__gradient-overlay {
         @include gradient-overlay(180deg);
-        max-height: 120vh;
-        transform: translateY(-0.4rem);
+    }
+}
 
-        @include tablet {
-            transform: translateY(-0.3rem);
-        }
+.next-event {
+    background-color: rgba(0,0,0, 0.4);
+    padding: 1.5rem 1rem 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-transform: uppercase;
+    text-align: left;
 
-        @include desktop {
-            transform: translateY(0rem);
-        }
+    & > * {
+        text-align: left;
+        font-weight: 500;
+        font-size: 1.5rem;
+        letter-spacing: 0.1em;
+    }
+
+    &__title  {
+        font-weight: 500;
+  }
+
+    &__name {
+        font-size: 3rem;
+        font-weight: 600;
+    }
+
+    &__details {
+        margin: 0;
     }
 }

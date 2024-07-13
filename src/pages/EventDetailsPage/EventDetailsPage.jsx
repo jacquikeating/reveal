@@ -1,5 +1,5 @@
 import { useEffect, useState, Suspense, lazy } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import {
   getSingleEventEndpoint,
@@ -22,6 +22,7 @@ const EventDetailsPage = () => {
   const [error, setError] = useState(null);
   const {
     name,
+    subtitle,
     city,
     month,
     day,
@@ -32,7 +33,7 @@ const EventDetailsPage = () => {
     doors_time,
     start_time,
     end_time,
-    organizer, // remember to rename in sql/knex too
+    organizer,
     ticket_prices,
     performers,
     buy_tickets,
@@ -85,16 +86,25 @@ const EventDetailsPage = () => {
             topOffset="-3rem"
             leftOffset="0.9rem"
           />
-          <div className="event__what">
-            <h1 className="event__name">{name}</h1>
+
+          <h1 className="event__name">{name}</h1>
+          {
+            // Renders a subtitle only if the organizer has opted to include one
+            subtitle ? <p className="event__subtitle">{subtitle}</p> : ""
+          }
+          <div className="event__subsection">
             <p className="event__description">{description}</p>
+            {/* <p className="event__organizer">Produced by {organizer}</p> */}
           </div>
 
-          <div className="event__where">
-            <h3 className="event__info-category-subheading">Location</h3>
-            <p className="event__city">{city}</p>
-            <p className="event__venue">{venue}</p>
-            <p className="event__venue-address">{venue_address}</p>
+          <div className="event__subsection">
+            <h3 className="event__info-category-subheading">Venue</h3>
+            <div className="event__location">
+              <p className="event__venue">{venue}</p>
+              <p className="event__address">
+                {venue_address}&nbsp; • &nbsp;{city}
+              </p>
+            </div>
           </div>
 
           {/* These tables use ternary operators to render rows only for truthy values. 
@@ -102,66 +112,67 @@ const EventDetailsPage = () => {
               we won't bother rendering a table row for it. */}
 
           {/* prettier-ignore */ }
-          <div className="event__when">
-            <h3 className="event__info-category-subheading">Time</h3>
-            <table className="timetable">
-              <tbody>
-                {doors_time ? (
-                  <tr className="timetable__row">
-                    <td className="timetable__label">Doors Open</td>
-                    <td className="timetable__time">{doors_time}</td>
-                  </tr>) : ("")}
-                {start_time ? (
-                  <tr className="timetable__row">
-                    <td className="timetable__label">Start Time</td>
-                    <td className="timetable__time">{start_time}</td>
-                  </tr>) : ("")}
-                {end_time ? (
-                  <tr className="timetable__row">
-                    <td className="timetable__label">End Time</td>
-                    <td className="timetable__time">{end_time}</td>
-                  </tr>) : ("")}
-              </tbody>
-            </table>
-          </div>
+          <div className="event__subsection event__subsection--times-and-tickets">
+            <div className="event__times">
+              <h3 className="event__info-category-subheading">Time</h3>
+              <table className="timetable">
+                <tbody>
+                  {doors_time ? (
+                    <tr className="timetable__row">
+                      <td className="timetable__cell tickets-table__cell--label">Doors Open</td>
+                      <td className="timetable__cell">{doors_time}</td>
+                    </tr>) : ("")}
+                  {start_time ? (
+                    <tr className="timetable__row">
+                      <td className="timetable__cell tickets-table__cell--label">Start Time</td>
+                      <td className="timetable__cell">{start_time}</td>
+                    </tr>) : ("")}
+                  {end_time ? (
+                    <tr className="timetable__row">
+                      <td className="timetable__cell tickets-table__cell--label">End Time</td>
+                      <td className="timetable__cell">{end_time}</td>
+                    </tr>) : ("")}
+                </tbody>
+              </table>
+            </div>
 
           {/* prettier-ignore */ }
-          <div className="event__how-much">
+          <div className="event__ticket-prices">
             <h3 className="event__info-category-subheading">Ticket Prices</h3>
             <table className="tickets-table">
               <tbody>
                 {advanceGA ? (
                   <tr className="tickets-table__row">
-                    <td className="tickets-table__label">Advance General Admission</td>
-                    <td className="tickets-table__time">${advanceGA}</td>
+                    <td className="tickets-table__cell tickets-table__cell--label">Adv. General Admission</td>
+                    <td className="tickets-table__cell">${advanceGA}</td>
                   </tr>) : ("")}
                 {GA ? (
                   <tr className="tickets-table__row">
-                    <td className="tickets-table__label">General Admission</td>
-                    <td className="tickets-table__time">${GA}</td>
+                    <td className="tickets-table__cell tickets-table__cell--label">General Admission</td>
+                    <td className="tickets-table__cell">${GA}</td>
                   </tr>) : ("")}
                   {advanceVIP ? (
                   <tr className="tickets-table__row">
-                    <td className="tickets-table__label">Advance VIP</td>
-                    <td className="tickets-table__time">${advanceVIP}</td>
+                    <td className="tickets-table__cell tickets-table__cell--label">Adv. VIP</td>
+                    <td className="tickets-table__cell">${advanceVIP}</td>
                   </tr>) : ("")}
                   {VIP ? (
                   <tr className="tickets-table__row">
-                    <td className="tickets-table__label">VIP</td>
-                    <td className="tickets-table__time">${VIP}</td>
+                    <td className="tickets-table__cell tickets-table__cell--label">VIP</td>
+                    <td className="tickets-table__cell">${VIP}</td>
                   </tr>) : ("")}
               </tbody>
             </table>
             {tableDiscounts ? (
-              <p>Table discounts available</p>
+              <p className="tickets-table__table-discounts">Table discounts available</p>
             ) : ("")}
           </div>
-          <a href={buy_tickets} target="_blank">
-            <button className="buy__tickets">Buy Tickets</button>
-          </a>
+          </div>
 
-          <div className="event__who">
-            <p>Produced by {organizer}</p>
+          <div className="buy-tickets">
+            <a href={buy_tickets} target="_blank" className="buy-tickets__link">
+              <button className="buy-tickets__button">Buy Tickets</button>
+            </a>
           </div>
         </section>
 
@@ -171,6 +182,10 @@ const EventDetailsPage = () => {
             performerIDs={performerIDs}
             allUsersList={usersData}
           />
+
+          <p className="event__organizer">
+            Produced by <Link to="/">{organizer}</Link>
+          </p>
         </section>
 
         {/* <section className="event__section">
