@@ -7,6 +7,10 @@
     justify-content: space-evenly;
     gap: 2rem;
     list-style: none;
+
+    &__fallback {
+        font-style: italic;
+    }
 }
 
 .performer {
