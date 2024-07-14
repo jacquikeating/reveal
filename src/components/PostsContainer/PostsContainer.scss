@@ -1,5 +1,7 @@
 .posts-container {
     display: flex;
     flex-direction: column;
-    width: 100cw;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
 }

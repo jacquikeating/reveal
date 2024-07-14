@@ -7,15 +7,9 @@
         margin: 1rem 0 2rem 0;
     }
 
-    &__organizer {
-        text-transform: uppercase;
-        margin: 5rem 0 1rem 0;
-        letter-spacing: 0.1em;
-        opacity: 0.85;
-
-        & a {
-            @include text-link;
-        }
+    &__description {
+        max-width: 70ch;
+        margin: auto;
     }
 
     &__subsection {
@@ -55,6 +49,17 @@
 
     &__address {
         opacity: 0.8;
+    }
+
+    &__organizer {
+        text-transform: uppercase;
+        margin: 5rem 0 1rem 0;
+        letter-spacing: 0.1em;
+        opacity: 0.85;
+
+        & a {
+            @include text-link;
+        }
     }
 
 }
@@ -103,3 +108,4 @@
         @include button();
     }
 }
+

@@ -1,6 +1,8 @@
 .profile {
     &__bio {
         padding-bottom: 0.5rem;
+        max-width: 70ch;
+        margin: auto;
     }
 
     &__section-heading {
