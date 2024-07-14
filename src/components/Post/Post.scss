@@ -39,16 +39,32 @@
     &__reactions {
         display: flex;
         align-items: center;
-        // margin-top: 0.5rem;
+        margin-top: -0.5rem;
+        gap: 2rem;
+    }
+
+    &__btn {
+        display: flex;
+        align-items: center;
         gap: 1rem;
+        background-color: transparent;
+        border: none;
+        padding: 0.5rem;
+        color: $light;
     }
 
     &__icon {
         @include icon(1.5rem);
     }
 
-    &__likes {
-        margin-right: 1.5rem;
+    &__manage {
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
+
+        .post__btn {
+            padding: 0 1rem;
+        }
     }
 
 }

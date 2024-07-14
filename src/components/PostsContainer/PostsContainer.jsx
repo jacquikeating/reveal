@@ -8,6 +8,8 @@ import {
 import "./PostsContainer.scss";
 
 const PostsContainer = ({ desiredID }) => {
+  const loggedInUser = 1;
+
   const [postsData, setPostsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,7 +46,7 @@ const PostsContainer = ({ desiredID }) => {
       {postsData.map((post) => {
         return (
           <li className="post" key={post.id}>
-            <Post postData={post} />
+            <Post postData={post} loggedInUser={loggedInUser} />
           </li>
         );
       })}
