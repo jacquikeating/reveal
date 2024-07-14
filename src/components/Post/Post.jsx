@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Post.scss";
 
 const Post = ({ postData }) => {
@@ -12,10 +13,18 @@ const Post = ({ postData }) => {
 
   return (
     <article className="post">
-      <img className="post__avatar" alt={`${user_id}'s avatar`} src={avatar} />
+      <Link to={`/profile/${user_id}`}>
+        <img
+          className="post__avatar"
+          alt={`${user_name}'s avatar`}
+          src={avatar}
+        />
+      </Link>
       <div className="post__text">
         <div className="post__name-and-time">
-          <p className="post__username">{user_name}</p>
+          <Link to={`/profile/${user_id}`}>
+            <p className="post__username">{user_name}</p>
+          </Link>
           <p className="post__timestamp">{timestamp}</p>
         </div>
         <p className="post__content">{content}</p>

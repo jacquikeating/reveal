@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Post from "../../components/Post/Post";
 import {
-  emptyPostsData,
   getPostsListEndpoint,
   getFilteredPostsListEndpoint,
 } from "../../utils/api-utils";
