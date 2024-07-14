@@ -24,7 +24,7 @@ const PostsContainer = ({ desiredID }) => {
     const fetchPostsData = async () => {
       try {
         const response = await axios.get(returnEndpoint());
-        setPostsData(response.data.reverse());
+        setPostsData(response.data.reverse().slice(0, 10));
         setLoading(false);
       } catch (error) {
         console.error("Error loading data:", error);
