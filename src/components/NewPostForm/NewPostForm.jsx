@@ -14,20 +14,6 @@ const NewPostForm = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // const fetchEventsData = async () => {
-    //   try {
-    //     const response = await axios.get(getEventsListEndpoint());
-    //     setEventsData(response.data);
-    //     console.log(response.data);
-    //     setLoading(false);
-    //   } catch (error) {
-    //     console.error("Error loading data:", error);
-    //     setError(error);
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchEventsData();
-
     const fetchData = async () => {
       try {
         axios
@@ -35,11 +21,20 @@ const NewPostForm = () => {
             axios.get(getEventsListEndpoint()),
             axios.get(getUsersListEndpoint()),
           ])
-
           .then(
             axios.spread((...responses) => {
-              setEventsData(responses[0].data);
-              setUsersData(responses[1].data);
+              function alphabetizedData(array) {
+                const alphabetizedArray = array.sort((a, b) => {
+                  return a.name.localeCompare(b.name);
+                });
+                return alphabetizedArray;
+              }
+
+              const alphabetizedEvents = alphabetizedData(responses[0].data);
+              const alphabetizedUsers = alphabetizedData(responses[1].data);
+
+              setEventsData(alphabetizedEvents);
+              setUsersData(alphabetizedUsers);
             })
           );
         setLoading(false);
@@ -73,6 +68,7 @@ const NewPostForm = () => {
             className="post-form__content"
             name="content"
             placeholder="Start writing..."
+            required
           />
         </div>
 
