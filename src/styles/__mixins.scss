@@ -70,10 +70,28 @@
   font-weight: 500;
   margin-left: -0.25rem;
   padding: 0.5rem;
+  cursor: pointer;
 
   &:hover {
       border-bottom: 2px solid $light-purple;
       font-weight: 600;
       letter-spacing: 0.15em;
+  }
+}
+
+@mixin input {
+  border: none;
+  border-radius: 5px;
+  padding: 0.75rem;
+  background-color: $light;
+  color: $dark;
+
+  &:focus {
+    outline: 4px solid $light-purple;
+  }
+
+  &::placeholder {
+    color: $light-purple;
+    font-style: italic;
   }
 }

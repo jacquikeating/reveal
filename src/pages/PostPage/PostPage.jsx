@@ -1,11 +1,15 @@
-import './PostPage.scss';
+import NewPostForm from "../../components/NewPostForm/NewPostForm";
+import "./PostPage.scss";
 
 const PostPage = () => {
-    return (
-        <>
-            <h1>Just pretend I'm a post.</h1>
-        </>
-    );
+  return (
+    <>
+      <main>
+        <NewPostForm />
+        <button className="cancel-btn">Cancel</button>
+      </main>
+    </>
+  );
 };
 
 export default PostPage;
