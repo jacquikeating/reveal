@@ -2,18 +2,20 @@ import React from "react";
 import "./Post.scss";
 
 const Post = ({ postData }) => {
-  let { avatar, user_id, timestamp, content, likes, comments } = postData;
-  if (!comments) {
-    comments = [];
+  let { avatar, user_id, user_name, timestamp, content, likes, comments } =
+    postData;
+  comments = [];
+  if (timestamp.length === 13) {
+    timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   }
-  console.log(postData);
+  content = content.replace(/&#x27;/g, "'");
 
   return (
     <article className="post">
       <img className="post__avatar" alt={`${user_id}'s avatar`} src={avatar} />
       <div className="post__text">
         <div className="post__name-and-time">
-          <p className="post__username">{user_id}</p>
+          <p className="post__username">{user_name}</p>
           <p className="post__timestamp">{timestamp}</p>
         </div>
         <p className="post__content">{content}</p>

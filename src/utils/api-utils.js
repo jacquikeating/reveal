@@ -53,6 +53,10 @@ export function getSinglePostEndpoint(id) {
   return API_URL + "/posts/" + id;
 }
 
+export function postPostEndpoint() {
+  return API_URL + "/posts/";
+}
+
 export const emptyPostsData = [
   {
     id: 1,
@@ -75,3 +79,15 @@ export const emptyPostsData = [
     comments: [],
   },
 ];
+
+// MISC
+export function convertFormToJson(data) {
+  const MAP_FORM_TO_JSON_BODY = {
+    content: "content",
+  };
+  let toRet = {};
+  for (let key of Object.keys(data)) {
+    toRet[MAP_FORM_TO_JSON_BODY[key]] = data[key];
+  }
+  return toRet;
+}

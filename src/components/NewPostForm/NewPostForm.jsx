@@ -1,17 +1,95 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./NewPostForm.scss";
 import {
   getEventsListEndpoint,
   getUsersListEndpoint,
+  getPostsListEndpoint,
+  convertFormToJson,
 } from "../../utils/api-utils";
 
 const NewPostForm = () => {
+  const loggedInUser = {
+    id: 3,
+    name: "Jasper Jinx",
+    avatar:
+      "https://reveal-images.s3.us-east-2.amazonaws.com/jasperjinx-main.jpg",
+  };
+
+  //   const [loggedInUser, setLoggedInUser] = useState(fakeUser);
   const [eventsData, setEventsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    content: "",
+    event: null,
+    user: null,
+    city: null,
+    venue: null,
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validate = () => {
+    let formErrors = {};
+    if (!formData.content) formErrors.content = "This field is required";
+    return formErrors;
+  };
+
+  const prepareFormData = (submittedData) => {
+    let preparedFormData = {
+      user_id: loggedInUser.id,
+      user_name: loggedInUser.name,
+      timestamp: new Date().getTime(),
+      avatar: loggedInUser.avatar,
+      content: submittedData.content,
+      likes: 0,
+      comments: {},
+      hashtags: {},
+    };
+    Reflect.deleteProperty(submittedData, "content");
+    const data = Array.isArray(submittedData)
+      ? submittedData.filter(Boolean)
+      : submittedData;
+    const trimmedHashtags = Object.keys(data).reduce(
+      (acc, key) => {
+        const value = data[key];
+
+        if (Boolean(value))
+          acc[key] = typeof value === "object" ? compactObject(value) : value;
+        return acc;
+      },
+      Array.isArray(submittedData) ? [] : {}
+    );
+    preparedFormData.hashtags = trimmedHashtags;
+    return preparedFormData;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      const preparedData = prepareFormData(formData);
+      //   const stringifiedData = JSON.stringify(preparedData);
+      const dataToSubmit = preparedData;
+      console.log(dataToSubmit);
+      const res = await axios.post(getPostsListEndpoint(), dataToSubmit);
+      if (res.status != 201) {
+        console.error(
+          "Something went wrong during POST operation! (%d) %s",
+          res.status,
+          res.data
+        );
+      } else {
+        console.debug("Post added successfully: %s", JSON.stringify(res.data));
+      }
+    } else {
+      console.error("Missing required field");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,15 +125,11 @@ const NewPostForm = () => {
     fetchData();
   }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e);
-  }
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
+
   return (
-    <section className="">
+    <section>
       <h2>New Post</h2>
 
       <form className="post-form" onSubmit={handleSubmit}>
@@ -69,6 +143,7 @@ const NewPostForm = () => {
             name="content"
             placeholder="Start writing..."
             required
+            onChange={handleChange}
           />
         </div>
 
@@ -79,7 +154,11 @@ const NewPostForm = () => {
 
           <label className="post-form__label">
             Person
-            <select className="post-form__select" name="person">
+            <select
+              className="post-form__select"
+              name="person"
+              onChange={handleChange}
+            >
               <option value="null">(none)</option>{" "}
               {usersData.map((user) => {
                 return (
@@ -92,7 +171,11 @@ const NewPostForm = () => {
           </label>
           <label className="post-form__label">
             Event
-            <select className="post-form__select" name="event">
+            <select
+              className="post-form__select"
+              name="event"
+              onChange={handleChange}
+            >
               <option value="null">(none)</option>{" "}
               {eventsData.map((show) => {
                 return (
@@ -105,19 +188,35 @@ const NewPostForm = () => {
           </label>
           <label className="post-form__label">
             City
-            <select className="post-form__select" name="city">
+            <select
+              className="post-form__select"
+              name="city"
+              onChange={handleChange}
+            >
               <option value="null">(none)</option>{" "}
               {eventsData.map((show) => {
-                return <option key={show.id}>{show.name}</option>;
+                return (
+                  <option key={show.id} value={show.id}>
+                    {show.name}
+                  </option>
+                );
               })}
             </select>
           </label>
           <label className="post-form__label">
             Venue
-            <select className="post-form__select" name="venue">
+            <select
+              className="post-form__select"
+              name="venue"
+              onChange={handleChange}
+            >
               <option value="null">(none)</option>
               {eventsData.map((show) => {
-                return <option key={show.id}>{show.name}</option>;
+                return (
+                  <option key={show.id} value={show.id}>
+                    {show.name}
+                  </option>
+                );
               })}
             </select>
           </label>
