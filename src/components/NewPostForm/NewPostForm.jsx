@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 import "./NewPostForm.scss";
 import {
   getEventsListEndpoint,
@@ -88,6 +90,30 @@ const NewPostForm = () => {
         );
       } else {
         console.debug("Post added successfully: %s", JSON.stringify(res.data));
+        setFormData({
+          content: "",
+          user: null,
+          event: null,
+          city: null,
+          venue: null,
+        });
+        Toastify({
+          text: "Posted! Return home?",
+          duration: 5000,
+          destination: "/",
+          newWindow: false,
+          close: true,
+          offset: {
+            y: "165px",
+          },
+          gravity: "bottom", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: `linear-gradient(to right, $red, $light-purple)`,
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
       }
     } else {
       console.error("Missing required field");
