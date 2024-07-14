@@ -6,7 +6,13 @@ const Gallery = ({ gallery }) => {
   return (
     <div className="gallery">
       {gallery.map((img) => {
-        return <img src={img} className="gallery__image" />;
+        return (
+          <img
+            src={img}
+            className="gallery__image"
+            key={gallery.indexOf(img)}
+          />
+        );
       })}
     </div>
   );

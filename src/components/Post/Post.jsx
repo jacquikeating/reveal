@@ -2,14 +2,18 @@ import React from "react";
 import "./Post.scss";
 
 const Post = ({ postData }) => {
-  const { avatar, username, timestamp, content, likes, comments } = postData;
+  let { avatar, user_id, timestamp, content, likes, comments } = postData;
+  if (!comments) {
+    comments = [];
+  }
+  console.log(postData);
 
   return (
     <article className="post">
-      <img className="post__avatar" alt={`${username}'s avatar`} src={avatar} />
+      <img className="post__avatar" alt={`${user_id}'s avatar`} src={avatar} />
       <div className="post__text">
         <div className="post__name-and-time">
-          <p className="post__username">{username}</p>
+          <p className="post__username">{user_id}</p>
           <p className="post__timestamp">{timestamp}</p>
         </div>
         <p className="post__content">{content}</p>

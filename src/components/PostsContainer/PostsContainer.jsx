@@ -1,30 +1,33 @@
-import React from "react";
-import "./PostsContainer.scss";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import Post from "../../components/Post/Post";
+import { emptyPostsData, getPostsListEndpoint } from "../../utils/api-utils";
+import "./PostsContainer.scss";
 
 const PostsContainer = () => {
-  const postsData = [
-    {
-      id: 1,
-      username: "Scarlet Siren",
-      avatar: "../src/assets/icons/avatar-placeholder.png",
-      timestamp: new Date().toLocaleDateString("en-US"),
-      content:
-        "I'm the hottest post on this site! (Mostly because I'm the first post.)",
-      likes: 0,
-      comments: [],
-    },
-    {
-      id: 2,
-      username: "Test User",
-      avatar: "../src/assets/icons/avatar-placeholder.png",
-      timestamp: new Date().toLocaleDateString("en-US"),
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eos inventore natus corrupti.",
-      likes: 0,
-      comments: [],
-    },
-  ];
+  const [postsData, setPostsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPostsData = async () => {
+      try {
+        const response = await axios.get(getPostsListEndpoint());
+        setPostsData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchPostsData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data: {error.message}</p>;
 
   return (
     <ul className="posts-container">
