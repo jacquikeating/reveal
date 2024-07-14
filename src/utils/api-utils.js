@@ -49,6 +49,10 @@ export function getPostsListEndpoint() {
   return API_URL + "/posts";
 }
 
+export function getFilteredPostsListEndpoint(id) {
+  return API_URL + "/posts/by-user/" + id;
+}
+
 export function getSinglePostEndpoint(id) {
   return API_URL + "/posts/" + id;
 }

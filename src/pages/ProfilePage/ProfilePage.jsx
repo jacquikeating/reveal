@@ -83,7 +83,7 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Posts</h2>
-          <PostsContainer />
+          <PostsContainer desiredID={userID} />
         </section>
       </main>
     </>
