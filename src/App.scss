@@ -28,7 +28,8 @@
 body {
     background: #42386b;
     background: linear-gradient(30deg, rgba(39,26,69,1) 0%, rgba(64,44,113,1) 67%);    
-    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: $light;
 }
 
