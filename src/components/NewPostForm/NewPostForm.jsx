@@ -5,7 +5,8 @@ import {
   getEventsListEndpoint,
   getUsersListEndpoint,
   getPostsListEndpoint,
-  convertFormToJson,
+  getCitiesListEndpoint,
+  getVenuesListEndpoint,
 } from "../../utils/api-utils";
 
 const NewPostForm = () => {
@@ -19,6 +20,8 @@ const NewPostForm = () => {
   //   const [loggedInUser, setLoggedInUser] = useState(fakeUser);
   const [eventsData, setEventsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
+  const [citiesData, setCitiesData] = useState([]);
+  const [venuesData, setVenuesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -98,6 +101,8 @@ const NewPostForm = () => {
           .all([
             axios.get(getEventsListEndpoint()),
             axios.get(getUsersListEndpoint()),
+            axios.get(getCitiesListEndpoint()),
+            axios.get(getVenuesListEndpoint()),
           ])
           .then(
             axios.spread((...responses) => {
@@ -110,9 +115,13 @@ const NewPostForm = () => {
 
               const alphabetizedEvents = alphabetizedData(responses[0].data);
               const alphabetizedUsers = alphabetizedData(responses[1].data);
+              const alphabetizedCities = alphabetizedData(responses[2].data);
+              const alphabetizedVenues = alphabetizedData(responses[3].data);
 
               setEventsData(alphabetizedEvents);
               setUsersData(alphabetizedUsers);
+              setCitiesData(alphabetizedCities);
+              setVenuesData(alphabetizedVenues);
             })
           );
         setLoading(false);
@@ -134,10 +143,7 @@ const NewPostForm = () => {
 
       <form className="post-form" onSubmit={handleSubmit}>
         <div className="post-form__top">
-          <img
-            src={"src/assets/icons/avatar-placeholder.png"}
-            className="post-form__user-avatar"
-          />
+          <img src={loggedInUser.avatar} className="post-form__user-avatar" />
           <textarea
             className="post-form__content"
             name="content"
@@ -194,10 +200,10 @@ const NewPostForm = () => {
               onChange={handleChange}
             >
               <option value="null">(none)</option>{" "}
-              {eventsData.map((show) => {
+              {citiesData.map((city) => {
                 return (
-                  <option key={show.id} value={show.id}>
-                    {show.name}
+                  <option key={city.id} value={city.id}>
+                    {city.name}
                   </option>
                 );
               })}
@@ -211,10 +217,10 @@ const NewPostForm = () => {
               onChange={handleChange}
             >
               <option value="null">(none)</option>
-              {eventsData.map((show) => {
+              {venuesData.map((venue) => {
                 return (
-                  <option key={show.id} value={show.id}>
-                    {show.name}
+                  <option key={venue.id} value={venue.id}>
+                    {venue.name}
                   </option>
                 );
               })}

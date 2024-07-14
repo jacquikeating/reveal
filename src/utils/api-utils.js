@@ -61,37 +61,24 @@ export function postPostEndpoint() {
   return API_URL + "/posts/";
 }
 
-export const emptyPostsData = [
-  {
-    id: 1,
-    username: "Scarlet Siren",
-    avatar: "../src/assets/icons/avatar-placeholder.png",
-    timestamp: new Date().toLocaleDateString("en-US"),
-    content:
-      "I'm the hottest post on this site! (Mostly because I'm the first post.)",
-    likes: 0,
-    comments: [],
-  },
-  {
-    id: 2,
-    username: "Test User",
-    avatar: "../src/assets/icons/avatar-placeholder.png",
-    timestamp: new Date().toLocaleDateString("en-US"),
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eos inventore natus corrupti.",
-    likes: 0,
-    comments: [],
-  },
-];
+// CITIES
+export function getCitiesListEndpoint() {
+  return API_URL + "/cities";
+}
+
+// VENUES
+export function getVenuesListEndpoint() {
+  return API_URL + "/venues";
+}
 
 // MISC
-export function convertFormToJson(data) {
-  const MAP_FORM_TO_JSON_BODY = {
-    content: "content",
-  };
-  let toRet = {};
-  for (let key of Object.keys(data)) {
-    toRet[MAP_FORM_TO_JSON_BODY[key]] = data[key];
-  }
-  return toRet;
-}
+// export function convertFormToJson(data) {
+//   const MAP_FORM_TO_JSON_BODY = {
+//     content: "content",
+//   };
+//   let toRet = {};
+//   for (let key of Object.keys(data)) {
+//     toRet[MAP_FORM_TO_JSON_BODY[key]] = data[key];
+//   }
+//   return toRet;
+// }
