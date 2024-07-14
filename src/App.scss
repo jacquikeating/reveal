@@ -30,6 +30,7 @@ body {
     background: linear-gradient(30deg, rgba(39,26,69,1) 0%, rgba(64,44,113,1) 67%);    
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 100vh;
     color: $light;
 }
 
