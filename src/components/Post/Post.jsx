@@ -1,16 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import {
+  getSinglePostEndpoint,
+  putPostEndpoint,
+} from "../../utils/api-utils.js";
 import "./Post.scss";
 
 const Post = ({ postData, loggedInUser }) => {
-  let { avatar, user_id, user_name, timestamp, content, likes, comments } =
-    postData;
+  let {
+    id,
+    avatar,
+    user_id,
+    user_name,
+    timestamp,
+    content,
+    likes,
+    hashtags,
+    comments,
+  } = postData;
   comments = [];
   if (timestamp.length === 13) {
     timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   }
   console.log(loggedInUser);
   content = content.replace(/&#x27;/g, "'");
+
+  const [postLikes, setPostLikes] = useState(likes);
+
+  async function addLikes(req, res) {
+    console.log(typeof postLikes);
+    const updatedPost = { ...postData, likes: Number(likes + 1) };
+    console.log(updatedPost);
+    try {
+      const res = await axios.put(putPostEndpoint(id), updatedPost);
+      console.log(req.body);
+      console.log(res);
+    } catch (error) {
+      console.error("Error updating item:", error);
+    }
+  }
 
   return (
     <article className="post">
@@ -31,17 +60,17 @@ const Post = ({ postData, loggedInUser }) => {
         <p className="post__content">{content}</p>
 
         <div className="post__reactions">
-          <button className="post__btn">
+          <button className="post__btn" onClick={addLikes}>
             <img
               className="post__icon post__icon--likes"
-              src="../src/assets/icons/heart.svg"
+              src="../../src/assets/icons/heart.svg"
             />
             <p className="post__likes">{likes}</p>
           </button>
           <button className="post__btn">
             <img
               className="post__icon post__icon--comments"
-              src="../src/assets/icons/comment.svg"
+              src="../../src/assets/icons/comment.svg"
             />
             <p className="post__comments">{comments.length}</p>
           </button>
@@ -51,13 +80,13 @@ const Post = ({ postData, loggedInUser }) => {
               <button className="post__btn">
                 <img
                   className="post__icon post__icon--edit"
-                  src="../src/assets/icons/edit.svg"
+                  src="../../src/assets/icons/edit.svg"
                 />
               </button>
               <button className="post__btn">
                 <img
                   className="post__icon post__icon--delete"
-                  src="../src/assets/icons/trash.svg"
+                  src="../../src/assets/icons/trash.svg"
                 />
               </button>
             </div>

@@ -1,25 +1,41 @@
-import { useNavigate } from "react-router-dom";
-import NewPostForm from "../../components/NewPostForm/NewPostForm";
-import Toastify from "toastify-js";
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { getSinglePostEndpoint } from "../../utils/api-utils";
+const Post = lazy(() => import("../../components/Post/Post"));
 import "./PostPage.scss";
-import "toastify-js/src/toastify.css";
 
 const PostPage = () => {
-  let navigate = useNavigate();
+  const { postID } = useParams();
+  const [postData, setPostData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  function goHome() {
-    navigate("/");
-  }
+  useEffect(() => {
+    const fetchPostData = async () => {
+      try {
+        const response = await axios.get(getSinglePostEndpoint(postID));
+        setPostData(response.data);
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchPostData();
+  }, [postID]);
 
   return (
-    <>
-      <main>
-        <NewPostForm />
-        <button className="cancel-btn" onClick={goHome}>
-          Cancel
-        </button>
-      </main>
-    </>
+    <main>
+      <section>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Post postData={postData} />
+        </Suspense>
+      </section>
+    </main>
   );
 };
 

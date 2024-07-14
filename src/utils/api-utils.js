@@ -61,6 +61,14 @@ export function postPostEndpoint() {
   return API_URL + "/posts/";
 }
 
+export function putPostEndpoint(id) {
+  return API_URL + "/posts/" + id;
+}
+
+export function deletePostEndpoint(id) {
+  return API_URL + "/posts/" + id;
+}
+
 // CITIES
 export function getCitiesListEndpoint() {
   return API_URL + "/cities";

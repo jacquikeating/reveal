@@ -8,6 +8,8 @@ import EventDetailsPage from "/src/pages/EventDetailsPage/EventDetailsPage.jsx";
 import EventListingsPage from "/src/pages/EventListingsPage/EventListingsPage.jsx";
 import VenuePage from "/src/pages/VenuePage/VenuePage.jsx";
 import PostPage from "/src/pages/PostPage/PostPage.jsx";
+import NewPostPage from "./pages/NewPostPage/NewPostPage";
+import EditPostPage from "./pages/EditPostPage/EditPostPage";
 import Header from "/src/components/Header/Header.jsx";
 import Footer from "/src/components/Footer/Footer.jsx";
 import "./App.scss";
@@ -31,7 +33,9 @@ function App() {
           <Route path="/events" element={<EventListingsPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />
           <Route path="/venue" element={<VenuePage />} />
-          <Route path="/post" element={<PostPage />} />
+          <Route path="/post" element={<NewPostPage />} />
+          <Route path="/post/:postID" element={<PostPage />} />
+          <Route path="/post/:postID/edit" element={<EditPostPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

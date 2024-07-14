@@ -9,22 +9,32 @@ import {
   getPostsListEndpoint,
   getCitiesListEndpoint,
   getVenuesListEndpoint,
+  getSinglePostEndpoint,
+  putPostEndpoint,
 } from "../../utils/api-utils";
 
-const NewPostForm = () => {
+const EditPostForm = () => {
   const loggedInUser = {
     id: 3,
     name: "Jasper Jinx",
     avatar:
       "https://reveal-images.s3.us-east-2.amazonaws.com/jasperjinx-main.jpg",
   };
-
+  const { postID } = useParams();
   const [eventsData, setEventsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [citiesData, setCitiesData] = useState([]);
   const [venuesData, setVenuesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [post, setPost] = useState({
+    id: "",
+    content: "",
+    event: null,
+    person: null,
+    city: null,
+    venue: null,
+  });
   const [formData, setFormData] = useState({
     content: "",
     event: null,
@@ -32,6 +42,59 @@ const NewPostForm = () => {
     city: null,
     venue: null,
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        axios
+          .all([
+            axios.get(getSinglePostEndpoint(postID)),
+            axios.get(getEventsListEndpoint()),
+            axios.get(getUsersListEndpoint()),
+            axios.get(getCitiesListEndpoint()),
+            axios.get(getVenuesListEndpoint()),
+            ,
+          ])
+          .then(
+            axios.spread((...responses) => {
+              function alphabetizedData(array) {
+                const alphabetizedArray = array.sort((a, b) => {
+                  return a.name.localeCompare(b.name);
+                });
+                return alphabetizedArray;
+              }
+
+              const existingPostData = responses[0].data;
+              const alphabetizedEvents = alphabetizedData(responses[1].data);
+              const alphabetizedUsers = alphabetizedData(responses[2].data);
+              const alphabetizedCities = alphabetizedData(responses[3].data);
+              const alphabetizedVenues = alphabetizedData(responses[4].data);
+
+              setEventsData(alphabetizedEvents);
+              setUsersData(alphabetizedUsers);
+              setCitiesData(alphabetizedCities);
+              setVenuesData(alphabetizedVenues);
+              setPost({
+                content: existingPostData.content,
+                event: existingPostData.hashtags.event,
+                person: existingPostData.hashtags.person,
+                city: existingPostData.hashtags.city,
+                venue: existingPostData.hashtags.venue,
+              });
+            })
+          );
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [postID]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data: {error.message}</p>;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -119,52 +182,9 @@ const NewPostForm = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        axios
-          .all([
-            axios.get(getEventsListEndpoint()),
-            axios.get(getUsersListEndpoint()),
-            axios.get(getCitiesListEndpoint()),
-            axios.get(getVenuesListEndpoint()),
-          ])
-          .then(
-            axios.spread((...responses) => {
-              function alphabetizedData(array) {
-                const alphabetizedArray = array.sort((a, b) => {
-                  return a.name.localeCompare(b.name);
-                });
-                return alphabetizedArray;
-              }
-
-              const alphabetizedEvents = alphabetizedData(responses[0].data);
-              const alphabetizedUsers = alphabetizedData(responses[1].data);
-              const alphabetizedCities = alphabetizedData(responses[2].data);
-              const alphabetizedVenues = alphabetizedData(responses[3].data);
-
-              setEventsData(alphabetizedEvents);
-              setUsersData(alphabetizedUsers);
-              setCitiesData(alphabetizedCities);
-              setVenuesData(alphabetizedVenues);
-            })
-          );
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data: {error.message}</p>;
-
   return (
     <section>
-      <h2>New Post</h2>
+      <h2>Edit Post</h2>
 
       <form className="post-form" onSubmit={handleSubmit}>
         <div className="post-form__top">
@@ -176,6 +196,7 @@ const NewPostForm = () => {
             required
             onChange={handleChange}
           />
+          {existingPostData.content}
         </div>
 
         <div className="post-form__mentions">
@@ -254,11 +275,11 @@ const NewPostForm = () => {
         </div>
 
         <button type="submit" className="post-form__submit-btn">
-          Post
+          Update
         </button>
       </form>
     </section>
   );
 };
 
-export default NewPostForm;
+export default EditPostForm;
