@@ -1,0 +1,44 @@
+@use "/src/styles/__globals" as *;
+
+.edit-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    input, textarea {
+        background-color: $purple!important;
+        color: $light!important;
+        display: block;
+        @include input;
+    }
+
+    &__name {
+        font-size: 3rem;
+        text-align: center;
+        margin: 0rem auto 3rem;
+    }
+
+    &__bio {
+        width: 80vw;
+        display: block;
+        height: 20rem;
+        margin: auto;
+        padding: 1rem 1.5rem;
+        font-size: 1.1em;
+        line-height: 1.6;
+    }
+
+    &__section-heading {
+        &--events {
+            margin-bottom: 0;
+        }
+}
+}
+
+.socials {
+    &__delete {
+        @include icon(1.5rem)
+    }
+}

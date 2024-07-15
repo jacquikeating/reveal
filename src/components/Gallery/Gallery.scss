@@ -11,4 +11,8 @@
     @include desktop {
         margin-bottom: 2rem;
     }
+
+    &__add-btn, &__del-btn {
+        @include button;
+    }
 }

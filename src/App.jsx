@@ -4,6 +4,7 @@ import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "/src/pages/ProfilePage/ProfilePage.jsx";
+import EditProfilePage from "./pages/EditProfilePage/EditProfilePage";
 import EventDetailsPage from "/src/pages/EventDetailsPage/EventDetailsPage.jsx";
 import EventListingsPage from "/src/pages/EventListingsPage/EventListingsPage.jsx";
 import VenuePage from "/src/pages/VenuePage/VenuePage.jsx";
@@ -29,6 +30,7 @@ function App() {
             path="/profile"
             element={<Navigate replace to={`/profile/${loggedInUser}`} />}
           />
+          <Route path="/profile/edit" element={<EditProfilePage />} />
           <Route path="/profile/:userID" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />

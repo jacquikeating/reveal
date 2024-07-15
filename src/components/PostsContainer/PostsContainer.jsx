@@ -8,7 +8,7 @@ import {
 import "./PostsContainer.scss";
 
 const PostsContainer = ({ desiredID }) => {
-  const loggedInUser = 1;
+  const loggedInUser = desiredID || 1;
 
   const [postsData, setPostsData] = useState([]);
   const [loading, setLoading] = useState(true);

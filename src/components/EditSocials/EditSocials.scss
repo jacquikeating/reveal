@@ -1,0 +1,40 @@
+@use "/src/styles/__globals" as *;
+
+.edit-socials {
+    margin: 3rem 0 0rem 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include tablet {
+        gap: 3rem;
+    }
+
+    &__icon {
+        @include icon(1.7rem);
+
+        @include tablet {
+            @include icon(2.7rem);
+        }
+    }
+
+    &__option {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+
+    }
+
+    &__field {
+        width: 80%;
+    }
+
+}
+
+.hidden {
+    display: none;
+}
