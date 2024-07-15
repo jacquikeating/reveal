@@ -11,9 +11,9 @@ import VenuePage from "/src/pages/VenuePage/VenuePage.jsx";
 import PostPage from "/src/pages/PostPage/PostPage.jsx";
 import NewPostPage from "./pages/NewPostPage/NewPostPage";
 import EditPostPage from "./pages/EditPostPage/EditPostPage";
-import MakeEventPage from "./pages/MakeEventPage/MakeEventPage";
 import Header from "/src/components/Header/Header.jsx";
 import Footer from "/src/components/Footer/Footer.jsx";
+import Auth from "./components/Auth/Auth";
 import "./App.scss";
 
 function App() {
@@ -34,7 +34,6 @@ function App() {
           <Route path="/profile/edit" element={<EditProfilePage />} />
           <Route path="/profile/:userID" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
-          <Route path="/events/new" element={<MakeEventPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />
           <Route path="/venue" element={<VenuePage />} />
           <Route path="/post" element={<NewPostPage />} />
