@@ -62,7 +62,7 @@ export function postPostEndpoint() {
 }
 
 export function putPostEndpoint(id) {
-  return API_URL + "/posts/" + id;
+  return API_URL + "/posts/" + id + "/edit";
 }
 
 export function deletePostEndpoint(id) {

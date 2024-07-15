@@ -23,19 +23,16 @@ const Post = ({ postData, loggedInUser }) => {
   if (timestamp.length === 13) {
     timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   }
-  console.log(loggedInUser);
   content = content.replace(/&#x27;/g, "'");
 
   const [postLikes, setPostLikes] = useState(likes);
 
-  async function addLikes(req, res) {
-    console.log(typeof postLikes);
-    const updatedPost = { ...postData, likes: Number(likes + 1) };
-    console.log(updatedPost);
+  async function addLikes() {
+    const currentLikes = Number(postLikes);
+    const newLikesCount = currentLikes + 1;
+    const updatedPost = { ...postData, likes: newLikesCount };
     try {
-      const res = await axios.put(putPostEndpoint(id), updatedPost);
-      console.log(req.body);
-      console.log(res);
+      await axios.put(putPostEndpoint(id), updatedPost);
     } catch (error) {
       console.error("Error updating item:", error);
     }
