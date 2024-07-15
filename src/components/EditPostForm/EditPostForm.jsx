@@ -15,10 +15,10 @@ import {
 
 const EditPostForm = () => {
   const loggedInUser = {
-    id: 3,
-    name: "Jasper Jinx",
+    id: 6,
+    name: "Dandy D'Light",
     avatar:
-      "https://reveal-images.s3.us-east-2.amazonaws.com/jasperjinx-main.jpg",
+      "https://reveal-images.s3.us-east-2.amazonaws.com/dandydlight-main.jpg",
   };
   const { postID } = useParams();
   const [eventsData, setEventsData] = useState([]);
