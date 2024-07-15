@@ -1,109 +1,58 @@
-import { useState } from "react";
+import { auth, googleProvider, fbProvider } from "../../config/firebase.js";
+import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, googleProvider } from "../../config/firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
 
 const Auth = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const navigate = useNavigate();
 
-  const signIn = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const signInWithGoogle = async () => {
+  const signUpWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
+      navigate("/welcome");
     } catch (error) {
       console.error(error);
     }
   };
 
-  const signOut = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error(error);
-    }
+  const signUpWithFacebook = async () => {
+    signInWithPopup(auth, fbProvider)
+      .then((result) => {
+        const user = result.user;
+        const credential = fbProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        navigate("/welcome");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const credential = fbProvider.credentialFromError(error);
+      });
   };
-
-  // console.log(auth?.currentUser?.email);
-
-  let navigate = useNavigate();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    navigate("/");
-  }
-
-  function goHome() {
-    navigate("/");
-  }
 
   return (
     <>
-      <form className="signup-form">
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          className="signup-form__field"
-          aria-label="Enter your email"
-          onChange={(e) => setEmail(e.target.value)}
+      <button
+        className="signup-page__btn signup-page__btn--google"
+        onClick={signUpWithGoogle}
+      >
+        <img
+          src="/src/assets/icons/google.svg"
+          alt="Google logo"
+          className="signup-page__icon"
         />
-        <input
-          type="text"
-          placeholder="Display Name"
-          name="name"
-          className="signup-form__field"
-          aria-label="Enter a display name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          className="signup-form__field"
-          aria-label="Enter your password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          name="confirm-password"
-          className="signup-form__field"
-          aria-label="Confirm password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button
-          type="submit"
-          className="signup-form__submit-btn"
-          onClick={signIn}
-        >
-          Sign Up
-        </button>
-
-        <button className="signup-form__cancel-btn" onClick={goHome}>
-          Cancel
-        </button>
-      </form>
-
-      <button className="signup-form__google-btn" onClick={signInWithGoogle}>
-        Sign In With Google
+        Google
       </button>
 
-      <button className="signup-form__logout-btn" onClick={signOut}>
-        Sign Out
+      <button
+        className="signup-page__btn signup-page__btn--fb"
+        onClick={signUpWithFacebook}
+      >
+        <img
+          src="/src/assets/icons/social-fb.svg"
+          alt="Facebook logo"
+          className="signup-page__icon"
+        />
+        Facebook
       </button>
     </>
   );

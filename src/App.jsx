@@ -13,6 +13,7 @@ import NewPostPage from "./pages/NewPostPage/NewPostPage";
 import EditPostPage from "./pages/EditPostPage/EditPostPage";
 import Header from "/src/components/Header/Header.jsx";
 import Footer from "/src/components/Footer/Footer.jsx";
+import NewAcctPage from "./pages/NewAcctPage/NewAcctPage";
 import Auth from "./components/Auth/Auth";
 import "./App.scss";
 
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/welcome" element={<NewAcctPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/profile"

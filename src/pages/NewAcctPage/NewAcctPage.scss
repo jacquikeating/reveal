@@ -1,0 +1,8 @@
+@use "/src/styles/__globals" as *;
+
+.new-acct-page {
+    &__btn {
+        margin-top: 2rem!important;
+        @include button;
+    }
+}

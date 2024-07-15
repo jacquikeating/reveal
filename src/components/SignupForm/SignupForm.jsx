@@ -1,55 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Auth from "../../components/Auth/Auth";
-import { auth, googleProvider } from "../../config/firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import { auth } from "../../config/firebase.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./SignupForm.scss";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPW, setConfirmPW] = useState("");
   const [name, setName] = useState("");
+  const navigate = useNavigate();
 
-  const signIn = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const signInWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const signOut = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // console.log(auth?.currentUser?.email);
-
-  let navigate = useNavigate();
-
-  function handleSubmit(e) {
+  const signUp = async (e) => {
     e.preventDefault();
-    navigate("/");
-  }
-
-  function goHome() {
-    navigate("/");
-  }
+    if (password === confirmPW) {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        navigate("/welcome");
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      alert("Your passwords did not match. Please re-enter and try again!");
+      setPassword("");
+      setConfirmPW("");
+    }
+  };
 
   return (
     <>
@@ -61,6 +37,7 @@ const SignupForm = () => {
           className="signup-form__field"
           aria-label="Enter your email"
           onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
         <input
           type="text"
@@ -69,14 +46,16 @@ const SignupForm = () => {
           className="signup-form__field"
           aria-label="Enter a display name"
           onChange={(e) => setName(e.target.value)}
+          value={name}
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Password (min. 6 characters)"
           name="password"
           className="signup-form__field"
-          aria-label="Enter your password"
+          aria-label="Enter your password (minimum 6 characters)"
           onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
         <input
           type="password"
@@ -84,28 +63,12 @@ const SignupForm = () => {
           name="confirm-password"
           className="signup-form__field"
           aria-label="Confirm password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setConfirmPW(e.target.value)}
+          value={confirmPW}
         />
-
-        <button
-          type="submit"
-          className="signup-form__submit-btn"
-          onClick={signIn}
-        >
-          Sign Up
-        </button>
-
-        <button className="signup-form__cancel-btn" onClick={goHome}>
-          Cancel
-        </button>
       </form>
-
-      <button className="signup-form__google-btn" onClick={signInWithGoogle}>
-        Sign In With Google
-      </button>
-
-      <button className="signup-form__logout-btn" onClick={signOut}>
-        Sign Out
+      <button className="signup-page__submit-btn" onClick={signUp}>
+        Sign Up
       </button>
     </>
   );
