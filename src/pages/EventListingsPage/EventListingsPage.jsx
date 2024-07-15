@@ -41,10 +41,11 @@ const EventListingsPage = () => {
   }
 
   function monthBehind() {
-    today.setMonth(today.getMonth() - 1);
-    const prevMonth = today.toLocaleString("en-US", { month: "long" });
-    setMonth(prevMonth);
-    console.log(filterEventsByMonth());
+    // today.setMonth(today.getMonth() - 1);
+    // const prevMonth = today.toLocaleString("en-US", { month: "long" });
+    // setMonth(prevMonth);
+    // console.log(filterEventsByMonth());
+    setMonth(currentMonth);
   }
 
   function filterEventsByMonth() {
