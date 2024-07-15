@@ -66,14 +66,22 @@ const EventListingsPage = () => {
           <img
             src="/src/assets/icons/arrow-left.svg"
             alt="Arrow pointing left"
-            className="events-list__arrow"
+            className={
+              month === currentMonth
+                ? "events-list__arrow events-list__arrow--hidden"
+                : "events-list__arrow"
+            }
             onClick={monthBehind}
           />
           <h2 className="events-list__month-subheading">{month}</h2>
           <img
             src="/src/assets/icons/arrow-right.svg"
             alt="Arrow pointing right"
-            className="events-list__arrow"
+            className={
+              month !== currentMonth
+                ? "events-list__arrow events-list__arrow--hidden"
+                : "events-list__arrow"
+            }
             onClick={monthAhead}
           />
         </div>

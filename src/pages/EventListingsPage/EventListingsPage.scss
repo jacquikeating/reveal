@@ -27,5 +27,10 @@
 
     &__arrow {
         @include icon(2rem);
+        transition: opacity linear 0s;
+
+        &--hidden {
+            opacity: 0;
+        }
     }
 }
