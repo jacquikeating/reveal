@@ -4,8 +4,10 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 const LoginPage = () => {
   return (
     <main>
-      <h1>Log In</h1>
-      <LoginForm />
+      <section>
+        <h1>Log In</h1>
+        <LoginForm />
+      </section>
     </main>
   );
 };

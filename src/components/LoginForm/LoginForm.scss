@@ -1,8 +1,8 @@
+@use "/src/styles/__globals" as *;
+
 .login-form {
     margin: auto;
     padding: 2rem;
-    width: 70%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,15 +10,15 @@
     gap: 2rem;
 
     &__field {
-        padding: 1rem;
+        @include input;
+        width: 85%;
     }
 
     &__submit-btn {
-        padding: 1rem;
-        width: 50%;
+        @include button;
     }
 
     &__cancel-btn {
-        border: none;
+        @include cancel-button;
     }
 }
