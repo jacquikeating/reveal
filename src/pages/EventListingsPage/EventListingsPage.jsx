@@ -49,14 +49,14 @@ const EventListingsPage = () => {
   }
 
   function filterEventsByMonth() {
-    console.log(eventsData);
+    // console.log(eventsData);
     return eventsData.filter((event) => {
       return event.month == month;
     });
   }
 
   let filteredMonths = filterEventsByMonth();
-  console.log(filteredMonths);
+  // console.log(filteredMonths);
 
   return (
     <main className="events-list">
