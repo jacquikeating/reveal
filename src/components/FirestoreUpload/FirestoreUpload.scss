@@ -1,0 +1,17 @@
+@use "/src/styles/__globals" as *;
+
+.upload-modal {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
+    &__input {
+        width: 80%;
+        @include input;
+    }
+
+    &__button {
+        margin-top: 1.5rem;
+        @include button;
+    }
+}

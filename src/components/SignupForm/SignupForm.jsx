@@ -36,6 +36,7 @@ const SignupForm = () => {
           name="email"
           className="signup-form__field"
           aria-label="Enter your email"
+          required
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
@@ -45,6 +46,7 @@ const SignupForm = () => {
           name="name"
           className="signup-form__field"
           aria-label="Enter a display name"
+          required
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
@@ -54,6 +56,7 @@ const SignupForm = () => {
           name="password"
           className="signup-form__field"
           aria-label="Enter your password (minimum 6 characters)"
+          required
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
@@ -63,6 +66,7 @@ const SignupForm = () => {
           name="confirm-password"
           className="signup-form__field"
           aria-label="Confirm password"
+          required
           onChange={(e) => setConfirmPW(e.target.value)}
           value={confirmPW}
         />
