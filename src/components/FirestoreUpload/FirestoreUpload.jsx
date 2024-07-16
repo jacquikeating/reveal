@@ -24,17 +24,13 @@ const FileUploader = () => {
     "image/webp",
   ];
 
-  function handleFileChange(e) {
-    // getExtension(fileName)
-    console.log(file.type);
-    // if (acceptedTypes.includes(file.type)) {
-    //   console.log("match");
-    // }
-    // console.log(getExtension(e.target.files[0]));
+  {
+    /* Add more */
   }
-
-  function getExtension(fileName) {
-    return fileName.split(".").pop();
+  function handleFileChange(e) {
+    if (!acceptedTypes.includes(e.target.files[0].type)) {
+      console.log("wrong type");
+    }
   }
 
   async function uploadFile() {
@@ -44,7 +40,6 @@ const FileUploader = () => {
     try {
       await uploadBytes(filesFolderRef, file);
       setUploading(false);
-      // const fileExt = getExtension(selectedFile["name"]).toLowerCase() === "pdf"
     } catch (error) {
       console.error(error);
     }
@@ -52,21 +47,19 @@ const FileUploader = () => {
 
   return (
     <section className="upload-modal">
-      <div>
-        <input
-          className="upload-modal__input"
-          type="file"
-          name="file"
-          onChange={(e) => {
-            console.log(e.target.files[0]);
-            setFile(e.target.files[0]);
-            handleFileChange();
-          }}
-        />
-        <button className="upload-modal__button" onClick={uploadFile}>
-          {uploading ? "Uploading..." : "Upload File"}
-        </button>
-      </div>
+      <h2>Upload Media</h2>
+      <input
+        className="upload-modal__input"
+        type="file"
+        name="file"
+        onChange={(e) => {
+          setFile(e.target.files[0]);
+          handleFileChange(e);
+        }}
+      />
+      <button className="upload-modal__button" onClick={uploadFile}>
+        {uploading ? "Uploading..." : "Upload File"}
+      </button>
     </section>
   );
 };
