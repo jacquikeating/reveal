@@ -14,7 +14,6 @@ import FirestoreUpload from "../../components/FirestoreUpload/FirestoreUpload.js
 import "./NewAcctPage.scss";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
-import { batchAddData, usersToAdd } from "../../utils/batch-users.js";
 
 const NewAcctPage = () => {
   return (

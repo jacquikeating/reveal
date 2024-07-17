@@ -17,7 +17,7 @@ export const LogOutBtn = () => {
   };
 
   return (
-    <button className="signup-page__cancel-btn" onClick={logOut}>
+    <button className="logout-btn" onClick={logOut}>
       Sign Out
     </button>
   );

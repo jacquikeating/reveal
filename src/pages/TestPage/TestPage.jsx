@@ -11,13 +11,16 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import FirestoreUpload from "../../components/FirestoreUpload/FirestoreUpload.jsx";
+import NavExpand from "../../components/NavExpand/NavExpand.jsx";
 import "./TestPage.scss";
 
 const TestPage = () => {
   return (
     <div>
       <main className="test-page">
-        <section></section>
+        <section>
+          <NavExpand />
+        </section>
       </main>
     </div>
   );
