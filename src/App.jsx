@@ -16,6 +16,7 @@ import EditPostPage from "./pages/EditPostPage/EditPostPage";
 import Header from "/src/components/Header/Header.jsx";
 import Footer from "/src/components/Footer/Footer.jsx";
 import NewAcctPage from "./pages/NewAcctPage/NewAcctPage";
+import TestPage from "./pages/TestPage/TestPage";
 import Auth from "./components/Auth/Auth";
 import "./App.scss";
 
@@ -46,6 +47,7 @@ function App() {
           <Route path="/post" element={<NewPostPage />} />
           <Route path="/post/:postID" element={<PostPage />} />
           <Route path="/post/:postID/edit" element={<EditPostPage />} />
+          <Route path="/test" element={<TestPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

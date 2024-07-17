@@ -1,6 +1,10 @@
 @use "/src/styles/__globals" as *;
 
 .new-acct-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     &__btn {
         margin-top: 2rem!important;
         @include button;
