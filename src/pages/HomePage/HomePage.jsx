@@ -4,6 +4,7 @@ import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
+import EventPreview from "../../components/EventPreview/EventPreview";
 import { getEventsListEndpoint } from "../../utils/api-utils";
 import "./HomePage.scss";
 
@@ -41,7 +42,34 @@ const HomePage = () => {
 
       <main className="home">
         <section className="home__section">
-          <h2 className="home__section-heading">More Upcoming Events</h2>
+          <h2 className="home__section-heading home__section-heading--top">
+            More <span>Upcoming</span> Events
+          </h2>
+
+          <div className="home__desktop-events">
+            {eventsData.slice(0, 5).map((show) => {
+              return (
+                <EventPreview
+                  key={show.id}
+                  id={show.id}
+                  name={show.name}
+                  date={`${show.month} ${show.day}`}
+                  image={show.main_image}
+                />
+              );
+            })}
+            <Link to={`/events/`}>
+              <div className="home__desktop-events-link">
+                <h2 className="home__desktop-see-more">See All Events</h2>
+                <img
+                  src="/src/assets/icons/arrow-right.svg"
+                  alt="right arrow"
+                  className="home__desktop-icon"
+                />
+              </div>
+            </Link>
+          </div>
+
           <EmblaCarousel allEventsList={eventsData} />
         </section>
         <section className="home__section">

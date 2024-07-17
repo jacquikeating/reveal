@@ -4,17 +4,108 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
 
-    &__section:first-of-type {
-        padding-top: 4rem;
+    @include desktop {
+        flex-direction: row;
+        justify-content: start;
+        margin: auto;
+        width: 80vw;
+        max-width: 1600px;
 
-        @include tablet {
-            padding-top:9rem;
+        .embla {
+            display: none;
         }
     }
 
-    // &__section-heading{
-    //     margin-bottom:  2rem;
-    // }
+    &__section:first-of-type {
+        padding-top: 2rem;
+
+        @include tablet {
+            padding-top: 5rem;
+        }
+
+        @include desktop {
+            flex: 1;
+            border-right: 1px solid $purple;
+            padding-right: 8rem;
+        }
+    }
+
+    &__section:last-of-type {
+        @include desktop {        
+            width: 35%;
+            border-top: none;
+            padding-top: 4rem;
+            padding-left: 8rem;
+        }
+    }
+
+    &__section-heading {
+        & span {
+            display: none;
+
+            @include tablet {
+                display: inline;
+            }
+        }
+
+        &--top {
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__desktop-events {
+        display: none;
+
+        @include desktop {
+            display: block;
+            margin-top: 7rem;
+        }
+    }
+
+    &__desktop-events-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &__desktop-see-more {
+        margin: 5rem 2rem 5rem!important;
+        padding: 1rem 0.5rem!important;
+        display: inline-block;
+        @include text-link;
+        width: max-content;
+
+        &:hover {
+            border-bottom: none;
+        }
+    }
+
+    &__desktop-icon {
+        @include icon(4rem);
+    }
+
+    &__section-heading{
+        @include desktop {margin-bottom:  5rem;}
+    }
+}
+
+.post:nth-of-type(7), .post:nth-of-type(8), .post:nth-of-type(9), .post:nth-of-type(10) {
+    display: none;
+}
+
+.hero {
+    @include desktop {
+        max-height: 65vh;
+    }
+
+    &__img {
+        @include desktop {
+            max-height: 65vh;
+        }
+    }
 }

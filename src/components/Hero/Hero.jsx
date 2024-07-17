@@ -19,7 +19,7 @@ const Hero = ({ img, nextEvent }) => {
           <h2 className="next-event__title">Next Show in Toronto:</h2>
           <p className="next-event__name">{nextEvent.name}</p>
           <p className="next-event__details">
-            {nextEvent.month} {nextEvent.day}
+            {nextEvent.month} {nextEvent.day} at The Painted Lady
           </p>
         </div>
       ) : (

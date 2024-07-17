@@ -90,5 +90,6 @@ main {
 
     @include desktop {
         max-width: 1200px;
+        padding-bottom: 8rem;
     }
 }
