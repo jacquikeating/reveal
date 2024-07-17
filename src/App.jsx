@@ -17,6 +17,7 @@ import Header from "/src/components/Header/Header.jsx";
 import Footer from "/src/components/Footer/Footer.jsx";
 import NewAcctPage from "./pages/NewAcctPage/NewAcctPage";
 import TestPage from "./pages/TestPage/TestPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
 import Auth from "./components/Auth/Auth";
 import "./App.scss";
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/post/:postID" element={<PostPage />} />
           <Route path="/post/:postID/edit" element={<EditPostPage />} />
           <Route path="/test" element={<TestPage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

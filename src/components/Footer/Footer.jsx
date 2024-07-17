@@ -6,12 +6,12 @@ const Footer = () => {
   return (
     <>
       <footer className="footer">
-        <Link to="profile">
+        <Link to="account">
           <img
             src="../../src/assets/icons/simple-profile.svg"
             className="footer__icon footer__icon--profile"
           />
-          <p className="footer__label">Profile</p>
+          <p className="footer__label">Account</p>
         </Link>
         <Link to="/">
           <img
