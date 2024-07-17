@@ -1,9 +1,16 @@
 @use "/src/styles/__globals" as *;
 
 .acct-page {
+    margin-top: 5rem;
 
     &__welcome {
         margin-top: 3rem;
+
+        @include tablet {
+            margin-top: 4rem;
+            font-size: 1.8rem;
+        }
+ 
     }
 
     &__btns-container {
@@ -11,6 +18,10 @@
         display: flex;
         justify-content: space-evenly;
         gap: 1rem;
+
+        @include tablet {
+            margin-top: 4rem;
+        }
     }
 
     &__btn, .logout-btn {
@@ -31,6 +42,13 @@
 
         &:hover {
             opacity: 1;
+            transform: scale(1.05)
+        }
+
+        @include tablet {
+            min-width: 15rem;
+            max-width: 15rem;
+            font-size: 1.5rem;
         }
     }
 
