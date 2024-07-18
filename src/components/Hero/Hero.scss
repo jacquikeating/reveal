@@ -60,3 +60,17 @@
         padding: 2rem 8rem;
     }
 }
+
+.home {
+    .hero {
+        @include desktop {
+            max-height: 65vh;
+        }
+    
+        &__img {
+            @include desktop {
+                max-height: 65vh;
+            }
+    }
+}
+}

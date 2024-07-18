@@ -77,8 +77,8 @@
         margin: 5rem 2rem 5rem!important;
         padding: 1rem 0.5rem!important;
         display: inline-block;
-        @include text-link;
         width: max-content;
+        @include text-link;
 
         &:hover {
             border-bottom: none;
@@ -96,16 +96,4 @@
 
 .post:nth-of-type(7), .post:nth-of-type(8), .post:nth-of-type(9), .post:nth-of-type(10) {
     display: none;
-}
-
-.hero {
-    @include desktop {
-        max-height: 65vh;
-    }
-
-    &__img {
-        @include desktop {
-            max-height: 65vh;
-        }
-    }
 }

@@ -36,9 +36,11 @@ const HomePage = () => {
 
   return (
     <>
-      <Link to={`/events/${nextEvent.id}`}>
-        <Hero img={nextEvent.main_image} nextEvent={nextEvent} />
-      </Link>
+      <div className="homepage-hero">
+        <Link to={`/events/${nextEvent.id}`}>
+          <Hero img={nextEvent.main_image} nextEvent={nextEvent} />
+        </Link>
+      </div>
 
       <main className="home">
         <section className="home__section">

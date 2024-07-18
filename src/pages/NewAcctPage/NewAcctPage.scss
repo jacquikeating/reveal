@@ -9,4 +9,16 @@
         margin-top: 2rem!important;
         @include button;
     }
+
+    &__container {
+        display: flex;
+        gap: 4rem;
+        align-items: center;
+        justify-content: start;
+    }
+
+}
+
+.new-acct-img {
+    margin-bottom: 2rem;    
 }

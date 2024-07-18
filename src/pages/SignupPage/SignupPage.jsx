@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignupForm from "../../components/SignupForm/SignupForm";
 import Auth from "../../components/Auth/Auth";
-import LogOutBtn from "../../components/LogOutBtn/LogOutBtn";
 import "./SignupPage.scss";
 
 const SignupPage = () => {
@@ -40,7 +39,6 @@ const SignupPage = () => {
         <button className="signup-page__cancel-btn" onClick={goHome}>
           Cancel
         </button>
-        <LogOutBtn />
       </section>
     </main>
   );
