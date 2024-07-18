@@ -5,7 +5,7 @@
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
-    width: 40vw;
+
 
     &__subtitle {
         font-weight: 300;
@@ -48,7 +48,7 @@
     }
 
     &__ellipses {
-        font-size: 3.2rem;
+        font-size: 3.6rem;
         line-height: 0.5rem;
         transform: translateY(-2.5rem);
         letter-spacing: 0.2em;

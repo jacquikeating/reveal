@@ -2,6 +2,9 @@
 
 .event {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &__name {
         margin: 1rem 0 2rem 0;
@@ -53,12 +56,14 @@
 
     &__organizer {
         text-transform: uppercase;
-        margin: 5rem 0 1rem 0;
+        margin: 5rem auto 1rem auto;
         letter-spacing: 0.1em;
         opacity: 0.85;
+        text-align: center;
 
         & a {
             @include text-link;
+            margin: auto;
         }
     }
 
@@ -67,7 +72,8 @@
 .timetable, .tickets-table {
     border: 1px solid $purple;
     border-collapse: collapse;
-    width: clamp(270px, 90%, 800px);
+    min-width: 100%;
+    width: 25vw;
     margin: 1rem auto;
 
     &__row {

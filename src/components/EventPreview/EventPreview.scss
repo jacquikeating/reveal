@@ -9,6 +9,7 @@
     align-items: flex-end;
     gap: 2rem;
     z-index: 0;
+    width: 50vw;
 
     &__gradient-overlay {
         z-index: -1;
@@ -39,7 +40,6 @@
 
     @include tablet {
         height: 200px;
-        width: 100;
         
         .date-dot {
             top: 12rem!important;

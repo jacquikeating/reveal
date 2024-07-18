@@ -57,67 +57,67 @@ const Calendar = () => {
 
   // let filteredMonths = filterEventsByMonth();
 
+  // This is for the original way with Axios and MySQL
+  // useEffect(() => {
+  //   const fetchEventsData = async () => {
+  //     try {
+  //       const response = await axios.get(getEventsListEndpoint());
+  //       setEventsData(response.data);
+  //     } catch (error) {
+  //       console.error("Error loading data:", error);
+  //     }
+  //   };
+
+  //   fetchEventsData();
+  // }, []);
+
+  useEffect(() => {
+    const fetchEventsData = async () => {
+      try {
+        const data = await getDocs(eventsCollectionRef);
+        // get only essential deets
+        const filteredData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ];
+        const eventsArr = filteredData[0];
+
+        function filterEventsByMonth() {
+          return eventsArr.filter((event) => {
+            return event.month == thisMonth;
+          });
+        }
+
+        setEventsThisMonth(filterEventsByMonth());
+        // console.log(filterEventsByMonth());
+        // const filteredByMonth = filteredData.filter((show, i) => {
+        //   console.log(show[i].month);
+        //   // show.month == currentMonth;
+        // });
+
+        // console.log(filteredByMonth);
+        // const thisMonthOnly = filterEventsByMonth(filteredData);
+
+        // function filterEventsByMonth() {
+        //   return filteredData.filter((event) => {
+        //     return event.month == currentMonth;
+        //   });
+        // }
+
+        // console.log(thisMonthOnly);
+        setEventsData(filteredData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+
+    fetchEventsData();
+  }, []);
+
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
-
-    // This is for the original way with Axios and MySQL
-    // useEffect(() => {
-    //   const fetchEventsData = async () => {
-    //     try {
-    //       const response = await axios.get(getEventsListEndpoint());
-    //       setEventsData(response.data);
-    //     } catch (error) {
-    //       console.error("Error loading data:", error);
-    //     }
-    //   };
-
-    //   fetchEventsData();
-    // }, []);
-
-    useEffect(() => {
-      const fetchEventsData = async () => {
-        try {
-          const data = await getDocs(eventsCollectionRef);
-          // get only essential deets
-          const filteredData = [
-            data.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            })),
-          ];
-          const eventsArr = filteredData[0];
-
-          function filterEventsByMonth() {
-            return eventsArr.filter((event) => {
-              return event.month == thisMonth;
-            });
-          }
-
-          setEventsThisMonth(filterEventsByMonth());
-          // console.log(filterEventsByMonth());
-          // const filteredByMonth = filteredData.filter((show, i) => {
-          //   console.log(show[i].month);
-          //   // show.month == currentMonth;
-          // });
-
-          // console.log(filteredByMonth);
-          // const thisMonthOnly = filterEventsByMonth(filteredData);
-
-          // function filterEventsByMonth() {
-          //   return filteredData.filter((event) => {
-          //     return event.month == currentMonth;
-          //   });
-          // }
-
-          // console.log(thisMonthOnly);
-          setEventsData(filteredData);
-        } catch (error) {
-          console.error("Error loading data:", error);
-        }
-      };
-
-      fetchEventsData();
-    }, []);
 
     return (
       <div className="header row flex-middle">
@@ -154,13 +154,14 @@ const Calendar = () => {
   const renderDays = () => {
     const dateFormat = "dddd";
     const days = [];
+    const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
     let startDate = startOfWeek(currentMonth);
 
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-center" key={i}>
-          {format(addDays(startDate, i), dateFormat)}
+          {daysOfTheWeek[i]}
         </div>
       );
     }
@@ -240,6 +241,7 @@ const Calendar = () => {
 
   return (
     <div className="calendar">
+      <h1>Events in Toronto</h1>
       {renderHeader()}
       {renderDays()}
       {renderCells()}
