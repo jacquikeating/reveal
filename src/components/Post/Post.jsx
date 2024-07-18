@@ -7,6 +7,9 @@ import {
 } from "../../utils/api-utils.js";
 import "./Post.scss";
 
+// const [postLikes, setPostLikes] = useState(likes);
+// const currentLikes = Number(postLikes);
+
 const Post = ({ postData, loggedInUser }) => {
   let {
     id,
@@ -25,13 +28,18 @@ const Post = ({ postData, loggedInUser }) => {
   }
   content = content.replace(/&#x27;/g, "'");
 
-  const [postLikes, setPostLikes] = useState(likes);
-
   async function addLikes() {
-    const currentLikes = Number(postLikes);
-    const newLikesCount = currentLikes + 1;
+    console.log(`current likes: ${likes}`);
+    const newLikesCount = Number(likes) + 1;
+    console.log(`new likes: ${newLikesCount}`);
+
     const updatedPost = { ...postData, likes: newLikesCount };
+    console.log(updatedPost);
+
     try {
+      const newLikesCount = Number(likes) + 1;
+      const updatedPost = { ...postData, likes: newLikesCount };
+
       await axios.put(putPostEndpoint(id), updatedPost);
     } catch (error) {
       console.error("Error updating item:", error);

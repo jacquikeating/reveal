@@ -164,7 +164,7 @@ const NewPostForm = () => {
 
   return (
     <section>
-      <h2>New Post</h2>
+      <h1>New Post</h1>
 
       <form className="post-form" onSubmit={handleSubmit}>
         <div className="post-form__top">

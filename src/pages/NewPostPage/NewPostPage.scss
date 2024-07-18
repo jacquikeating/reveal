@@ -1,7 +1,11 @@
 @use "/src/styles/__globals" as *;
 
 main {
-    padding-top: 2rem;
+    padding-top: 3rem!important;
+
+    @include tablet {
+        padding-top: 5rem!important;
+    }
 
     .cancel-btn {
     @include cancel-button;

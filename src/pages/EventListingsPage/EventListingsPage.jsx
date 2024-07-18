@@ -37,7 +37,6 @@ const EventListingsPage = () => {
     today.setMonth(today.getMonth() + 1);
     const nextMonth = today.toLocaleString("en-US", { month: "long" });
     setMonth(nextMonth);
-    console.log(filterEventsByMonth());
   }
 
   function monthBehind() {
@@ -49,14 +48,12 @@ const EventListingsPage = () => {
   }
 
   function filterEventsByMonth() {
-    // console.log(eventsData);
     return eventsData.filter((event) => {
       return event.month == month;
     });
   }
 
   let filteredMonths = filterEventsByMonth();
-  // console.log(filteredMonths);
 
   return (
     <main className="events-list">

@@ -13,6 +13,10 @@
 
     &__avatar {
         @include avatar(3rem);
+
+        @include desktop {
+            @include avatar(5rem);
+        }
     }
 
     &__text {

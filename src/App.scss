@@ -35,7 +35,7 @@ body {
 }
 
 p, input, div {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 p {
@@ -90,5 +90,6 @@ main {
 
     @include desktop {
         max-width: 1200px;
+        padding-bottom: 8rem;
     }
 }
