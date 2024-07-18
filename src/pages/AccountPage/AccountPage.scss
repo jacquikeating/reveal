@@ -42,13 +42,19 @@
 
         &:hover {
             opacity: 1;
-            transform: scale(1.05)
+            transform: scale(1.05);
+            cursor: pointer;
         }
 
         @include tablet {
             min-width: 15rem;
             max-width: 15rem;
             font-size: 1.5rem;
+        }
+
+        @include desktop {
+            min-width: 20rem;
+            max-width: 20rem;
         }
     }
 
