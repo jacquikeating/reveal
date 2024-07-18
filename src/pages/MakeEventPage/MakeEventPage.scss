@@ -1,0 +1,111 @@
+@use "/src/styles/__globals" as *;
+
+.event {
+    position: relative;
+
+    &__name {
+        margin: 1rem 0 2rem 0;
+    }
+
+    &__description {
+        max-width: 70ch;
+        margin: auto;
+    }
+
+    &__subsection {
+        margin-bottom: 3rem;
+
+        &--times-and-tickets {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+
+            @include desktop {
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+    }
+
+    &__info-category-subheading {
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 0.5rem;
+        font-size: 1.8rem;
+    }
+
+    &__location {
+        @extend .timetable; 
+        padding: 1.5rem;
+    }
+
+    &__venue {
+        @extend .event__info-category-subheading;
+    }
+
+    &__address {
+        opacity: 0.8;
+    }
+
+    &__organizer {
+        text-transform: uppercase;
+        margin: 5rem 0 1rem 0;
+        letter-spacing: 0.1em;
+        opacity: 0.85;
+
+        & a {
+            @include text-link;
+        }
+    }
+
+}
+
+.timetable, .tickets-table {
+    border: 1px solid $purple;
+    border-collapse: collapse;
+    width: clamp(270px, 90%, 800px);
+    margin: 1rem auto;
+
+    &__row {
+        height: 3.5rem;
+        border-radius: 5px;
+    }
+
+    &__cell {
+        padding: 1rem;
+        border: 1px solid $purple;
+        border-radius: 5px;
+        border-spacing: 0;
+
+        &--label {
+            text-transform: uppercase;
+            font-size: 0.85em;
+            opacity: 0.9;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+    }
+
+    &__table-discounts {
+        @extend .tickets-table__cell--label;
+        margin-top: 0.7rem;  
+    }
+
+}
+
+.buy-tickets {
+    padding-bottom: 2rem;
+
+    &__link {
+        text-decoration: none;
+    }
+    
+    &__button {
+        @include button();
+    }
+}
+
