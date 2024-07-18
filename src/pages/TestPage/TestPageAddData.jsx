@@ -1,8 +1,7 @@
-import React from "react";
 import React, { useState, useEffect, useMemo } from "react";
 import { db } from "../../config/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
-import { users } from "../../utils/starting-data.js";
+import { users, events } from "../../utils/starting-data.js";
 import "./TestPage.scss";
 
 const TestPage = () => {
@@ -26,7 +25,7 @@ const TestPage = () => {
         <section>
           <button
             onClick={() => {
-              uploadData(COLLECTION, ARRAY);
+              uploadData(eventsCollectionRef, events);
               // lines:      9         5
             }}
           >

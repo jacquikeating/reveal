@@ -1,0 +1,63 @@
+@use "/src/styles/__globals" as *;
+
+.event-quickview {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    width: 40vw;
+
+    &__subtitle {
+        font-weight: 300;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background-color: $dark;
+        padding: 0.5rem;
+        font-size: 0.9em;
+        border-radius: 3rem;
+    }
+
+    &__img {
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    &__desc-container {
+        height: 15rem;
+        overflow: hidden;
+        display: grid;
+        grid-template-areas: 'box'
+    }
+
+    &__desc-gradient {
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(180deg, rgba(22, 22, 47,0), 60%, #16162f);
+        z-index: 6;
+        grid-area: box;
+    }
+
+    &__desc {
+        height: 10rem;
+        grid-area: box;
+    }
+
+    &__btn {
+        @include button;
+    }
+
+    &__ellipses {
+        font-size: 3.2rem;
+        line-height: 0.5rem;
+        transform: translateY(-2.5rem);
+        letter-spacing: 0.2em;
+    }
+}
+
+a {
+    width: max-content;
+    display: block;
+    margin: -1rem auto 1rem;
+    
+}
