@@ -26,3 +26,4 @@ dist-ssr
 /src/utils/key.js
 .env
 src/config/firebase.js
+note-to-self.md
