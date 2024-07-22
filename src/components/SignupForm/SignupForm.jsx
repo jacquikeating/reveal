@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./SignupForm.scss";
 
 const SignupForm = () => {
@@ -10,12 +10,20 @@ const SignupForm = () => {
   const [confirmPW, setConfirmPW] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const signUp = async (e) => {
     e.preventDefault();
-    if (password === confirmPW) {
+    if (password && password === confirmPW) {
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password).then(
+          (userCredential) => {
+            const user = userCredential.user;
+            console.log(user);
+            localStorage.setItem(user);
+            localStorage.getItem(user);
+          }
+        );
         navigate("/welcome");
       } catch (error) {
         console.error(error);

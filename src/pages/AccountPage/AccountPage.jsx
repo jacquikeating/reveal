@@ -2,18 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { auth, db } from "../../config/firebase.js";
-import { signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
 import "./AccountPage.scss";
 
 const AccountPage = () => {
   const [loggedInUser, setLoggedInUser] = useState("Scarlet");
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const logOut = async () => {
     try {
       await signOut(auth);
-      navigate("/login");
+      localStorage.clear();
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

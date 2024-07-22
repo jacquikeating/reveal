@@ -62,8 +62,8 @@
         text-align: center;
 
         & a {
-            @include text-link;
             margin: auto;
+            @include text-link;
         }
     }
 
@@ -97,8 +97,8 @@
     }
 
     &__table-discounts {
-        @extend .tickets-table__cell--label;
         margin-top: 0.7rem;  
+        @extend .tickets-table__cell--label;
     }
 
 }
