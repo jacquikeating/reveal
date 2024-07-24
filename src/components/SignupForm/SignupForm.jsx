@@ -9,6 +9,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState("");
   const [name, setName] = useState("");
+
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -18,10 +19,9 @@ const SignupForm = () => {
       try {
         await createUserWithEmailAndPassword(auth, email, password).then(
           (userCredential) => {
+            console.log(userCredential);
             const user = userCredential.user;
-            console.log(user);
-            localStorage.setItem(user);
-            localStorage.getItem(user);
+            // localStorage.setItem(user);
           }
         );
         navigate("/welcome");

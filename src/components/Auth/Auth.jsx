@@ -3,6 +3,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  console.log(auth);
   const navigate = useNavigate();
 
   const signUpWithGoogle = async () => {
@@ -15,18 +16,18 @@ const Auth = () => {
   };
 
   const signUpWithFacebook = async () => {
-    signInWithPopup(auth, fbProvider)
-      .then((result) => {
+    try {
+      await signInWithPopup(auth, fbProvider).then((result) => {
         const user = result.user;
         const credential = fbProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
         navigate("/welcome");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const credential = fbProvider.credentialFromError(error);
       });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const credential = fbProvider.credentialFromError(error);
+    }
   };
 
   return (

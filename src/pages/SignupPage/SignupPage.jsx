@@ -1,19 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import SignupForm from "../../components/SignupForm/SignupForm";
 import Auth from "../../components/Auth/Auth";
 import "./SignupPage.scss";
 
 const SignupPage = () => {
   const [showForm, setShowForm] = useState(false);
-  const auth = getAuth();
   let navigate = useNavigate();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    navigate("/");
-  }
 
   function toggleSignupForm() {
     showForm ? setShowForm(false) : setShowForm(true);
