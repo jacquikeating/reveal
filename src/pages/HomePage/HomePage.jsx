@@ -13,6 +13,8 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [nextEvent, setNextEvent] = useState(null);
+  const userID = localStorage.getItem("user");
+  console.log(userID);
 
   useEffect(() => {
     const fetchEventsData = async () => {

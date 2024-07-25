@@ -19,9 +19,7 @@ const SignupForm = () => {
       try {
         await createUserWithEmailAndPassword(auth, email, password).then(
           (userCredential) => {
-            console.log(userCredential);
-            const user = userCredential.user;
-            // localStorage.setItem(user);
+            localStorage.setItem("user", userCredential.user.uid);
           }
         );
         navigate("/welcome");
