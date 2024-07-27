@@ -1,0 +1,11 @@
+@use "/src/styles/__globals" as *;
+
+a {
+    text-align: center;
+
+    span {
+        text-transform: uppercase;
+        display: block;
+        @include text-link;
+    }
+}
