@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -18,15 +17,22 @@ import Footer from "/src/components/Footer/Footer.jsx";
 import NewAcctPage from "./pages/NewAcctPage/NewAcctPage";
 import TestPage from "./pages/TestPage/TestPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
-import Auth from "./components/Auth/Auth";
 import "./App.scss";
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(6);
-  const [open, setOpen] = useState(false);
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const [uid, setUid] = useState(null);
+  const [url, setUrl] = useState(null);
+  const auth = getAuth();
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, displayName } = user;
+        setUid(uid);
+        setUrl(displayName);
+      }
+    });
+  }, []);
   return (
     <>
       <BrowserRouter>
@@ -38,7 +44,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/profile"
-            element={<Navigate replace to={`/profile/${loggedInUser}`} />}
+            element={<Navigate replace to={`/profile/${url}`} />}
           />
           <Route path="/profile/edit" element={<EditProfilePage />} />
           <Route path="/profile/:userID" element={<ProfilePage />} />
@@ -49,7 +55,10 @@ function App() {
           <Route path="/post/:postID" element={<PostPage />} />
           <Route path="/post/:postID/edit" element={<EditPostPage />} />
           <Route path="/test" element={<TestPage />} />
-          <Route path="/account" element={<AccountPage />} />
+          <Route
+            path="/account"
+            element={<AccountPage uid={uid} url={url} />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
