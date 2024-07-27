@@ -29,8 +29,15 @@ const SignupForm = () => {
             // Save the UID in localStorage
             localStorage.setItem("user", user.uid);
             // Add the name they entered in the form as the displayName in Firebase Auth
+            function nameToURL(name) {
+              return name
+                .toLowerCase()
+                .replace(/\W^\s/g, "")
+                .replace(/\./g, "")
+                .replace(/\s/g, "-");
+            }
             updateProfile(auth.currentUser, {
-              displayName: `${name}`,
+              displayName: `${nameToURL(name)}`,
             });
             // Add user document to users collection in Firestore
             setDoc(doc(db, "users", `${user.uid}`), {

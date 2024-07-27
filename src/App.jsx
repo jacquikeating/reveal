@@ -29,6 +29,7 @@ function App() {
       if (user) {
         const { uid, displayName } = user;
         setUid(uid);
+        console.log(displayName);
         setUrl(`/profile/${displayName}`);
       }
     });
@@ -42,12 +43,12 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/welcome" element={<NewAcctPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route
+          {/* <Route
             path="/profile"
             element={<Navigate replace to={`/profile/${url}`} />}
-          />
+          /> */}
           <Route path="/profile/edit" element={<EditProfilePage />} />
-          <Route path="/profile/:userID" element={<ProfilePage />} />
+          <Route path="/profile/:userName" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />
           <Route path="/venue" element={<VenuePage />} />
