@@ -3,13 +3,35 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { auth, db } from "../../config/firebase.js";
 import { getAuth, signOut } from "firebase/auth";
-import { getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import "./AccountPage.scss";
 
 const AccountPage = () => {
-  const [loggedInUser, setLoggedInUser] = useState("Scarlet");
+  const [loggedInUser, setLoggedInUser] = useState("");
   const navigate = useNavigate();
   const auth = getAuth();
+  const userID = localStorage.getItem("user");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const docRef = doc(db, "users", `${userID}`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+          setLoggedInUser(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const logOut = async () => {
     try {
@@ -27,7 +49,9 @@ const AccountPage = () => {
         <h1>Account</h1>
         {loggedInUser ? (
           <>
-            <p className="acct-page__welcome">Welcome back, {loggedInUser}!</p>
+            <p className="acct-page__welcome">
+              Welcome back, {loggedInUser.name}!
+            </p>
             <div className="acct-page__btns-container">
               <button className="acct-page__btn" onClick={logOut}>
                 <img

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../config/firebase.js";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../config/firebase.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import "./SignupForm.scss";
 
 const SignupForm = () => {
@@ -19,7 +24,20 @@ const SignupForm = () => {
       try {
         await createUserWithEmailAndPassword(auth, email, password).then(
           (userCredential) => {
-            localStorage.setItem("user", userCredential.user.uid);
+            // Access the user object within userCredential
+            const user = userCredential.user;
+            // Save the UID in localStorage
+            localStorage.setItem("user", user.uid);
+            // Add the name they entered in the form as the displayName in Firebase Auth
+            updateProfile(auth.currentUser, {
+              displayName: `${name}`,
+            });
+            // Add user document to users collection in Firestore
+            setDoc(doc(db, "users", `${user.uid}`), {
+              name: name,
+              uid: user.uid,
+              email: email,
+            });
           }
         );
         navigate("/welcome");

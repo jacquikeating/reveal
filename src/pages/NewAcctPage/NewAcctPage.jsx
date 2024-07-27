@@ -26,7 +26,7 @@ const NewAcctPage = () => {
             src="/src/assets/image-placeholder.png"
             className="new-acct-img"
           />
-          <div classname="new-acct-page__content">
+          <div className="new-acct-page__content">
             <p>Your account was successfully created.</p>
             <p>Where would you like to go next?</p>
             <Link to="/profile/edit">
