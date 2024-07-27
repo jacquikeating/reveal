@@ -29,7 +29,7 @@ function App() {
       if (user) {
         const { uid, displayName } = user;
         setUid(uid);
-        setUrl(displayName);
+        setUrl(`/profile/${displayName}`);
       }
     });
   }, []);
