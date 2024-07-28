@@ -9,9 +9,9 @@ import "./AccountPage.scss";
 const AccountPage = ({ uid, url }) => {
   const navigate = useNavigate();
   const auth = getAuth();
-
-  const [userData, setUserData] = useState(uid);
-  // const userID = localStorage.getItem("user");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -20,6 +20,8 @@ const AccountPage = ({ uid, url }) => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setUserData(docSnap.data());
+          setError(error);
+          setLoading(false);
         } else {
           console.log("No such document!");
         }
@@ -36,8 +38,8 @@ const AccountPage = ({ uid, url }) => {
   const logOut = async () => {
     try {
       await signOut(auth);
-      localStorage.clear();
       navigate("/");
+      setUserData(null);
     } catch (error) {
       console.error(error);
     }

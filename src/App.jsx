@@ -29,7 +29,6 @@ function App() {
       if (user) {
         const { uid, displayName } = user;
         setUid(uid);
-        console.log(displayName);
         setUrl(`/profile/${displayName}`);
       }
     });
