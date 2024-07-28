@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { db } from "./config/firebase.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+
 import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -24,6 +28,30 @@ function App() {
   const [url, setUrl] = useState(null);
   const auth = getAuth();
 
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const docRef = doc(db, "users", `${uid}`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+          setError(error);
+          setLoading(false);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -33,6 +61,7 @@ function App() {
       }
     });
   }, []);
+
   return (
     <>
       <BrowserRouter>
@@ -57,7 +86,7 @@ function App() {
           <Route path="/test" element={<TestPage />} />
           <Route
             path="/account"
-            element={<AccountPage uid={uid} url={url} />}
+            element={<AccountPage userData={userData} />}
           />
         </Routes>
         <Footer />

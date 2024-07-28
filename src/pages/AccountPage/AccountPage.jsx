@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { auth, db } from "../../config/firebase.js";
+import { db } from "../../config/firebase.js";
 import { getAuth, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import "./AccountPage.scss";
 
-const AccountPage = ({ uid, url }) => {
+const AccountPage = ({ userData }) => {
   const navigate = useNavigate();
   const auth = getAuth();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(userData);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const docRef = doc(db, "users", `${uid}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setUserData(docSnap.data());
-          setError(error);
-          setLoading(false);
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const docRef = doc(db, "users", `${uid}`);
+  //       const docSnap = await getDoc(docRef);
+  //       if (docSnap.exists()) {
+  //         setUserData(docSnap.data());
+  //         setError(error);
+  //         setLoading(false);
+  //       } else {
+  //         console.log("No such document!");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error loading data:", error);
+  //       setError(error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchUserData();
-  }, []);
+  //   fetchUserData();
+  // }, []);
 
   const logOut = async () => {
     try {
