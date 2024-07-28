@@ -5,15 +5,17 @@ import "./Gallery.scss";
 const Gallery = ({ gallery, showEdit }) => {
   return (
     <div className="gallery">
-      {gallery.map((img) => {
-        return (
-          <img
-            src={img}
-            className="gallery__image"
-            key={gallery.indexOf(img)}
-          />
-        );
-      })}
+      {gallery
+        ? gallery.map((img) => {
+            return (
+              <img
+                src={img}
+                className="gallery__image"
+                key={gallery.indexOf(img)}
+              />
+            );
+          })
+        : ""}
 
       {showEdit ? (
         <>

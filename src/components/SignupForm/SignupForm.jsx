@@ -44,6 +44,7 @@ const SignupForm = () => {
               name: name,
               uid: user.uid,
               email: email,
+              profileURL: nameToURL(name),
             });
           }
         );

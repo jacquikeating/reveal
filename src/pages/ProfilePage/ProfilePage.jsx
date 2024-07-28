@@ -11,11 +11,14 @@ import {
   emptyUserData,
   getEventsListEndpoint,
 } from "../../utils/api-utils";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../config/firebase.js";
+
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
-  const { userID } = useParams();
-  const [userData, setUserData] = useState(emptyUserData);
+  let { userName } = useParams(); // aurora-glitter
+  const [userData, setUserData] = useState({});
   const [eventIDs, setEventIDs] = useState([]);
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,10 +30,16 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(getSingleUserEndpoint(userID));
-        setUserData(response.data);
+        // Code from Firebase documentation
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("profileURL", "==", `${userName}`));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          setUserData(doc.data());
+          setEventIDs(doc.data().events);
+        });
+
         setLoading(false);
-        setEventIDs(response.data.events);
         fetchEventsList();
       } catch (error) {
         console.error("Error loading data:", error);
@@ -40,13 +49,20 @@ const ProfilePage = () => {
     };
 
     fetchUserData();
-  }, [userID]);
+  }, []);
 
   const fetchEventsList = async () => {
     try {
-      const response = await axios.get(getEventsListEndpoint());
-      setEventsData(response.data);
+      const userEvents = [];
+
+      // Code from Firebase documentation
+      const querySnapshot = await getDocs(collection(db, "events"));
+      querySnapshot.forEach((doc) => {
+        userEvents.push(doc.data());
+      });
       setLoading(false);
+      userEvents.sort((a, b) => a.day - b.day);
+      setEventsData(userEvents);
     } catch (error) {
       console.error("Error loading data:", error);
       setError(error);
@@ -83,7 +99,7 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Posts</h2>
-          <PostsContainer desiredID={userID} />
+          <PostsContainer desiredID={userName} />
         </section>
       </main>
     </>
