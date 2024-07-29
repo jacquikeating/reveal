@@ -17,7 +17,7 @@ import { db } from "../../config/firebase.js";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
-  let { userName } = useParams(); // aurora-glitter
+  let { userName } = useParams();
   const [userData, setUserData] = useState({});
   const [eventIDs, setEventIDs] = useState([]);
   const [eventsData, setEventsData] = useState([]);

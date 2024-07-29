@@ -14,10 +14,36 @@
         @include input;
     }
 
+    &__element {
+        border: 1px solid $light;
+        border-radius: 4px;
+        position: relative;
+        margin: 0rem auto 3rem;
+        text-align: center;
+    }
+
+    &__open-editor-button,
+    &__close-editor-button {
+        position: absolute;
+        bottom: -0.7rem;
+        right: -0.7rem;
+        border: none;
+        width: 2rem;
+        height: 2rem;
+        background-color: transparent;
+    }
+
+    &__icon {
+        @include icon(1.5rem);
+    }
+
     &__name {
         font-size: 3rem;
         text-align: center;
-        margin: 0rem auto 3rem;
+        margin: auto;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        width: 100%;
     }
 
     &__bio {
@@ -26,8 +52,9 @@
         height: 20rem;
         margin: auto;
         padding: 1rem 1.5rem;
-        font-size: 1.1em;
         line-height: 1.6;
+        text-align: center;
+        resize: none;
     }
 
     &__section-heading {
