@@ -59,7 +59,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage userData={userData} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/welcome" element={<NewAcctPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -67,7 +67,10 @@ function App() {
             path="/profile"
             element={<Navigate replace to={`/profile/${url}`} />}
           /> */}
-          <Route path="/profile/edit" element={<EditProfilePage />} />
+          <Route
+            path="/profile/edit"
+            element={<EditProfilePage userData={userData} />}
+          />
           <Route path="/profile/:userName" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />
