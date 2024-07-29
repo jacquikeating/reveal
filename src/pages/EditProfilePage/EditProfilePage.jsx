@@ -1,68 +1,67 @@
 import "./EditProfilePage.scss";
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import EditSocials from "../../components/EditSocials/EditSocials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
-import {
-  getSingleUserEndpoint,
-  emptyUserData,
-  getEventsListEndpoint,
-} from "../../utils/api-utils";
 
-const EditProfilePage = () => {
+const EditProfilePage = ({ userData }) => {
+  function saveData() {
+    console.log("Changes saved!");
+  }
+
   return (
     <>
-      <Hero img={cover_photo} />
-      <main className="edit-profile">
-        <section className="edit-profile__section">
-          <input type="text" className="edit-profile__name" value={name} />
-          <textarea className="edit-profile__bio">{bio}</textarea>
-
-          <EditSocials />
-          {/* <div className="edit-profile__socials">
-          <fieldset name="socials">
-            <div className="socials__option">
-              <img
-                className="socials__icon socials__icon-fb"
-                src="../../src/assets/icons/social-fb.svg"
+      {userData ? (
+        <>
+          {" "}
+          <Hero img={userData.cover_photo} />
+          <main className="edit-profile">
+            <section className="edit-profile__section">
+              <input
+                type="text"
+                className="edit-profile__name"
+                value={userData.name}
               />
-              <input type="text" name="facebook" />
+              <textarea className="edit-profile__bio">{userData.bio}</textarea>
+
+              <EditSocials />
+            </section>
+
+            {/* <section className="profile__section">
+              <h2 className="profile__section-heading profile__section-heading--events">
+                Events
+              </h2>
+              <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
+            </section> */}
+
+            <section className="edit-profile__section">
+              <h2 className="edit-profile__section-heading">Gallery</h2>
+              <Suspense fallback={<p>Loading images...</p>}>
+                <Gallery gallery={userData.gallery} showEdit={true} />
+              </Suspense>
+            </section>
+            {/* 
+            <section className="profile__section">
+              <h2 className="profile__section-heading">Posts</h2>
+              <PostsContainer desiredID={loggedInUser} />
+            </section> */}
+
+            <button className="save-btn" onClick={saveData}>
+              <p className="save-btn__text">Save</p>
               <img
-                className="socials__delete"
-                src="../../src/assets/icons/trash.svg"
+                src="/src/assets/icons/check.svg"
+                className="save-btn__icon"
+                alt="Check icon"
               />
-            </div>
-
-            <input type="text" name="instagram" />
-            <input type="text" name="twitter" />
-            <input type="text" name="tiktok" />
-          </fieldset>
-        </div> */}
-        </section>
-
-        <section className="profile__section">
-          <h2 className="profile__section-heading profile__section-heading--events">
-            Events
-          </h2>
-          <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
-        </section>
-
-        <section className="profile__section">
-          <h2 className="profile__section-heading">Gallery</h2>
-          <Suspense fallback={<p>Loading images...</p>}>
-            <Gallery gallery={userData.gallery} showEdit={true} />
-          </Suspense>
-        </section>
-
-        <section className="profile__section">
-          <h2 className="profile__section-heading">Posts</h2>
-          <PostsContainer desiredID={loggedInUser} />
-        </section>
-      </main>
+            </button>
+          </main>
+        </>
+      ) : (
+        <p>Could not retrieve your profile information. Please try again.</p>
+      )}
     </>
   );
 };
