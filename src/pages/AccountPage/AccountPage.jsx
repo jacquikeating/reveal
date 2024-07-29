@@ -6,40 +6,15 @@ import { getAuth, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import "./AccountPage.scss";
 
-const AccountPage = ({ uid, url }) => {
+const AccountPage = ({ userData }) => {
   const navigate = useNavigate();
   const auth = getAuth();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const docRef = doc(db, "users", `${uid}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setUserData(docSnap.data());
-          setError(error);
-          setLoading(false);
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, []);
 
   const logOut = async () => {
     try {
       await signOut(auth);
       navigate("/");
-      setUserData(null);
+      userData = null;
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +35,7 @@ const AccountPage = ({ uid, url }) => {
                 />
                 Log Out
               </button>
-              <Link to={url}>
+              <Link to={`/profile/${userData.profileURL}`}>
                 <button className="acct-page__btn">
                   <img
                     src="/src/assets/icons/mirror.svg"

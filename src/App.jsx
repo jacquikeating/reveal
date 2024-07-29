@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./config/firebase.js";
+
 import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -22,6 +25,7 @@ import "./App.scss";
 function App() {
   const [uid, setUid] = useState(null);
   const [url, setUrl] = useState(null);
+  const [userData, setUserData] = useState(null);
   const auth = getAuth();
 
   useEffect(() => {
@@ -30,6 +34,23 @@ function App() {
         const { uid, displayName } = user;
         setUid(uid);
         setUrl(`/profile/${displayName}`);
+
+        const fetchUserData = async () => {
+          try {
+            const docRef = doc(db, "users", `${uid}`);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              setUserData(docSnap.data());
+            } else {
+              console.log("Cannot find that user in the database.");
+            }
+          } catch (error) {
+            console.error("Error loading data:", error);
+          }
+        };
+        fetchUserData();
+      } else {
+        setUserData(null);
       }
     });
   }, []);
@@ -57,7 +78,7 @@ function App() {
           <Route path="/test" element={<TestPage />} />
           <Route
             path="/account"
-            element={<AccountPage uid={uid} url={url} />}
+            element={<AccountPage userData={userData} />}
           />
         </Routes>
         <Footer />
