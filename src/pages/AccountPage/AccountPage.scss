@@ -16,20 +16,27 @@
     &__btns-container {
         margin-top: 3rem;
         display: flex;
-        justify-content: space-evenly;
-        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 3rem;
 
         @include tablet {
             margin-top: 4rem;
         }
     }
 
-    &__btn, .logout-btn {
+    &__btn-wrapper {
+        max-width: 1fr;
+        height: 10rem;
+        width: 10rem;
+    }
+
+    &__btn {
         border: none;
         border-radius: 4px;
         padding: 1rem;
-        min-width: 10rem;
-        max-width: 10rem;
+        width: 10rem;
         height: 10rem;
         background: $dark-gradient;
         display: flex;
@@ -59,8 +66,8 @@
     }
 
     &__icon {
-        max-width: 4rem;
-        max-height: 4rem;
+        width: 4rem;
+        height: 4rem;
         filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
         
         &--edit {
@@ -69,4 +76,8 @@
             margin-bottom: 0.5rem;
         }
     }
+}
+
+a {
+    margin: 0;
 }
