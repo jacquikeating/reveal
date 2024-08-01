@@ -8,8 +8,18 @@
     height: 6rem;
     background: $dark-gradient;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+
+    &__section {
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+
+        @include desktop {
+            width: 40%;
+        }
+    }
 
     a {
         display: flex;
@@ -21,12 +31,11 @@
     }
 
     &__icon {
-        margin-top: 3rem;
-        width: 3rem;
-        @include icon(3rem);
+        margin-top: 0.5rem;
+        @include icon(2.5rem);
 
         &--profile {
-            width: 3.5rem;
+            width: 3rem;
         }
     }
 
@@ -34,5 +43,11 @@
         text-transform: uppercase;
         font-size: 0.8em;
         letter-spacing: 0.05em;
+    }
+
+    @include desktop {
+        position: absolute;
+        top: 0;
+        bottom: auto;
     }
 }

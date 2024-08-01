@@ -1,8 +1,5 @@
 @use "/src/styles/__globals" as *;
 
-.test-page {
-
-}
 
 /* FONT IMPORTS */
 
@@ -145,7 +142,7 @@ main {
 }
 
 .calendar .header .icon:hover {
-  transform: scale(1.75);
+  transform: scale(1.5);
   transition: .25s ease-out;
   color: var(--main-color);
 }
@@ -182,9 +179,9 @@ main {
 .calendar .body .cell:hover {
   transition: 0.3s ease-out;
   opacity: 1;
-  transform: scale(1.1);
+  // transform: scale(1.1);
   z-index: 2;
- border: 3px solid $light-purple;
+  border: 3px solid $light-purple;
   box-shadow: 1px 1px 6px 1px $light-purple;
 
 }
