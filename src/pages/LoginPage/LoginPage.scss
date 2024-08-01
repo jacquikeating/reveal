@@ -1,11 +1,18 @@
 @use "/src/styles/__globals" as *;
 
-a {
-    text-align: center;
+.login-page {
 
-    span {
-        text-transform: uppercase;
-        display: block;
-        @include text-link;
+    &__signup-link {
+        a {
+            margin: auto;
+            display: block;
+            text-align: center;
+
+            span {
+                text-transform: uppercase;
+                display: block;
+                @include text-link;
+            }
+        }
     }
 }

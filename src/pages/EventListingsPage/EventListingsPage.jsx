@@ -240,15 +240,17 @@ const EventListingsPage = () => {
   };
 
   return (
-    <div className="calendar">
-      <h1>Events in Toronto</h1>
-      {renderHeader()}
-      {renderDays()}
-      {renderCells()}
-      <Modal open={open} onClose={onCloseModal} center>
-        <EventQuickView event={eventToShowInModal} />
-      </Modal>
-    </div>
+    <main>
+      <section className="calendar">
+        <h1>Events in Toronto</h1>
+        {renderHeader()}
+        {renderDays()}
+        {renderCells()}
+        <Modal open={open} onClose={onCloseModal} center>
+          <EventQuickView event={eventToShowInModal} />
+        </Modal>
+      </section>
+    </main>
   );
 };
 

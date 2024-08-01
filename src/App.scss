@@ -66,6 +66,7 @@ a {
 }
 
 main {
+    padding-top: 3rem;
     padding-bottom: 5rem; //prevents footer from overlapping content
     display: block;
     margin: auto;
@@ -85,11 +86,13 @@ main {
     }
 
     @include tablet {
+        padding-top: 5rem;
         max-width: 700px;
     }
 
     @include desktop {
+        padding-top: 7rem;
         max-width: 1200px;
-        padding-bottom: 8rem;
+        // padding-bottom: 8rem;
     }
 }

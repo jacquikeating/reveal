@@ -1,10 +1,10 @@
 @use "/src/styles/__globals" as *;
 
 main {
-    padding-top: 3rem!important;
+    // padding-top: 3rem!important;
 
     @include tablet {
-        padding-top: 5rem!important;
+        // padding-top: 5rem!important;
     }
 
     .cancel-btn {

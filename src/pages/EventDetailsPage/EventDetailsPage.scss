@@ -105,6 +105,8 @@
 
 .buy-tickets {
     padding-bottom: 2rem;
+    display: flex;
+    justify-content: center;
 
     &__link {
         text-decoration: none;
