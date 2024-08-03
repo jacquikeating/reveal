@@ -39,19 +39,19 @@
 
 /* GENERAL */
 
-* {
-  box-sizing: border-box;
-}
+// * {
+//   box-sizing: border-box;
+// }
 
-body {
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-color);
-    background: var(--bg-color);
-    position: relative;
-}
+// body {
+//     font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+//     font-size: 1em;
+//     font-weight: 300;
+//     line-height: 1.5;
+//     color: var(--text-color);
+//     background: var(--bg-color);
+//     position: relative;
+// }
 
 // header {
 //   display: block;
@@ -68,9 +68,9 @@ body {
 //   line-height: 1;
 // }
 
-header #logo .icon {
-  padding-right: .25em;
-}
+// header #logo .icon {
+//   padding-right: .25em;
+// }
 
 /* GRID */
 
@@ -116,8 +116,8 @@ header #logo .icon {
   position: relative;
   width: 90%;
   margin: 0 auto!important;
-  background: var(--neutral-color);
-  border: 1px solid var(--border-color);
+  background: transparent;
+  border: 1px solid $purple;
 }
 
 .calendar .header {
@@ -125,7 +125,7 @@ header #logo .icon {
   letter-spacing: 0.1em;
   font-size: 115%;
   padding: 1em 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid $purple;
 }
 
 .calendar .header .icon {
@@ -136,7 +136,6 @@ header #logo .icon {
 .calendar .header .icon:hover {
   transform: scale(1.5);
   transition: .25s ease-out;
-  color: var(--main-color);
 }
 
 .calendar .header .icon:first-of-type {
@@ -150,10 +149,9 @@ header #logo .icon {
 .calendar .days {
   text-transform: uppercase;
   font-weight: 400;
-  color: var(--text-color-light);
   font-size: 70%;
   padding: .75em 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid $purple;
 }
 
 .calendar .body .cell {
@@ -186,7 +184,7 @@ header #logo .icon {
 }
 
 .calendar .body .row {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid $purple;
 }
 
 .calendar .body .row:last-child {
@@ -208,14 +206,12 @@ header #logo .icon {
 }
 
 .calendar .body .disabled {
-  color: var(--text-color-light);
   pointer-events: none;
 }
 
 .calendar .body .cell .bg {
   font-weight: 700;
   line-height: 1;
-  color: var(--main-color);
   opacity: 1;
   font-size: 8em;
   position: absolute;
