@@ -24,22 +24,10 @@ import {
   addMonths,
   subMonths,
 } from "date-fns";
-import "./TestPage.scss";
+import "./EventListingsPage.scss";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { EventQuickView } from "../../components/EventQuickView/EventQuickView";
-
-// const TestPage = () => {
-//   return (
-//     <div>
-//       <main className="test-page">
-//         <section>
-//         </section>
-//       </main>
-//     </div>
-//   );
-// };
-// export default TestPage;
 
 const EventListingsPage = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -51,7 +39,6 @@ const EventListingsPage = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  // console.log(currentMonth.getMonth() + 1);
   let thisMonth = "July";
   const eventsCollectionRef = collection(db, "events");
 
@@ -106,7 +93,6 @@ const EventListingsPage = () => {
         //   });
         // }
 
-        // console.log(thisMonthOnly);
         setEventsData(filteredData);
       } catch (error) {
         console.error("Error loading data:", error);
@@ -137,7 +123,6 @@ const EventListingsPage = () => {
   };
 
   const daysWithEvents = eventsThisMonth.map((show) => Number(show.day));
-  // console.log(daysWithEvents);
 
   const dayWithEvent = (day) => {
     return daysWithEvents.includes(day);
