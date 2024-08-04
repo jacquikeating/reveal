@@ -9,11 +9,18 @@
         flex-direction: row;
         justify-content: start;
         margin: auto;
-        width: 80vw;
+        width: 90vw;
         max-width: 1600px;
 
         .embla {
             display: none;
+        }
+    }
+
+    &__section {
+        @include desktop {
+            padding: 0 3rem!important;
+            margin: 0;
         }
     }
 
@@ -25,7 +32,6 @@
         }
 
         @include desktop {
-            flex: 1;
             border-right: 1px solid $purple;
             padding-right: 8rem;
         }
@@ -33,7 +39,6 @@
 
     &__section:last-of-type {
         @include desktop {        
-            width: 35%;
             border-top: none;
             padding-top: 4rem;
             padding-left: 8rem;
@@ -48,18 +53,17 @@
                 display: inline;
             }
         }
-
-        &--top {
-            margin-bottom: 1rem;
-        }
     }
 
     &__desktop-events {
         display: none;
 
+        a { 
+            width: 100%;
+        }
+
         @include desktop {
             display: block;
-            margin-top: 7rem;
         }
     }
 
@@ -67,6 +71,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 100%;
         
         &:hover {
             color: $light-purple;
@@ -74,26 +79,42 @@
     }
 
     &__desktop-see-more {
-        margin: 5rem 2rem 5rem!important;
-        padding: 1rem 0.5rem!important;
+        margin: 5rem 1rem;
+        padding: 1rem 0.5rem;
+        font-size: 2rem;
         display: inline-block;
         width: max-content;
-        @include text-link;
+        font-weight: 500;
+        color: $light-purple;
 
         &:hover {
-            border-bottom: none;
+            color: $light;
         }
     }
 
     &__desktop-icon {
-        @include icon(4rem);
+        @include icon(3rem);
     }
 
     &__section-heading{
-        @include desktop {margin-bottom:  5rem;}
+        @include desktop {
+            margin-bottom:  5rem;
+        }
     }
 }
 
 .post:nth-of-type(7), .post:nth-of-type(8), .post:nth-of-type(9), .post:nth-of-type(10) {
     display: none;
+}
+
+.event-preview {
+    width: 50vw;
+    margin-top: 1.5rem;
+    max-height: 19.5rem;
+}
+
+a:first-of-type {
+    .event-preview {
+        margin-top: 0;
+    }
 }

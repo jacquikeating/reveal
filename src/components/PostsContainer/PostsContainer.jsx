@@ -45,7 +45,7 @@ const PostsContainer = ({ desiredID }) => {
     <ul className="posts-container">
       {postsData.map((post) => {
         return (
-          <li className="post" key={post.id}>
+          <li className="posts-container__item" key={post.id}>
             <Post postData={post} loggedInUser={loggedInUser} />
           </li>
         );

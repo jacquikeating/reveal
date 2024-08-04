@@ -4,4 +4,8 @@
     width: 100%;
     max-width: 800px;
     margin: auto;
+
+    &__item {
+        list-style: none;
+    }
 }
