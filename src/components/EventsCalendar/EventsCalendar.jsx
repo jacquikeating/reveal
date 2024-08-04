@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   format,
   startOfWeek,
@@ -18,31 +18,18 @@ import { EventQuickView } from "../../components/EventQuickView/EventQuickView";
 import "./EventsCalendar.scss";
 
 const EventsCalendar = ({ eventsData }) => {
-  const [currentMonth, setCurrentMonth] = useState(
-    new Date().toLocaleString("default", { month: "long" })
-  );
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [eventsThisMonth, setEventsThisMonth] = useState([]);
   const [eventToShowInModal, setEventToShowInModal] = useState(null);
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  //   useEffect(() => {
-  //     // console.log(currentMonth);
-  //     const filteredEvents = eventsData.filter((event) => {
-  //       return event.month == currentMonth;
-  //     });
-  //     console.log(filteredEvents);
-  //     setEventsThisMonth(filteredEvents);
-  //   }, []);
+  let thisMonth = new Date().toLocaleString("default", { month: "long" });
 
-  // console.log(currentMonth);
   const filteredEvents = eventsData.filter((event) => {
-    return event.month == currentMonth;
+    return event.month == thisMonth;
   });
-  //   console.log(filteredEvents);
-  //   setEventsThisMonth(filteredEvents);
 
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
@@ -54,7 +41,7 @@ const EventsCalendar = ({ eventsData }) => {
           </div>
         </div>
         <div className="col col-center">
-          <span>{format(new Date(), dateFormat)}</span>
+          <span>{format(currentMonth, dateFormat)}</span>
         </div>
         <div className="col col-end" onClick={nextMonth}>
           <div className="icon">chevron_right</div>
@@ -62,7 +49,7 @@ const EventsCalendar = ({ eventsData }) => {
       </div>
     );
   };
-  const daysWithEvents = eventsThisMonth.map((show) => Number(show.day));
+  const daysWithEvents = filteredEvents.map((show) => Number(show.day));
   const dayWithEvent = (day) => {
     return daysWithEvents.includes(day);
   };
@@ -75,7 +62,7 @@ const EventsCalendar = ({ eventsData }) => {
   }
   const renderDays = () => {
     const days = [];
-    const daysOfTheWeek = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+    const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-center" key={i}>

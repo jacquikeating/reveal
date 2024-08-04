@@ -1,1 +1,8 @@
 @use "/src/styles/__globals" as *;
+
+.event-listings-page {
+
+  &__header {
+    margin-bottom: -7rem;
+  }
+}
