@@ -20,50 +20,6 @@
   font-feature-settings: 'liga';
 }
 
-<<<<<<<< HEAD:src/pages/EventListingsPage/EventListingsPage.scss
-
-/* VARIABLES */
-
-// :root {
-//   --main-color: #1a8fff;
-//   --text-color: #777;
-//   --text-color-light: #ccc;
-//   --border-color: #eee;
-//   --bg-color: #f9f9f9;
-//   --neutral-color: #fff;
-// }
-
-
-/* GENERAL */
-
-// * {
-//   box-sizing: border-box;
-// }
-
-// body {
-//     font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-//     font-size: 1em;
-//     font-weight: 300;
-//     line-height: 1.5;
-//     color: var(--text-color);
-//     background: var(--bg-color);
-//     position: relative;
-// }
-
-// header {
-//   display: block;
-//   width: 100%;
-//   padding: 1.75em 0;
-//   border-bottom: 1px solid var(--border-color);
-//   background: var(--neutral-color);
-// }
-
-// header #logo {
-//   font-size: 175%;
-//   text-align: center;
-//   color: var(--main-color);
-//   line-height: 1;
-// }
 
 header #logo .icon {
   padding-right: .25em;
@@ -71,8 +27,6 @@ header #logo .icon {
 
 /* GRID */
 
-========
->>>>>>>> separate-calendar-component:src/components/EventsCalendar/EventsCalendar.scss
 .row {
   margin: 0;
   padding: 0;
