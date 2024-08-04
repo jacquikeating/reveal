@@ -19,16 +19,17 @@ import "./EventsCalendar.scss";
 
 const EventsCalendar = ({ eventsData }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonthName, setCurrentMonthName] = useState(
+    new Date().toLocaleString("default", { month: "long" })
+  );
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventToShowInModal, setEventToShowInModal] = useState(null);
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  let thisMonth = new Date().toLocaleString("default", { month: "long" });
-
   const filteredEvents = eventsData.filter((event) => {
-    return event.month == thisMonth;
+    return event.month == currentMonthName;
   });
 
   const renderHeader = () => {
@@ -129,9 +130,15 @@ const EventsCalendar = ({ eventsData }) => {
   };
   const nextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
+    setCurrentMonthName(
+      addMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
+    );
   };
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
+    setCurrentMonthName(
+      subMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
+    );
   };
   return (
     <section className="calendar">
