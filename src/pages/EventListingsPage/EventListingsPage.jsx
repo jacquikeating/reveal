@@ -4,11 +4,13 @@ import { getDocs, collection } from "firebase/firestore";
 const EventsCalendar = lazy(() =>
   import("../../components/EventsCalendar/EventsCalendar")
 );
+const EventsList = lazy(() => import("../../components/EventsList/EventsList"));
 import "./EventListingsPage.scss";
 
 const EventListingsPage = () => {
   const [eventsData, setEventsData] = useState([]);
   const eventsCollectionRef = collection(db, "events");
+  const [displayCalendar, setDisplayCalendar] = useState(true);
 
   useEffect(() => {
     const fetchEventsData = async () => {
@@ -34,8 +36,12 @@ const EventListingsPage = () => {
       <section className="event-listings-page__header">
         <h1>Events in Toronto</h1>
       </section>
-      <Suspense fallback={<p>Loading calendar...</p>}>
-        <EventsCalendar eventsData={eventsData} />
+      <Suspense fallback={<p>Loading events...</p>}>
+        {displayCalendar ? (
+          <EventsCalendar eventsData={eventsData} />
+        ) : (
+          <EventsList eventsData={eventsData} />
+        )}
       </Suspense>
     </main>
   );
