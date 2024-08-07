@@ -27,20 +27,35 @@ const EventListingsPage = () => {
         console.error("Error loading data:", error);
       }
     };
-
     fetchEventsData();
   }, []);
+
+  function switchDisplay() {
+    if (displayCalendar) {
+      setDisplayCalendar(false);
+    } else {
+      setDisplayCalendar(true);
+    }
+  }
 
   return (
     <main className="event-listings-page">
       <section className="event-listings-page__header">
         <h1>Events in Toronto</h1>
+        <button
+          className="event-listings-page__switch-display-button"
+          onClick={switchDisplay}
+        >
+          {displayCalendar ? "List view" : "Calendar view"}
+        </button>
       </section>
       <Suspense fallback={<p>Loading events...</p>}>
         {displayCalendar ? (
           <EventsCalendar eventsData={eventsData} />
         ) : (
-          <EventsList eventsData={eventsData} />
+          <section>
+            <EventsList eventsData={eventsData} />
+          </section>
         )}
       </Suspense>
     </main>

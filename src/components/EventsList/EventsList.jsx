@@ -4,7 +4,7 @@ import "./EventsList.scss";
 
 const EventsList = ({ eventsData }) => {
   return (
-    <div>
+    <div className="events-list">
       {eventsData.map((show) => {
         return (
           <EventPreview
