@@ -32,6 +32,37 @@ const EventsCalendar = ({ eventsData }) => {
     return event.month == currentMonthName;
   });
 
+  const daysWithEvents = filteredEvents.map((show) => Number(show.day));
+  const dayWithEvent = (day) => {
+    return daysWithEvents.includes(day);
+  };
+
+  const nextMonth = () => {
+    setCurrentMonth(addMonths(currentMonth, 1));
+    setCurrentMonthName(
+      addMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
+    );
+  };
+
+  const prevMonth = () => {
+    setCurrentMonth(subMonths(currentMonth, 1));
+    setCurrentMonthName(
+      subMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
+    );
+  };
+
+  const onDateClick = (day) => {
+    setSelectedDate(day);
+  };
+
+  function openModal(event) {
+    const showData = filteredEvents.find(
+      (show) => show.main_image == event.target.src
+    );
+    setEventToShowInModal(showData);
+    onOpenModal();
+  }
+
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
     return (
@@ -50,17 +81,7 @@ const EventsCalendar = ({ eventsData }) => {
       </div>
     );
   };
-  const daysWithEvents = filteredEvents.map((show) => Number(show.day));
-  const dayWithEvent = (day) => {
-    return daysWithEvents.includes(day);
-  };
-  function openModal(event) {
-    const showData = filteredEvents.find(
-      (show) => show.main_image == event.target.src
-    );
-    setEventToShowInModal(showData);
-    onOpenModal();
-  }
+
   const renderDays = () => {
     const days = [];
     const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -73,6 +94,7 @@ const EventsCalendar = ({ eventsData }) => {
     }
     return <div className="days row">{days}</div>;
   };
+
   const renderCells = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
@@ -125,21 +147,7 @@ const EventsCalendar = ({ eventsData }) => {
     }
     return <div className="body">{rows}</div>;
   };
-  const onDateClick = (day) => {
-    setSelectedDate(day);
-  };
-  const nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-    setCurrentMonthName(
-      addMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
-    );
-  };
-  const prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-    setCurrentMonthName(
-      subMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
-    );
-  };
+
   return (
     <section className="calendar">
       {renderHeader()}
