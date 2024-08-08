@@ -3,10 +3,28 @@
 .event-listings-page {
 
   &__header {
-    margin-bottom: -7rem;
+    padding-bottom: 0rem;
   }
 
   section {
     border-top: none;
+  }
+
+  &__switch-display-button {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 1rem 3rem;
+    display: block;
+    margin: 0 auto;
+    color: $light;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 200;
+    z-index: 3;
+
+    &:hover {
+      border: 1px solid $purple;
+      cursor: pointer;
+    }
   }
 }

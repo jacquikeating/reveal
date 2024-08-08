@@ -46,7 +46,7 @@ const EventListingsPage = () => {
           className="event-listings-page__switch-display-button"
           onClick={switchDisplay}
         >
-          {displayCalendar ? "List view" : "Calendar view"}
+          {displayCalendar ? "Switch to list view" : "Switch to calendar view"}
         </button>
       </section>
       <Suspense fallback={<p>Loading events...</p>}>
