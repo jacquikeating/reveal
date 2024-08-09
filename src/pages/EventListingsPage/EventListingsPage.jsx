@@ -6,11 +6,22 @@ const EventsCalendar = lazy(() =>
 );
 const EventsList = lazy(() => import("../../components/EventsList/EventsList"));
 import "./EventListingsPage.scss";
+import { format, addMonths, subMonths } from "date-fns";
 
 const EventListingsPage = () => {
   const [eventsData, setEventsData] = useState([]);
   const eventsCollectionRef = collection(db, "events");
   const [displayCalendar, setDisplayCalendar] = useState(true);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonthName, setCurrentMonthName] = useState(
+    new Date().toLocaleString("default", { month: "long" })
+  );
+
+  const filteredEvents = eventsData
+    .filter((event) => {
+      return event.month == currentMonthName;
+    })
+    .sort((a, b) => a.day - b.day);
 
   useEffect(() => {
     const fetchEventsData = async () => {
@@ -38,10 +49,44 @@ const EventListingsPage = () => {
     }
   }
 
+  const renderHeader = () => {
+    const dateFormat = "MMMM yyyy";
+    return (
+      <div className="header row flex-middle">
+        <div className="col col-start">
+          <div className="icon" onClick={prevMonth}>
+            chevron_left
+          </div>
+        </div>
+        <div className="col col-center">
+          <span>{format(currentMonth, dateFormat)}</span>
+        </div>
+        <div className="col col-end" onClick={nextMonth}>
+          <div className="icon">chevron_right</div>
+        </div>
+      </div>
+    );
+  };
+
+  const nextMonth = () => {
+    setCurrentMonth(addMonths(currentMonth, 1));
+    setCurrentMonthName(
+      addMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
+    );
+  };
+
+  const prevMonth = () => {
+    setCurrentMonth(subMonths(currentMonth, 1));
+    setCurrentMonthName(
+      subMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
+    );
+  };
+
   return (
     <main className="event-listings-page">
       <section className="event-listings-page__header">
         <h1>Events in Toronto</h1>
+        <div className="calendar">{renderHeader()}</div>
         <button
           className="event-listings-page__switch-display-button"
           onClick={switchDisplay}
@@ -49,15 +94,27 @@ const EventListingsPage = () => {
           {displayCalendar ? "Switch to list view" : "Switch to calendar view"}
         </button>
       </section>
-      <Suspense fallback={<p>Loading events...</p>}>
-        {displayCalendar ? (
-          <EventsCalendar eventsData={eventsData} />
-        ) : (
-          <section>
-            <EventsList eventsData={eventsData} />
-          </section>
-        )}
-      </Suspense>
+      <section className="event-listings-page__content">
+        <Suspense fallback={<p>Loading events...</p>}>
+          {displayCalendar ? (
+            <EventsCalendar
+              eventsData={eventsData}
+              currentMonth={currentMonth}
+              currentMonthName={currentMonthName}
+              filteredEvents={filteredEvents}
+            />
+          ) : (
+            <section>
+              <EventsList
+                eventsData={eventsData}
+                currentMonth={currentMonth}
+                currentMonthName={currentMonthName}
+                filteredEvents={filteredEvents}
+              />
+            </section>
+          )}
+        </Suspense>
+      </section>
     </main>
   );
 };

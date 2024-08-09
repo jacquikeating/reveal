@@ -9,46 +9,22 @@ import {
   isSameMonth,
   isSameDay,
   parse,
-  addMonths,
-  subMonths,
 } from "date-fns";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { EventQuickView } from "../../components/EventQuickView/EventQuickView";
 import "./EventsCalendar.scss";
 
-const EventsCalendar = ({ eventsData }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [currentMonthName, setCurrentMonthName] = useState(
-    new Date().toLocaleString("default", { month: "long" })
-  );
+const EventsCalendar = ({ currentMonth, filteredEvents }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventToShowInModal, setEventToShowInModal] = useState(null);
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const filteredEvents = eventsData.filter((event) => {
-    return event.month == currentMonthName;
-  });
-
   const daysWithEvents = filteredEvents.map((show) => Number(show.day));
   const dayWithEvent = (day) => {
     return daysWithEvents.includes(day);
-  };
-
-  const nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-    setCurrentMonthName(
-      addMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
-    );
-  };
-
-  const prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-    setCurrentMonthName(
-      subMonths(currentMonth, 1).toLocaleString("default", { month: "long" })
-    );
   };
 
   const onDateClick = (day) => {
@@ -62,25 +38,6 @@ const EventsCalendar = ({ eventsData }) => {
     setEventToShowInModal(showData);
     onOpenModal();
   }
-
-  const renderHeader = () => {
-    const dateFormat = "MMMM yyyy";
-    return (
-      <div className="header row flex-middle">
-        <div className="col col-start">
-          <div className="icon" onClick={prevMonth}>
-            chevron_left
-          </div>
-        </div>
-        <div className="col col-center">
-          <span>{format(currentMonth, dateFormat)}</span>
-        </div>
-        <div className="col col-end" onClick={nextMonth}>
-          <div className="icon">chevron_right</div>
-        </div>
-      </div>
-    );
-  };
 
   const renderDays = () => {
     const days = [];
@@ -149,14 +106,13 @@ const EventsCalendar = ({ eventsData }) => {
   };
 
   return (
-    <section className="calendar">
-      {renderHeader()}
+    <div className="calendar">
       {renderDays()}
       {renderCells()}
       <Modal open={open} onClose={onCloseModal} center>
         <EventQuickView event={eventToShowInModal} />
       </Modal>
-    </section>
+    </div>
   );
 };
 
