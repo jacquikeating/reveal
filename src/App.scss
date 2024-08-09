@@ -73,7 +73,7 @@ main {
 
     & section {
         border-top: 1px solid $purple;
-        padding: 3rem 2rem;
+        padding: 3rem 3rem;
 
         &:first-child {
             border-top: none;
@@ -93,6 +93,5 @@ main {
     @include desktop {
         padding-top: 7rem;
         max-width: 1200px;
-        // padding-bottom: 8rem;
     }
 }

@@ -10,7 +10,6 @@
 
   &__slide {
     flex: 0 0 100%;
-    min-width: 0;
     margin-bottom: 0.3rem;
   }
 
@@ -28,7 +27,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    
 
     &:hover {
       gap: 2rem;
@@ -37,9 +35,7 @@
       * {
         color: $light;
         transform: scale(1.1);
-        font-weight: bold;
         filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
-        transform: scale(1.3);
       }
     }
   }
