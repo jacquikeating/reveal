@@ -28,6 +28,10 @@
         gap: 0.5rem;
         transform: scale(0.8);
         width: 4rem;
+
+        @include desktop {
+            padding: 0 6rem;
+        }
     }
 
     &__icon {
