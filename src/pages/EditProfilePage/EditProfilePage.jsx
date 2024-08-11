@@ -9,7 +9,8 @@ import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 
-const EditProfilePage = ({ userData }) => {
+const EditProfilePage = () => {
+  const userData = JSON.parse(localStorage.getItem("aaa"));
   const [name, setName] = useState(userData.name);
   const [bio, setBio] = useState(userData.bio);
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const EditProfilePage = ({ userData }) => {
 
   async function saveData() {
     await updateDoc(userRef, updatedUserData);
+    localStorage.setItem("aaa", JSON.stringify(updatedUserData));
     navigate(`/profile/${userData.profileURL}`);
   }
 

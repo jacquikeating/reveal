@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import "./AccountPage.scss";
 
-const AccountPage = ({ userData }) => {
+const AccountPage = () => {
+  let userData = JSON.parse(localStorage.getItem("userData"));
   const navigate = useNavigate();
   const auth = getAuth();
 
   const logOut = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem("userData");
       navigate("/");
-      userData = null;
     } catch (error) {
       console.error(error);
     }
