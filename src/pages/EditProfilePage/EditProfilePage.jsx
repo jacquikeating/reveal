@@ -1,6 +1,6 @@
 import "./EditProfilePage.scss";
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import Hero from "../../components/Hero/Hero";
@@ -12,36 +12,19 @@ const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 const EditProfilePage = ({ userData }) => {
   const [name, setName] = useState(userData.name);
   const [bio, setBio] = useState(userData.bio);
-
+  const navigate = useNavigate();
   const userRef = doc(db, "users", userData.uid);
-  let valuesToUpdate = [];
-  let bbb = {};
-
-  function aaa() {
-    for (let i = 0; i < valuesToUpdate.length; i++) {
-      bbb[valuesToUpdate[i]] = valuesToUpdate[i];
-    }
-
-    console.log(bbb);
-  }
+  let inputValues = {
+    name: name,
+    bio: bio,
+  };
+  const updatedUserData = { ...userData, ...inputValues };
 
   async function saveData() {
-    if (name !== userData.name) {
-      valuesToUpdate.push("name");
-    }
-    if (bio !== userData.bio) {
-      valuesToUpdate.push("bio");
-    }
-
-    // console.log(valuesToUpdate);
-    aaa();
-
-    if (valuesToUpdate) {
-      await updateDoc(userRef, {
-        bbb,
-      });
-    }
+    await updateDoc(userRef, updatedUserData);
+    navigate(`/profile/${userData.profileURL}`);
   }
+
   return (
     <>
       {userData ? (
