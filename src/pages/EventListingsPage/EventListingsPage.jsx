@@ -10,7 +10,7 @@ import { format, addMonths, subMonths } from "date-fns";
 
 const EventListingsPage = () => {
   let tempUserData = {
-    homeCity: "Toronto",
+    homeCity: "Dfsdf",
   };
   const [eventsData, setEventsData] = useState([]);
   const [selectedCity, setSelectedCity] = useState(tempUserData.homeCity);
@@ -23,7 +23,7 @@ const EventListingsPage = () => {
 
   const filteredEvents = eventsData
     .filter((event) => {
-      return event.month == currentMonthName;
+      return event.month == currentMonthName && event.city == selectedCity;
     })
     .sort((a, b) => a.day - b.day);
 
@@ -51,8 +51,6 @@ const EventListingsPage = () => {
     } else {
       setDisplayCalendar(true);
     }
-    console.log(filteredEvents);
-    console.log(eventsData);
   }
 
   const renderHeader = () => {
