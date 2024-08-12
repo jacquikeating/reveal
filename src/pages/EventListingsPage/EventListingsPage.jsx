@@ -9,7 +9,11 @@ import "./EventListingsPage.scss";
 import { format, addMonths, subMonths } from "date-fns";
 
 const EventListingsPage = () => {
+  let tempUserData = {
+    homeCity: "Toronto",
+  };
   const [eventsData, setEventsData] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(tempUserData.homeCity);
   const eventsCollectionRef = collection(db, "events");
   const [displayCalendar, setDisplayCalendar] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -47,6 +51,8 @@ const EventListingsPage = () => {
     } else {
       setDisplayCalendar(true);
     }
+    console.log(filteredEvents);
+    console.log(eventsData);
   }
 
   const renderHeader = () => {
