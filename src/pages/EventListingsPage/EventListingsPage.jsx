@@ -10,7 +10,7 @@ import { format, addMonths, subMonths } from "date-fns";
 
 const EventListingsPage = () => {
   let tempUserData = {
-    homeCity: "Dfsdf",
+    homeCity: "Toronto",
   };
   const [eventsData, setEventsData] = useState([]);
   const [selectedCity, setSelectedCity] = useState(tempUserData.homeCity);
@@ -86,11 +86,42 @@ const EventListingsPage = () => {
     );
   };
 
+  function changeCity(e) {
+    setSelectedCity(e.target.value);
+  }
+
   return (
     <main className="event-listings-page">
       <section className="event-listings-page__header">
-        <h1>Events in Toronto</h1>
+        <div className="event-listings-page__title">
+          <h1 className="event-listings-page__h1">Events in</h1>
+          <select
+            className="event-listings-page__select-city"
+            defaultValue={tempUserData.homeCity}
+            onChange={changeCity}
+          >
+            <option
+              value="Montreal"
+              className="event-listings-page__city-option"
+            >
+              Montreal
+            </option>
+            <option
+              value="Toronto"
+              className="event-listings-page__city-option"
+            >
+              Toronto
+            </option>
+            <option
+              value="Vancouver"
+              className="event-listings-page__city-option"
+            >
+              Vancouver
+            </option>
+          </select>
+        </div>
         <div className="calendar">{renderHeader()}</div>
+
         <button
           className="event-listings-page__switch-display-button"
           onClick={switchDisplay}
