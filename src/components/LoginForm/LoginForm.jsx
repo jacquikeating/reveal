@@ -14,7 +14,6 @@ const LoginForm = () => {
     try {
       signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
-          console.log(userCredential);
           localStorage.setItem("user", userCredential.user.uid);
         }
       );
@@ -26,7 +25,6 @@ const LoginForm = () => {
   }
 
   function handleEmailChange(e) {
-    console.log(e.target.value);
     setEmail(e.target.value);
   }
   function handlePasswordChange(e) {
