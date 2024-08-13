@@ -41,6 +41,7 @@ function App() {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
               setUserData(docSnap.data());
+              localStorage.setItem("userData", JSON.stringify(docSnap.data()));
             } else {
               console.log("Cannot find that user in the database.");
             }

@@ -22,18 +22,18 @@
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 0.15em;
-        
     }
 
     &__bio {
-        width: 80vw;
+        width: 100%;
         display: block;
         height: 15rem;
         margin: auto;
-        padding: 1rem 1.5rem;
         line-height: 1.6;
         text-align: center;
         resize: none;
+        font-size: 1.4rem;
+        // max-width: 70ch;
     }
 
     &__section-heading {
