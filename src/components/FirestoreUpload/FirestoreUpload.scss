@@ -4,7 +4,6 @@
     overflow: hidden;
     border-radius: 5px;
     padding: 4rem 2rem;
-    background: $dark-gradient;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +11,7 @@
     gap: 2rem;
     
     &__input {
-        width: 80%;
+        width: 90%;
         @include input;
     }
 
@@ -23,11 +22,19 @@
 
 .react-responsive-modal-closeButton {
     filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
-
 }
 
 .react-responsive-modal-modal {
     background: $dark-gradient;
     border: 2px solid $light;
     border-radius: 5px;
-  }
+}
+
+input::file-selector-button {
+    font-family: 'Montserrat';
+    color: $purple;
+    border: 1px solid $purple;
+    border-radius: 4px;
+    padding: 0.25rem 2rem;
+    margin-right: 1rem;
+}
