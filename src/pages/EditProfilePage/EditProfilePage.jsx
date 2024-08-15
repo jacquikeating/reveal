@@ -10,7 +10,7 @@ import PostsContainer from "../../components/PostsContainer/PostsContainer";
 const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 
 const EditProfilePage = () => {
-  const userData = JSON.parse(localStorage.getItem("aaa"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const [name, setName] = useState(userData.name);
   const [bio, setBio] = useState(userData.bio);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const EditProfilePage = () => {
 
   async function saveData() {
     await updateDoc(userRef, updatedUserData);
-    localStorage.setItem("aaa", JSON.stringify(updatedUserData));
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
     navigate(`/profile/${userData.profileURL}`);
   }
 
