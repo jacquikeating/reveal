@@ -1,12 +1,32 @@
-import React from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
+import { db } from "../../config/firebase.js";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "./PerformersList.scss";
 
-const PerformersList = ({ performerIDs, allUsersList }) => {
-  let performersInShow = allUsersList.filter((user) =>
-    performerIDs.includes(user.id)
-  );
+const PerformersList = ({ performerIDs }) => {
+  // let performersInShow = allUsersList.filter((user) =>
+  //   performerIDs.includes(user.id)
+  // );
+  const [performersInShow, setPerformersInShow] = useState([]);
 
+  console.log(performerIDs);
+  let performerDataArray = [];
+  useEffect(() => {
+    async function getPerformersData() {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc) => {
+        let userData = doc.data();
+        if (performerIDs.includes(doc.id)) {
+          performerDataArray.push(userData);
+        }
+      });
+      console.log(performerDataArray);
+      setPerformersInShow(performerDataArray);
+    }
+
+    getPerformersData();
+  }, []);
   return (
     <ul className="performers-list">
       {
@@ -18,7 +38,7 @@ const PerformersList = ({ performerIDs, allUsersList }) => {
         ) : (
           performersInShow.map((performer) => {
             return (
-              <li className="performer" key={performer.id}>
+              <li className="performer" key={performer.name}>
                 <Link
                   to={`/profile/${performer.id}`}
                   className="performer__link"

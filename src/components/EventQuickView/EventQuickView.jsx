@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import "./EventQuickView.scss";
 
 export const EventQuickView = ({ event }) => {
-  const { name, original_id, month, day, main_image, description, venue } =
+  const { name, original_id, month, day, main_image, description, venue, id } =
     event;
+
+  console.log(id);
   return (
     <div className="event-quickview">
       <h2 className="event-quickview__title">{name}</h2>
@@ -17,7 +19,7 @@ export const EventQuickView = ({ event }) => {
         <p className="event-quickview__desc">{description}</p>
       </div>
       <p className="event-quickview__ellipses">...</p>
-      <Link to={`/events/${original_id}`}>
+      <Link to={`/events/${id}`}>
         <button className="event-quickview__btn">Full Details</button>
       </Link>
     </div>
