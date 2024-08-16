@@ -14,12 +14,12 @@ const PerformersList = ({ performerIDs }) => {
       querySnapshot.forEach((doc) => {
         let userData = doc.data();
         if (performerIDs.includes(doc.id)) {
+          userData.id = doc.id;
           performerDataArray.push(userData);
         }
       });
       setPerformersInShow(performerDataArray);
     }
-
     getPerformersData();
   }, []);
   return (
@@ -35,7 +35,7 @@ const PerformersList = ({ performerIDs }) => {
             return (
               <li className="performer" key={performer.name}>
                 <Link
-                  to={`/profile/${performer.id}`}
+                  to={`/profile/${performer.profileURL}`}
                   className="performer__link"
                 >
                   <img
