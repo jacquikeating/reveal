@@ -1,11 +1,8 @@
 import { useEffect, useState, Suspense, lazy } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
-import {
-  getSingleEventEndpoint,
-  getUsersListEndpoint,
-  emptyEventData,
-} from "../../utils/api-utils";
+import { db } from "../../config/firebase.js";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { emptyEventData } from "../../utils/api-utils";
 import Hero from "../../components/Hero/Hero";
 import DateDot from "../../components/DateDot/DateDot";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
@@ -16,10 +13,9 @@ import "./EventDetailsPage.scss";
 const EventDetailsPage = () => {
   const { eventID } = useParams();
   const [eventData, setEventData] = useState(emptyEventData);
-  const [performerIDs, setPerformerIDs] = useState([]);
-  const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const {
     name,
     subtitle,
@@ -34,7 +30,6 @@ const EventDetailsPage = () => {
     start_time,
     end_time,
     organizer,
-    ticket_prices,
     performers,
     buy_tickets,
     gallery,
@@ -43,37 +38,24 @@ const EventDetailsPage = () => {
     eventData.ticket_prices;
 
   useEffect(() => {
-    const fetchEventData = async (req, res) => {
-      try {
-        const response = await axios.get(getSingleEventEndpoint(eventID));
-        setEventData(response.data);
-        setLoading(false);
-        setPerformerIDs(response.data.performers);
-        fetchUsersList();
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
+    async function getEventData() {
+      const docRef = doc(db, "events", eventID);
+      const docSnap = await getDoc(docRef);
 
-    fetchEventData();
+      if (docSnap.exists()) {
+        setEventData(docSnap.data());
+        setLoading(false);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+
+    getEventData();
   }, []);
 
-  const fetchUsersList = async () => {
-    try {
-      const response = await axios.get(getUsersListEndpoint());
-      setUsersData(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error loading data:", error);
-      setError(error);
-      setLoading(false);
-    }
-  };
-
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data: {error.message}</p>;
+  if (error) return <section>Error loading data: {error.message}</section>;
 
   return (
     <>
@@ -178,10 +160,7 @@ const EventDetailsPage = () => {
 
         <section className="event__section">
           <h2 className="event__section-heading">Featuring...</h2>
-          <PerformersList
-            performerIDs={performerIDs}
-            allUsersList={usersData}
-          />
+          <PerformersList performerIDs={performers} />
 
           <p className="event__organizer">
             Produced by <Link to="/">{organizer}</Link>
@@ -195,10 +174,10 @@ const EventDetailsPage = () => {
           </Suspense>
         </section> */}
 
-        <section className="event__section">
+        {/* <section className="event__section">
           <h2 className="event__section-heading">Posts</h2>
           <PostsContainer />
-        </section>
+        </section> */}
       </main>
     </>
   );

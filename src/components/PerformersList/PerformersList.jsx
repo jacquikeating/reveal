@@ -1,12 +1,27 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { db } from "../../config/firebase.js";
+import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "./PerformersList.scss";
 
-const PerformersList = ({ performerIDs, allUsersList }) => {
-  let performersInShow = allUsersList.filter((user) =>
-    performerIDs.includes(user.id)
-  );
+const PerformersList = ({ performerIDs }) => {
+  const [performersInShow, setPerformersInShow] = useState([]);
+  let performerDataArray = [];
 
+  useEffect(() => {
+    async function getPerformersData() {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc) => {
+        let userData = doc.data();
+        if (performerIDs.includes(doc.id)) {
+          userData.id = doc.id;
+          performerDataArray.push(userData);
+        }
+      });
+      setPerformersInShow(performerDataArray);
+    }
+    getPerformersData();
+  }, []);
   return (
     <ul className="performers-list">
       {
@@ -18,9 +33,9 @@ const PerformersList = ({ performerIDs, allUsersList }) => {
         ) : (
           performersInShow.map((performer) => {
             return (
-              <li className="performer" key={performer.id}>
+              <li className="performer" key={performer.name}>
                 <Link
-                  to={`/profile/${performer.id}`}
+                  to={`/profile/${performer.profileURL}`}
                   className="performer__link"
                 >
                   <img
