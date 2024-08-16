@@ -73,7 +73,7 @@ const HomePage = () => {
             </Link>
           </div>
 
-          <EmblaCarousel allEventsList={eventsData} />
+          <EmblaCarousel eventIDs={[]} />
         </section>
         <section className="home__section">
           <h2 className="home__section-heading">Hot Posts</h2>

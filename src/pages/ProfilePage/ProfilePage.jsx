@@ -1,31 +1,20 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { useParams } from "react-router-dom";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
-import {
-  getSingleUserEndpoint,
-  emptyUserData,
-  getEventsListEndpoint,
-} from "../../utils/api-utils";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
-
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
-  let { userName } = useParams(); // aurora-glitter
+  let { userName } = useParams();
   const [userData, setUserData] = useState({});
-  const [eventIDs, setEventIDs] = useState([]);
-  const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { name, bio, cover_photo, events, gallery } = userData;
-
-  let userGallery = [];
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,39 +25,16 @@ const ProfilePage = () => {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           setUserData(doc.data());
-          setEventIDs(doc.data().events);
         });
-
         setLoading(false);
-        fetchEventsList();
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
         setLoading(false);
       }
     };
-
     fetchUserData();
   }, []);
-
-  const fetchEventsList = async () => {
-    try {
-      const userEvents = [];
-
-      // Code from Firebase documentation
-      const querySnapshot = await getDocs(collection(db, "events"));
-      querySnapshot.forEach((doc) => {
-        userEvents.push(doc.data());
-      });
-      setLoading(false);
-      userEvents.sort((a, b) => a.day - b.day);
-      setEventsData(userEvents);
-    } catch (error) {
-      console.error("Error loading data:", error);
-      setError(error);
-      setLoading(false);
-    }
-  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
@@ -87,7 +53,7 @@ const ProfilePage = () => {
           <h2 className="profile__section-heading profile__section-heading--events">
             Events
           </h2>
-          <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
+          <EmblaCarousel eventIDs={userData.events} />
         </section>
 
         <section className="profile__section">

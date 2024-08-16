@@ -1,11 +1,49 @@
-import React, { useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  QueryOrderByConstraint,
+} from "firebase/firestore";
+import { db } from "../../config/firebase.js";
 import "./EmblaCarousel.scss";
 import EventPreview from "../EventPreview/EventPreview";
 
-const EmblaCarousel = ({ allEventsList, eventIDs }) => {
+const EmblaCarousel = ({ eventIDs }) => {
   // useEmblaCarousel.globalOptions = { loop: true };
   const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [filteredEventsData, setFilteredEventsData] = useState([]);
+  console.log(eventIDs);
+
+  useEffect(() => {
+    const fetchEventsData = async () => {
+      try {
+        const relevantEvents = [];
+        // Code from Firebase documentation
+        const querySnapshot = await getDocs(collection(db, "events"));
+        if (eventIDs.length == 0) {
+          for (let i = 0; i < 5; i++) {
+            let eventData = querySnapshot.docs[i].data();
+            relevantEvents.push(eventData);
+          }
+        }
+        querySnapshot.forEach((doc) => {
+          if (eventIDs.includes(doc.id)) {
+            let eventData = doc.data();
+            eventData.uid = doc.id;
+            relevantEvents.push(eventData);
+          }
+        });
+        relevantEvents.sort((a, b) => a.day - b.day);
+        setFilteredEventsData(relevantEvents);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+    fetchEventsData();
+  }, []);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -15,19 +53,15 @@ const EmblaCarousel = ({ allEventsList, eventIDs }) => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
-  if (eventIDs) {
-    allEventsList = allEventsList.filter((show) => eventIDs.includes(show.id));
-  }
-
   return (
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {allEventsList.map((show) => {
+          {filteredEventsData.map((show) => {
             return (
-              <div className="embla__slide" key={show.id}>
+              <div className="embla__slide" key={show.uid}>
                 <EventPreview
-                  id={show.id}
+                  id={show.uid}
                   name={show.name}
                   date={`${show.month} ${show.day}`}
                   image={show.main_image}
