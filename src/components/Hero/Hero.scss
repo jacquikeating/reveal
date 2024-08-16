@@ -2,7 +2,8 @@
 
 .hero {
     position: relative;
-    width: 100vw;
+    
+    max-width: 100vw;
     // max-height: 120vh;
     // height: clamp(20vh, 30vh, 50vh);
     // background-size: cover;
