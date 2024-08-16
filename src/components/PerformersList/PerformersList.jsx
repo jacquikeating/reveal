@@ -1,17 +1,13 @@
-import { useEffect, useState, Suspense, lazy } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../config/firebase.js";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "./PerformersList.scss";
 
 const PerformersList = ({ performerIDs }) => {
-  // let performersInShow = allUsersList.filter((user) =>
-  //   performerIDs.includes(user.id)
-  // );
   const [performersInShow, setPerformersInShow] = useState([]);
-
-  console.log(performerIDs);
   let performerDataArray = [];
+
   useEffect(() => {
     async function getPerformersData() {
       const querySnapshot = await getDocs(collection(db, "users"));
@@ -21,7 +17,6 @@ const PerformersList = ({ performerIDs }) => {
           performerDataArray.push(userData);
         }
       });
-      console.log(performerDataArray);
       setPerformersInShow(performerDataArray);
     }
 

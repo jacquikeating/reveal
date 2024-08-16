@@ -13,8 +13,6 @@ import "./EventDetailsPage.scss";
 const EventDetailsPage = () => {
   const { eventID } = useParams();
   const [eventData, setEventData] = useState(emptyEventData);
-  const [performersInShow, setPerformersInShow] = useState([]);
-  const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -39,7 +37,6 @@ const EventDetailsPage = () => {
   const { GA, advanceGA, VIP, advanceVIP, tableDiscounts } =
     eventData.ticket_prices;
 
-  let performerDataArray = [];
   useEffect(() => {
     async function getEventData() {
       const docRef = doc(db, "events", eventID);
@@ -47,16 +44,6 @@ const EventDetailsPage = () => {
 
       if (docSnap.exists()) {
         setEventData(docSnap.data());
-        console.log(docSnap.data().performers);
-        // const querySnapshot = await getDocs(collection(db, "users"));
-        // querySnapshot.forEach((doc) => {
-        //   let userData = doc.data();
-        //   if (performers.includes(doc.id)) {
-        //     performerDataArray.push(userData);
-        //   }
-        // });
-        // console.log(performerDataArray);
-        // setPerformersInShow(performerDataArray);
         setLoading(false);
       } else {
         // docSnap.data() will be undefined in this case
