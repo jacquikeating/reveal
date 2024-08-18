@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import { auth, db, storage } from "../../config/firebase";
+import { db, storage } from "../../config/firebase";
 import {
   getDoc,
   getDocs,
@@ -23,6 +23,8 @@ const FileUploader = () => {
     "image/gif",
     "image/webp",
   ];
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userRef = doc(db, "users", userData.uid);
 
   {
     /* Add more */
@@ -34,12 +36,29 @@ const FileUploader = () => {
   }
 
   async function uploadFile() {
+    console.log(userData.gallery);
+
     if (!file) return;
     setUploading(true);
     const filesFolderRef = ref(storage, `user-content/${file.name}`);
     try {
       await uploadBytes(filesFolderRef, file);
       setUploading(false);
+      const existingGallery = userData.gallery;
+      console.log(existingGallery);
+      const updatedGallery = existingGallery.push(
+        `https://firebasestorage.googleapis.com/v0/b/reveal-85a73.appspot.com/user-content/${file.name}`
+      );
+      console.log(updatedGallery);
+      userData.gallery = updatedGallery;
+      JSON.stringify(userData);
+      localStorage.setItem("userData", userData);
+      console.log(userData.gallery);
+      async function saveData() {
+        await updateDoc(userRef, userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
+      }
+      saveData();
     } catch (error) {
       console.error(error);
     }

@@ -13,6 +13,7 @@ const EditProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const [name, setName] = useState(userData.name);
   const [bio, setBio] = useState(userData.bio);
+  const [gallery, setGallery] = useState(userData.gallery);
   const navigate = useNavigate();
   const userRef = doc(db, "users", userData.uid);
   let inputValues = {

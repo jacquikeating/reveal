@@ -17,7 +17,7 @@ const Gallery = ({ gallery, showEdit }) => {
 
   return (
     <div className="gallery">
-      {gallery
+      {gallery.length > 0
         ? gallery.map((img) => {
             return (
               <img
