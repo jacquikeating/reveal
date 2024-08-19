@@ -8,6 +8,7 @@ import "./Gallery.scss";
 
 const Gallery = ({ gallery, showEdit }) => {
   const [open, setOpen] = useState(false);
+  const [imagesToRender, setImagesToRender] = useState(gallery);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
@@ -15,10 +16,16 @@ const Gallery = ({ gallery, showEdit }) => {
     onOpenModal();
   }
 
+  function closeModal(event) {
+    const newData = JSON.parse(localStorage.getItem("userData"));
+    setImagesToRender(newData.gallery);
+    onCloseModal();
+  }
+
   return (
     <div className="gallery">
-      {gallery.length > 0
-        ? gallery.map((img) => {
+      {imagesToRender.length > 0
+        ? imagesToRender.map((img) => {
             return (
               <img
                 src={img}
@@ -34,7 +41,7 @@ const Gallery = ({ gallery, showEdit }) => {
           <button className="gallery__add-btn" onClick={openModal}>
             Add Content
           </button>
-          <Modal open={open} onClose={onCloseModal} center>
+          <Modal open={open} onClose={closeModal} center>
             <FileUploader></FileUploader>
           </Modal>
 

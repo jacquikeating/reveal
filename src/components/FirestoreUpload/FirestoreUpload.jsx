@@ -22,9 +22,11 @@ const FileUploader = () => {
     "image/png",
     "image/gif",
     "image/webp",
+    "image/svg",
   ];
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userRef = doc(db, "users", userData.uid);
+  const [uploadStatusMessage, setUploadStatusMessage] = useState("");
 
   {
     /* Add more */
@@ -36,31 +38,28 @@ const FileUploader = () => {
   }
 
   async function uploadFile() {
-    console.log(userData.gallery);
-
     if (!file) return;
     setUploading(true);
     const filesFolderRef = ref(storage, `user-content/${file.name}`);
     try {
       await uploadBytes(filesFolderRef, file);
       setUploading(false);
+      const tempUserData = userData;
       const existingGallery = userData.gallery;
-      console.log(existingGallery);
-      const updatedGallery = existingGallery.push(
-        `https://firebasestorage.googleapis.com/v0/b/reveal-85a73.appspot.com/user-content/${file.name}`
+      const updatedGallery = [...existingGallery];
+      updatedGallery.push(
+        `https://firebasestorage.googleapis.com/v0/b/reveal-85a73.appspot.com/o/user-content%2F${file.name}?alt=media`
       );
-      console.log(updatedGallery);
-      userData.gallery = updatedGallery;
-      JSON.stringify(userData);
-      localStorage.setItem("userData", userData);
-      console.log(userData.gallery);
+      tempUserData.gallery = updatedGallery;
       async function saveData() {
         await updateDoc(userRef, userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify(tempUserData));
+        setUploadStatusMessage("Your image was uploaded successfully.");
       }
       saveData();
     } catch (error) {
       console.error(error);
+      setUploadStatusMessage("Sorry, your image could not be uploaded.");
     }
   }
 
@@ -76,6 +75,7 @@ const FileUploader = () => {
           handleFileChange(e);
         }}
       />
+      <p className="upload-modal__message">{uploadStatusMessage}</p>
       <button className="upload-modal__button" onClick={uploadFile}>
         {uploading ? "Uploading..." : "Upload File"}
       </button>
