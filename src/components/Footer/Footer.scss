@@ -5,7 +5,6 @@
     bottom: 0;
     padding: 0 2rem;
     width: 100%;
-    max-width: calc(100vw - 4rem);
     height: 6rem;
     background: $dark-gradient;
     display: flex;
@@ -54,5 +53,7 @@
         position: absolute;
         top: 0;
         bottom: auto;
+        max-width: calc(100vw - 4rem);
+
     }
 }
