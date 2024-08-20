@@ -3,6 +3,8 @@ import VideoPlayer from "/src/components/VideoPlayer/VideoPlayer.jsx";
 import Image from "/src/components/Image/Image.jsx";
 import FileUploader from "../FirestoreUpload/FirestoreUpload";
 import { Modal } from "react-responsive-modal";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 import "./Gallery.scss";
 
@@ -22,16 +24,27 @@ const Gallery = ({ gallery, showEdit }) => {
     onCloseModal();
   }
 
+  function deleteImage(event) {
+    console.log(event.target.parentNode);
+  }
+
   return (
     <div className="gallery">
       {imagesToRender.length > 0
         ? imagesToRender.map((img) => {
             return (
-              <img
-                src={img}
-                className="gallery__image"
+              <div
+                className="gallery__image-wrapper"
                 key={gallery.indexOf(img)}
-              />
+                id={gallery.indexOf(img)}
+              >
+                <img src={img} className="gallery__image" />
+                <img
+                  src="../../src/assets/icons/trash.svg"
+                  className="gallery__delete-icon"
+                  onClick={deleteImage}
+                />
+              </div>
             );
           })
         : ""}

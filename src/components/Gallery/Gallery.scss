@@ -4,8 +4,24 @@
     margin-bottom: 1rem;
     display: grid;
     gap: 2rem;
+
+    &__image-wrapper {
+        position: relative;
+    }
+
     &__image {
         max-width: 100%;
+    }
+
+    &__delete-icon {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        width: 2rem;
+        height: 2rem;
+ 
+        filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
+
     }
 
     @include desktop {
