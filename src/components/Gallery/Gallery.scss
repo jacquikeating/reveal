@@ -19,9 +19,7 @@
         right: 2rem;
         width: 2rem;
         height: 2rem;
- 
         filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
-
     }
 
     @include desktop {

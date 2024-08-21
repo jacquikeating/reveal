@@ -1,14 +1,17 @@
 import { useState } from "react";
 import VideoPlayer from "/src/components/VideoPlayer/VideoPlayer.jsx";
 import Image from "/src/components/Image/Image.jsx";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase.js";
 import FileUploader from "../FirestoreUpload/FirestoreUpload";
 import { Modal } from "react-responsive-modal";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-
 import "./Gallery.scss";
 
 const Gallery = ({ gallery, showEdit }) => {
+  let userData = JSON.parse(localStorage.getItem("userData"));
+  const userRef = doc(db, "users", userData.uid);
   const [open, setOpen] = useState(false);
   const [imagesToRender, setImagesToRender] = useState(gallery);
   const onOpenModal = () => setOpen(true);
@@ -25,7 +28,18 @@ const Gallery = ({ gallery, showEdit }) => {
   }
 
   function deleteImage(event) {
-    console.log(event.target.parentNode);
+    const imgID = event.target.parentNode.id;
+    const imgArray = [...imagesToRender];
+    imgArray.splice(imgID, 1);
+    setImagesToRender(imgArray);
+    userData.gallery = imgArray;
+    localStorage.setItem("userData", JSON.stringify(userData));
+
+    async function saveData() {
+      await updateDoc(userRef, userData);
+    }
+
+    saveData();
   }
 
   return (
@@ -35,8 +49,8 @@ const Gallery = ({ gallery, showEdit }) => {
             return (
               <div
                 className="gallery__image-wrapper"
-                key={gallery.indexOf(img)}
-                id={gallery.indexOf(img)}
+                key={imagesToRender.indexOf(img)}
+                id={imagesToRender.indexOf(img)}
               >
                 <img src={img} className="gallery__image" />
                 <img
