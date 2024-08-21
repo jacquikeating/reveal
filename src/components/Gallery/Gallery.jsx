@@ -53,11 +53,15 @@ const Gallery = ({ gallery, showEdit }) => {
                 id={imagesToRender.indexOf(img)}
               >
                 <img src={img} className="gallery__image" />
-                <img
-                  src="../../src/assets/icons/trash.svg"
-                  className="gallery__delete-icon"
-                  onClick={deleteImage}
-                />
+                {showEdit ? (
+                  <img
+                    src="../../src/assets/icons/trash.svg"
+                    className="gallery__delete-icon"
+                    onClick={deleteImage}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
             );
           })
@@ -71,8 +75,6 @@ const Gallery = ({ gallery, showEdit }) => {
           <Modal open={open} onClose={closeModal} center>
             <FileUploader></FileUploader>
           </Modal>
-
-          {/* <button className="gallery__del-btn">Delete</button> */}
         </>
       ) : (
         ""
