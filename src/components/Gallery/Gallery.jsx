@@ -28,19 +28,39 @@ const Gallery = ({ gallery, showEdit }) => {
   }
 
   function deleteImage(event) {
-    const imgID = event.target.parentNode.id;
-    const imgArray = [...imagesToRender];
-    imgArray.splice(imgID, 1);
-    setImagesToRender(imgArray);
-    userData.gallery = imgArray;
-    localStorage.setItem("userData", JSON.stringify(userData));
-
-    async function saveData() {
-      await updateDoc(userRef, userData);
-    }
-
-    saveData();
+    Toastify({
+      text: "Are you sure? Click here to confirm.",
+      duration: 10000,
+      newWindow: false,
+      close: true,
+      offset: {
+        y: "75px",
+        x: "100px",
+      },
+      gravity: "bottom",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: `linear-gradient(to right, $red, $light-purple)`,
+      },
+      onClick: function () {
+        const imgID = event.target.parentNode.id;
+        const imgArray = [...imagesToRender];
+        imgArray.splice(imgID, 1);
+        setImagesToRender(imgArray);
+        userData.gallery = imgArray;
+        localStorage.setItem("userData", JSON.stringify(userData));
+        async function saveData() {
+          await updateDoc(userRef, userData);
+        }
+        saveData();
+      },
+    }).showToast();
   }
+
+  // function deleteImage(event) {
+
+  // }
 
   return (
     <div className="gallery">
