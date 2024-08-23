@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./config/firebase.js";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -57,6 +58,7 @@ function App() {
   }, []);
   return (
     <>
+      <ToastContainer />
       <BrowserRouter>
         <Header />
         <Routes>

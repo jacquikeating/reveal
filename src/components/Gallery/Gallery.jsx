@@ -4,9 +4,11 @@ import Image from "/src/components/Image/Image.jsx";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import FileUploader from "../FirestoreUpload/FirestoreUpload";
+import ConfirmDelete from "../ConfirmDelete/ConfirmDelete.jsx";
 import { Modal } from "react-responsive-modal";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import { toast } from "react-toastify";
 import "./Gallery.scss";
 
 const Gallery = ({ gallery, showEdit }) => {
@@ -16,6 +18,10 @@ const Gallery = ({ gallery, showEdit }) => {
   const [imagesToRender, setImagesToRender] = useState(gallery);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const notify = () =>
+    toast(<ConfirmDelete />, {
+      theme: "dark",
+    });
 
   function openModal(event) {
     onOpenModal();
@@ -58,10 +64,6 @@ const Gallery = ({ gallery, showEdit }) => {
     }).showToast();
   }
 
-  // function deleteImage(event) {
-
-  // }
-
   return (
     <div className="gallery">
       {imagesToRender.length > 0
@@ -77,7 +79,7 @@ const Gallery = ({ gallery, showEdit }) => {
                   <img
                     src="../../src/assets/icons/trash.svg"
                     className="gallery__delete-icon"
-                    onClick={deleteImage}
+                    onClick={notify}
                   />
                 ) : (
                   ""
