@@ -22,6 +22,8 @@ const Gallery = ({ gallery, showEdit }) => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
+  console.log(gallery);
+
   function openModal(event) {
     onOpenModal();
   }
@@ -78,13 +80,13 @@ const Gallery = ({ gallery, showEdit }) => {
           ? imagesToRender.map((img) => {
               return (
                 <div
-                  data-src={img}
-                  data-sub-html="<p>Test Caption</p>"
+                  data-src={img.url}
+                  data-sub-html={img.caption}
                   className="gallery__image-wrapper"
                   key={imagesToRender.indexOf(img)}
                   id={imagesToRender.indexOf(img)}
                 >
-                  <img src={img} className="gallery__image" />
+                  <img src={img.url} className="gallery__image" />
                   {showEdit ? (
                     <img
                       src="../../src/assets/icons/trash.svg"
