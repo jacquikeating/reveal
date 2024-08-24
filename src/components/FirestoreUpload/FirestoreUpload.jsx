@@ -15,6 +15,9 @@ import "./FirestoreUpload.scss";
 
 const FileUploader = () => {
   const [file, setFile] = useState(null);
+  const [showExtraInputs, setShowExtraInputs] = useState(false);
+  const [captionText, setCaptionText] = useState(null);
+  const [eventLink, setEventLink] = useState(null);
   const [uploading, setUploading] = useState(false);
   const acceptedTypes = [
     "image/jpg",
@@ -33,7 +36,10 @@ const FileUploader = () => {
   }
   function handleFileChange(e) {
     if (!acceptedTypes.includes(e.target.files[0].type)) {
-      console.log("wrong type");
+      setUploadStatusMessage("Sorry, that file type is not supported.");
+    } else {
+      setUploadStatusMessage("");
+      setShowExtraInputs(true);
     }
   }
 
@@ -41,15 +47,39 @@ const FileUploader = () => {
     if (!file) return;
     setUploading(true);
     const filesFolderRef = ref(storage, `user-content/${file.name}`);
+    let finalCaption = "";
+    let eventName = "";
+    let eventID = eventLink.substr(29);
+    function generateCaptionWithLink() {
+      if (eventLink) {
+        async function getEventData() {
+          const docRef = doc(db, "events", eventID);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            eventName = docSnap.data().name;
+            finalCaption = `<p class='caption'>${captionText} <span class='caption__event'>Taken at <a href=${eventLink} class='caption__link'>${eventName}</a></span></p>`;
+          } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        }
+        getEventData();
+      } else {
+        finalCaption = `<p className='caption'>${captionText}</p>`;
+      }
+    }
+    generateCaptionWithLink();
     try {
       await uploadBytes(filesFolderRef, file);
       setUploading(false);
       const tempUserData = userData;
       const existingGallery = userData.gallery;
       const updatedGallery = [...existingGallery];
-      updatedGallery.push(
-        `https://firebasestorage.googleapis.com/v0/b/reveal-85a73.appspot.com/o/user-content%2F${file.name}?alt=media`
-      );
+
+      updatedGallery.push({
+        url: `https://firebasestorage.googleapis.com/v0/b/reveal-85a73.appspot.com/o/user-content%2F${file.name}?alt=media`,
+        caption: finalCaption,
+      });
       tempUserData.gallery = updatedGallery;
       async function saveData() {
         await updateDoc(userRef, userData);
@@ -57,6 +87,7 @@ const FileUploader = () => {
         setUploadStatusMessage("Your image was uploaded successfully.");
       }
       saveData();
+      setShowExtraInputs(false);
     } catch (error) {
       console.error(error);
       setUploadStatusMessage("Sorry, your image could not be uploaded.");
@@ -75,7 +106,37 @@ const FileUploader = () => {
           handleFileChange(e);
         }}
       />
-      <p className="upload-modal__message">{uploadStatusMessage}</p>
+      {showExtraInputs ? (
+        <div className="upload-modal__extra-inputs">
+          <p className="upload-modal__message">{uploadStatusMessage}</p>
+          <label for="caption" className="upload-modal__label">
+            Enter a caption:
+            <input
+              className="upload-modal__input"
+              type="text"
+              name="caption"
+              maxLength="200"
+              onChange={(e) => {
+                setCaptionText(e.target.value);
+              }}
+            />
+          </label>
+
+          <label for="event-link" className="upload-modal__label">
+            Link to an event page:
+            <input
+              className="upload-modal__input"
+              type="text"
+              name="event-link"
+              onChange={(e) => {
+                setEventLink(e.target.value);
+              }}
+            />
+          </label>
+        </div>
+      ) : (
+        ""
+      )}
       <button className="upload-modal__button" onClick={uploadFile}>
         {uploading ? "Uploading..." : "Upload File"}
       </button>

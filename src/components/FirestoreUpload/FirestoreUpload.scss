@@ -11,8 +11,23 @@
     gap: 2rem;
     
     &__input {
+        margin-top: 0.5rem;
         width: 90%;
         @include input;
+    }
+
+    &__label {
+        width: 90%;
+        text-align: center;
+        font-style: italic;
+    }
+
+    &__extra-inputs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        margin: -1.5rem auto 1.5rem;
     }
 
     &__button {

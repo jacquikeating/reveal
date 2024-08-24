@@ -22,8 +22,6 @@ const Gallery = ({ gallery, showEdit }) => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  console.log(gallery);
-
   function openModal(event) {
     onOpenModal();
   }
