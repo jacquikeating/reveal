@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import VideoPlayer from "/src/components/VideoPlayer/VideoPlayer.jsx";
 import Image from "/src/components/Image/Image.jsx";
 import { doc, updateDoc } from "firebase/firestore";
@@ -6,6 +6,12 @@ import { db } from "../../config/firebase.js";
 import FileUploader from "../FirestoreUpload/FirestoreUpload";
 import { Modal } from "react-responsive-modal";
 import { toast } from "react-toastify";
+import LightGallery from "lightgallery/react";
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
+import "lightgallery/scss/lightgallery.scss";
+import "lightgallery/scss/lg-zoom.scss";
+import "lightgallery/css/lg-thumbnail.css";
 import "./Gallery.scss";
 
 const Gallery = ({ gallery, showEdit }) => {
@@ -66,30 +72,33 @@ const Gallery = ({ gallery, showEdit }) => {
   }
 
   return (
-    <div className="gallery">
-      {imagesToRender.length > 0
-        ? imagesToRender.map((img) => {
-            return (
-              <div
-                className="gallery__image-wrapper"
-                key={imagesToRender.indexOf(img)}
-                id={imagesToRender.indexOf(img)}
-              >
-                <img src={img} className="gallery__image" />
-                {showEdit ? (
-                  <img
-                    src="../../src/assets/icons/trash.svg"
-                    className="gallery__delete-icon"
-                    onClick={renderToast}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-            );
-          })
-        : ""}
-
+    <>
+      <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
+        {imagesToRender.length > 0
+          ? imagesToRender.map((img) => {
+              return (
+                <div
+                  data-src={img}
+                  data-sub-html="<p>Test Caption</p>"
+                  className="gallery__image-wrapper"
+                  key={imagesToRender.indexOf(img)}
+                  id={imagesToRender.indexOf(img)}
+                >
+                  <img src={img} className="gallery__image" />
+                  {showEdit ? (
+                    <img
+                      src="../../src/assets/icons/trash.svg"
+                      className="gallery__delete-icon"
+                      onClick={renderToast}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+              );
+            })
+          : ""}
+      </LightGallery>
       {showEdit ? (
         <>
           <button className="gallery__add-btn" onClick={openModal}>
@@ -102,7 +111,7 @@ const Gallery = ({ gallery, showEdit }) => {
       ) : (
         ""
       )}
-    </div>
+    </>
   );
 };
 

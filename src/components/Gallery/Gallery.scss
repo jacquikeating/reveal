@@ -28,6 +28,7 @@
     }
 
     &__add-btn {
+        margin-top: 2rem!important;
         @include button;
     }
 }
