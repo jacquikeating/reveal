@@ -4,10 +4,7 @@ import Image from "/src/components/Image/Image.jsx";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import FileUploader from "../FirestoreUpload/FirestoreUpload";
-import ConfirmDelete from "../ConfirmDelete/ConfirmDelete.jsx";
 import { Modal } from "react-responsive-modal";
-import Toastify from "toastify-js";
-import "toastify-js/src/toastify.css";
 import { toast } from "react-toastify";
 import "./Gallery.scss";
 
@@ -18,10 +15,6 @@ const Gallery = ({ gallery, showEdit }) => {
   const [imagesToRender, setImagesToRender] = useState(gallery);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-  const notify = () =>
-    toast(<ConfirmDelete />, {
-      theme: "dark",
-    });
 
   function openModal(event) {
     onOpenModal();
@@ -33,35 +26,43 @@ const Gallery = ({ gallery, showEdit }) => {
     onCloseModal();
   }
 
-  function deleteImage(event) {
-    Toastify({
-      text: "Are you sure? Click here to confirm.",
-      duration: 10000,
-      newWindow: false,
-      close: true,
-      offset: {
-        y: "75px",
-        x: "100px",
-      },
-      gravity: "bottom",
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: `linear-gradient(to right, $red, $light-purple)`,
-      },
-      onClick: function () {
-        const imgID = event.target.parentNode.id;
-        const imgArray = [...imagesToRender];
-        imgArray.splice(imgID, 1);
-        setImagesToRender(imgArray);
-        userData.gallery = imgArray;
-        localStorage.setItem("userData", JSON.stringify(userData));
-        async function saveData() {
-          await updateDoc(userRef, userData);
-        }
-        saveData();
-      },
-    }).showToast();
+  function renderToast(event) {
+    toast(
+      <div className="confirm-delete">
+        <p className="confirm-delete__text">
+          Are you sure you wish to delete this image?
+        </p>
+        <div className="confirm-delete__button-container">
+          <button className="confirm-delete__button" onClick={deleteImage}>
+            Yes
+          </button>
+          <button className="confirm-delete__button" onClick={dismissToast}>
+            No
+          </button>
+        </div>
+      </div>,
+      {
+        theme: "dark",
+      }
+    );
+
+    function dismissToast() {
+      toast.dismiss();
+    }
+
+    function deleteImage() {
+      const imgID = event.target.parentNode.id;
+      const imgArray = [...imagesToRender];
+      imgArray.splice(imgID, 1);
+      setImagesToRender(imgArray);
+      userData.gallery = imgArray;
+      localStorage.setItem("userData", JSON.stringify(userData));
+      async function saveData() {
+        await updateDoc(userRef, userData);
+      }
+      saveData();
+      dismissToast();
+    }
   }
 
   return (
@@ -79,7 +80,7 @@ const Gallery = ({ gallery, showEdit }) => {
                   <img
                     src="../../src/assets/icons/trash.svg"
                     className="gallery__delete-icon"
-                    onClick={notify}
+                    onClick={renderToast}
                   />
                 ) : (
                   ""

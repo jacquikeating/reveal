@@ -20,13 +20,42 @@
         width: 2rem;
         height: 2rem;
         filter: brightness(0) saturate(100%) invert(89%) sepia(10%) saturate(427%) hue-rotate(324deg) brightness(111%) contrast(87%);
+        cursor: pointer;
     }
 
     @include desktop {
         margin-bottom: 2rem;
     }
 
-    &__add-btn, &__del-btn {
+    &__add-btn {
         @include button;
+    }
+}
+
+.confirm-delete {
+    &__button-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem;
+    }
+    
+    &__button {
+        border: none;
+        border-radius: 4px;
+        padding: 1rem;
+        width: 40%;
+        background-color: $purple;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: $light;
+        cursor: pointer;
+      
+        &:hover {
+          background-color: $light-purple;
+        }
     }
 }

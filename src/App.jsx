@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./config/firebase.js";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import HomePage from "/src/pages/HomePage/HomePage.jsx";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -22,6 +21,7 @@ import NewAcctPage from "./pages/NewAcctPage/NewAcctPage";
 import TestPage from "./pages/TestPage/TestPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import "./App.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [uid, setUid] = useState(null);
