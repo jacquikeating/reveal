@@ -1,7 +1,7 @@
 import "./EditProfilePage.scss";
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { doc, updateDoc } from "firebase/firestore";
+import { Link, useNavigate } from "react-router-dom";
+import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import Hero from "../../components/Hero/Hero";
 import EditSocials from "../../components/EditSocials/EditSocials";
@@ -13,6 +13,7 @@ const EditProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const [name, setName] = useState(userData.name);
   const [bio, setBio] = useState(userData.bio);
+  const [eventsData, setEventsData] = useState([]);
   const navigate = useNavigate();
   const userRef = doc(db, "users", userData.uid);
   let inputValues = {
@@ -20,6 +21,23 @@ const EditProfilePage = () => {
     bio: bio,
   };
   const updatedUserData = { ...userData, ...inputValues };
+
+  useEffect(() => {
+    const fetchEventsData = async () => {
+      try {
+        const firestoreEventsData = [];
+        const querySnapshot = await getDocs(collection(db, "events"));
+        querySnapshot.forEach((doc) => {
+          firestoreEventsData.push(doc.data());
+        });
+        firestoreEventsData.sort((a, b) => a.day - b.day);
+        setEventsData(firestoreEventsData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+    fetchEventsData();
+  }, []);
 
   async function saveData() {
     await updateDoc(userRef, updatedUserData);
@@ -49,12 +67,15 @@ const EditProfilePage = () => {
               <EditSocials />
             </section>
 
-            {/* <section className="profile__section">
+            <section className="profile__section">
               <h2 className="profile__section-heading profile__section-heading--events">
                 Events
               </h2>
-              <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
-            </section> */}
+              <EmblaCarousel
+                eventsData={eventsData}
+                eventIDs={userData.events}
+              />
+            </section>
 
             <section className="edit-profile__section">
               <h2 className="edit-profile__section-heading">Gallery</h2>

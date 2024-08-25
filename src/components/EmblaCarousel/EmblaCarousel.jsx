@@ -3,7 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import "./EmblaCarousel.scss";
 import EventPreview from "../EventPreview/EventPreview";
 
-const EmblaCarousel = ({ allEventsList, eventIDs }) => {
+const EmblaCarousel = ({ eventsData, eventIDs }) => {
   // useEmblaCarousel.globalOptions = { loop: true };
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
@@ -16,14 +16,14 @@ const EmblaCarousel = ({ allEventsList, eventIDs }) => {
   }, [emblaApi]);
 
   if (eventIDs) {
-    allEventsList = allEventsList.filter((show) => eventIDs.includes(show.id));
+    eventsData = eventsData.filter((show) => eventIDs.includes(show.id));
   }
 
   return (
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {allEventsList.map((show) => {
+          {eventsData.map((show) => {
             return (
               <div className="embla__slide" key={show.id}>
                 <EventPreview

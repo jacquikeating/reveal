@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import EventPreview from "../../components/EventPreview/EventPreview";
-import { getEventsListEndpoint } from "../../utils/api-utils";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../config/firebase.js";
 import "./HomePage.scss";
 
 const HomePage = () => {
@@ -13,22 +13,26 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [nextEvent, setNextEvent] = useState(null);
-  const userID = localStorage.getItem("user");
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
     const fetchEventsData = async () => {
       try {
-        const response = await axios.get(getEventsListEndpoint());
-        setEventsData(response.data.slice(1));
+        const firestoreEventsData = [];
+        const querySnapshot = await getDocs(collection(db, "events"));
+        querySnapshot.forEach((doc) => {
+          firestoreEventsData.push(doc.data());
+        });
+        firestoreEventsData.sort((a, b) => a.day - b.day);
+        setEventsData(firestoreEventsData.slice(1));
+        setNextEvent(firestoreEventsData[0]);
         setLoading(false);
-        setNextEvent(response.data[0]);
       } catch (error) {
         console.error("Error loading data:", error);
-        setError(error);
+        setError(true);
         setLoading(false);
       }
     };
-
     fetchEventsData();
   }, []);
 
@@ -72,9 +76,9 @@ const HomePage = () => {
               </div>
             </Link>
           </div>
-
-          <EmblaCarousel allEventsList={eventsData} />
+          <EmblaCarousel eventsData={eventsData} />
         </section>
+
         <section className="home__section">
           <h2 className="home__section-heading">Hot Posts</h2>
           <PostsContainer />

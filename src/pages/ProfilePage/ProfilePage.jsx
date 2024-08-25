@@ -1,16 +1,10 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import Hero from "../../components/Hero/Hero";
 import Socials from "../../components/Socials/Socials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
-import {
-  getSingleUserEndpoint,
-  emptyUserData,
-  getEventsListEndpoint,
-} from "../../utils/api-utils";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 
@@ -30,7 +24,6 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Code from Firebase documentation
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("profileURL", "==", `${userName}`));
         const querySnapshot = await getDocs(q);
@@ -38,9 +31,8 @@ const ProfilePage = () => {
           setUserData(doc.data());
           setEventIDs(doc.data().events);
         });
-
         setLoading(false);
-        fetchEventsList();
+        fetchEventsData();
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
@@ -51,18 +43,16 @@ const ProfilePage = () => {
     fetchUserData();
   }, []);
 
-  const fetchEventsList = async () => {
+  const fetchEventsData = async () => {
     try {
-      const userEvents = [];
-
-      // Code from Firebase documentation
+      const firestoreEventsData = [];
       const querySnapshot = await getDocs(collection(db, "events"));
       querySnapshot.forEach((doc) => {
-        userEvents.push(doc.data());
+        firestoreEventsData.push(doc.data());
       });
       setLoading(false);
-      userEvents.sort((a, b) => a.day - b.day);
-      setEventsData(userEvents);
+      firestoreEventsData.sort((a, b) => a.day - b.day);
+      setEventsData(firestoreEventsData);
     } catch (error) {
       console.error("Error loading data:", error);
       setError(error);
@@ -87,7 +77,7 @@ const ProfilePage = () => {
           <h2 className="profile__section-heading profile__section-heading--events">
             Events
           </h2>
-          <EmblaCarousel allEventsList={eventsData} eventIDs={eventIDs} />
+          <EmblaCarousel eventsData={eventsData} eventIDs={eventIDs} />
         </section>
 
         <section className="profile__section">
