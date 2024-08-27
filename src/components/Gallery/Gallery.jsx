@@ -58,6 +58,10 @@ const Gallery = ({ gallery, showEdit }) => {
 
     function deleteImage() {
       const imgID = event.target.parentNode.id;
+      const imgURL = event.target.parentNode.firstChild.src;
+      if (imgURL == userData.coverImg) {
+        userData.coverImg = "";
+      }
       const imgArray = [...imagesToRender];
       imgArray.splice(imgID, 1);
       setImagesToRender(imgArray);
