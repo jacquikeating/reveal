@@ -49,7 +49,7 @@ const EditProfilePage = () => {
     <>
       {userData ? (
         <>
-          <Hero img={userData.cover_photo} />
+          <Hero img={userData.coverImg} />
           <main className="edit-profile">
             <section className="edit-profile__section">
               <input
