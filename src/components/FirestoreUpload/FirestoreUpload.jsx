@@ -94,11 +94,19 @@ const FileUploader = () => {
   }
 
   function saveAsCover() {
-    setUploadAsCover(true);
+    if (!uploadAsCover) {
+      setUploadAsCover(true);
+    } else {
+      setUploadAsCover(false);
+    }
   }
 
   function saveAsAvatar() {
-    setUploadAsAvatar(true);
+    if (!uploadAsAvatar) {
+      setUploadAsAvatar(true);
+    } else {
+      setUploadAsAvatar(false);
+    }
   }
 
   return (
@@ -116,7 +124,6 @@ const FileUploader = () => {
       />
       {showExtraInputs ? (
         <div className="upload-modal__extra-inputs">
-          <p className="upload-modal__message">{uploadStatusMessage}</p>
           <label htmlFor="caption" className="upload-modal__label">
             Enter a caption:
             <input
