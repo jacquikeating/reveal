@@ -25,6 +25,24 @@
     &__gradient-overlay {
         @include gradient-overlay(180deg);
     }
+
+    &__edit-button {
+        z-index: 5;
+        position: absolute;
+        top: calc(50% - 1.6rem);
+        left: calc(50% - 131px);
+        padding: 0.75rem 4rem;
+        border: none;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: rgba(0,0,0, 0.6);
+        color: $light;
+    
+        &:hover {
+            background: $dark-gradient;
+        }
+    }
 }
 
 .next-event {

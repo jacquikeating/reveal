@@ -1,7 +1,11 @@
-import React from "react";
+import { React, useState } from "react";
+import { Modal } from "react-responsive-modal";
 import "./Hero.scss";
 
-const Hero = ({ img, nextEvent }) => {
+const Hero = ({ img, nextEvent, showEdit }) => {
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
   let imgSrc = () => {
     if (img) {
       return img;
@@ -9,6 +13,18 @@ const Hero = ({ img, nextEvent }) => {
       return "../src/assets/image-placeholder.png"; // Placeholder image
     }
   };
+
+  function openModal(event) {
+    onOpenModal();
+  }
+
+  function closeModal(event) {
+    onCloseModal();
+  }
+
+  function changeCover() {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+  }
 
   return (
     <div className="hero" style={{ "--img": `url(${imgSrc()})` }}>
@@ -25,6 +41,16 @@ const Hero = ({ img, nextEvent }) => {
       ) : (
         ""
       )}
+      {showEdit ? (
+        <button className="hero__edit-button" onClick={openModal}>
+          Change cover image
+        </button>
+      ) : (
+        ""
+      )}
+      <Modal open={open} onClose={closeModal} center>
+        <p>Tiny version of user gallery goes here</p>
+      </Modal>
     </div>
   );
 };
