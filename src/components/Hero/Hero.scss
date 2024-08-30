@@ -93,3 +93,37 @@
     }
 }
 }
+
+.change-cover {
+    &__instructions {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    &__gallery-container {
+        margin: auto;
+        max-width: 90%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        gap: 1.1rem;
+    }
+
+    &__img-option {
+        max-width: 15%;
+        border: 2px solid transparent;
+        border-radius: 4px;
+        opacity: 0.7;
+
+        &--selected {
+            border: 2px solid $light;
+            opacity: 1;
+        }
+    }
+
+    &__btn {
+        @include button;
+        transform: scale(0.7);
+        margin-top: 1rem;
+    }
+}
