@@ -14,10 +14,10 @@ const Hero = ({ img, nextEvent, showEdit }) => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   let imgSrc = () => {
-    if (coverImg) {
-      return coverImg;
-    } else if (img) {
+    if (img) {
       return img;
+    } else if (coverImg) {
+      return coverImg;
     } else {
       return "../src/assets/image-placeholder.png";
     }

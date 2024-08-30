@@ -116,7 +116,6 @@ const FileUploader = () => {
         className="upload-modal__input"
         type="file"
         name="file"
-        value={file}
         onChange={(e) => {
           setFile(e.target.files[0]);
           handleFileChange(e);
