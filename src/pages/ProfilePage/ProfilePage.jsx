@@ -19,8 +19,6 @@ const ProfilePage = () => {
   const [error, setError] = useState(null);
   const { name, bio, cover_photo, events, gallery } = userData;
 
-  let userGallery = [];
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -39,24 +37,22 @@ const ProfilePage = () => {
         setLoading(false);
       }
     };
-
     fetchUserData();
   }, []);
 
   const fetchEventsData = async () => {
     try {
-      const firestoreEventsData = [];
-      const querySnapshot = await getDocs(collection(db, "events"));
-      querySnapshot.forEach((doc) => {
-        firestoreEventsData.push(doc.data());
-      });
+      const data = await getDocs(collection(db, "events"));
+      const firestoreEventsData = [
+        data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      ];
+      setEventsData(firestoreEventsData[0]);
       setLoading(false);
-      firestoreEventsData.sort((a, b) => a.day - b.day);
-      setEventsData(firestoreEventsData);
     } catch (error) {
       console.error("Error loading data:", error);
-      setError(error);
-      setLoading(false);
     }
   };
 

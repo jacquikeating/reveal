@@ -18,14 +18,16 @@ const HomePage = () => {
   useEffect(() => {
     const fetchEventsData = async () => {
       try {
-        const firestoreEventsData = [];
-        const querySnapshot = await getDocs(collection(db, "events"));
-        querySnapshot.forEach((doc) => {
-          firestoreEventsData.push(doc.data());
-        });
+        const data = await getDocs(collection(db, "events"));
+        const firestoreEventsData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ];
         firestoreEventsData.sort((a, b) => a.day - b.day);
-        setEventsData(firestoreEventsData.slice(1));
-        setNextEvent(firestoreEventsData[0]);
+        setEventsData(firestoreEventsData[0]);
+        setNextEvent(firestoreEventsData[0][0]);
         setLoading(false);
       } catch (error) {
         console.error("Error loading data:", error);

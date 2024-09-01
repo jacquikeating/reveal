@@ -29,13 +29,13 @@ const EventListingsPage = () => {
     const fetchEventsData = async () => {
       try {
         const data = await getDocs(eventsCollectionRef);
-        const filteredData = [
+        const firestoreEventsData = [
           data.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
           })),
         ];
-        setEventsData(filteredData[0]);
+        setEventsData(firestoreEventsData[0]);
       } catch (error) {
         console.error("Error loading data:", error);
       }

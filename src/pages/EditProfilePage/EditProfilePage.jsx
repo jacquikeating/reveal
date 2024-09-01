@@ -25,13 +25,14 @@ const EditProfilePage = () => {
   useEffect(() => {
     const fetchEventsData = async () => {
       try {
-        const firestoreEventsData = [];
-        const querySnapshot = await getDocs(collection(db, "events"));
-        querySnapshot.forEach((doc) => {
-          firestoreEventsData.push(doc.data());
-        });
-        firestoreEventsData.sort((a, b) => a.day - b.day);
-        setEventsData(firestoreEventsData);
+        const data = await getDocs(collection(db, "events"));
+        const firestoreEventsData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ];
+        setEventsData(firestoreEventsData[0]);
       } catch (error) {
         console.error("Error loading data:", error);
       }
