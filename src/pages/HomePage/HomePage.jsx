@@ -25,7 +25,9 @@ const HomePage = () => {
             id: doc.id,
           })),
         ];
-        firestoreEventsData.sort((a, b) => a.day - b.day);
+        firestoreEventsData[0].sort(
+          (a, b) => a.when.timestamp - b.when.timestamp
+        );
         setEventsData(firestoreEventsData[0]);
         setNextEvent(firestoreEventsData[0][0]);
         setLoading(false);

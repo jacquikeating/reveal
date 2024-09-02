@@ -49,6 +49,9 @@ const ProfilePage = () => {
           id: doc.id,
         })),
       ];
+      firestoreEventsData[0].sort(
+        (a, b) => a.when.timestamp - b.when.timestamp
+      );
       setEventsData(firestoreEventsData[0]);
       setLoading(false);
     } catch (error) {
