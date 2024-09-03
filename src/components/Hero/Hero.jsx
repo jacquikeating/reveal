@@ -6,11 +6,12 @@ import "./Hero.scss";
 
 const Hero = ({ img, nextEvent, showEdit }) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
-  let userGallery = userData.gallery;
-  const userRef = doc(db, "users", userData.uid);
+  let userGallery = userData?.gallery;
+  let userRef = "";
+  userData ? (userRef = doc(db, "users", userData.uid)) : "";
   const [open, setOpen] = useState(false);
-  const [coverImg, setCoverImg] = useState(userData.coverImg);
-  const [selectedImg, setSelectedImg] = useState(userData.coverImg);
+  const [coverImg, setCoverImg] = useState(userData?.coverImg);
+  const [selectedImg, setSelectedImg] = useState(userData?.coverImg);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   let imgSrc = () => {
@@ -36,7 +37,7 @@ const Hero = ({ img, nextEvent, showEdit }) => {
   }
 
   async function changeCover() {
-    if (selectedImg !== coverImg) {
+    if (userData && selectedImg !== coverImg) {
       setCoverImg(selectedImg);
       let updatedUserData = userData;
       updatedUserData.coverImg = selectedImg;
@@ -75,7 +76,7 @@ const Hero = ({ img, nextEvent, showEdit }) => {
           Select a cover image from your gallery
         </p>
         <div className="change-cover__gallery-container">
-          {userGallery.length > 0
+          {userGallery?.length > 0
             ? userGallery.map((img) => {
                 return (
                   <img

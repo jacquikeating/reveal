@@ -66,7 +66,7 @@ const FileUploader = () => {
       await uploadBytes(filesFolderRef, file);
       setUploading(false);
       const tempUserData = userData;
-      const existingGallery = userData.gallery;
+      const existingGallery = userData.gallery || [];
       const updatedGallery = [...existingGallery];
       updatedGallery.push({
         url: `https://firebasestorage.googleapis.com/v0/b/reveal-85a73.appspot.com/o/user-content%2F${file.name}?alt=media`,

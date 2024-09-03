@@ -18,7 +18,7 @@ const Gallery = ({ gallery, showEdit }) => {
   let userData = JSON.parse(localStorage.getItem("userData"));
   const userRef = doc(db, "users", userData.uid);
   const [open, setOpen] = useState(false);
-  const [imagesToRender, setImagesToRender] = useState(gallery);
+  const [imagesToRender, setImagesToRender] = useState(gallery || null);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
@@ -28,7 +28,7 @@ const Gallery = ({ gallery, showEdit }) => {
 
   function closeModal(event) {
     const newData = JSON.parse(localStorage.getItem("userData"));
-    setImagesToRender(newData.gallery);
+    setImagesToRender(newData?.gallery);
     onCloseModal();
   }
 
@@ -78,7 +78,7 @@ const Gallery = ({ gallery, showEdit }) => {
   return (
     <>
       <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
-        {imagesToRender.length > 0
+        {imagesToRender?.length > 0
           ? imagesToRender.map((img) => {
               return (
                 <div

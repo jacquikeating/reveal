@@ -15,9 +15,9 @@ const EmblaCarousel = ({ eventsData, eventIDs }) => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
-  if (eventIDs) {
-    eventsData = eventsData.filter((show) => eventIDs.includes(show.id));
-  }
+  // if (eventIDs.length) {
+  // eventsData = eventsData.filter((show) => eventIDs.includes(show.id));
+  // }
 
   return (
     <div className="embla">
