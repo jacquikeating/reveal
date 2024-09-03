@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import "./EventQuickView.scss";
 
 export const EventQuickView = ({ event }) => {
-  const { name, original_id, month, day, main_image, description, venue, id } =
-    event;
+  const { name, month, day, main_image, description, venue, id } = event;
 
-  console.log(id);
   return (
     <div className="event-quickview">
       <h2 className="event-quickview__title">{name}</h2>

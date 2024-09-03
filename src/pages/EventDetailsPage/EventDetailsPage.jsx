@@ -33,6 +33,8 @@ const EventDetailsPage = () => {
     performers,
     buy_tickets,
     gallery,
+    when,
+    where,
   } = eventData;
   const { GA, advanceGA, VIP, advanceVIP, tableDiscounts } =
     eventData.ticket_prices;
