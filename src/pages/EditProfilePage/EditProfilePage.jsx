@@ -23,25 +23,27 @@ const EditProfilePage = () => {
   const updatedUserData = { ...userData, ...inputValues };
 
   useEffect(() => {
-    const fetchEventsData = async () => {
-      try {
-        const data = await getDocs(collection(db, "events"));
-        const firestoreEventsData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          })),
-        ];
-        firestoreEventsData[0].sort(
-          (a, b) => a.when.timestamp - b.when.timestamp
-        );
-        setEventsData(firestoreEventsData[0]);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
-    fetchEventsData();
+    if (userData.events) {
+      const fetchEventsData = async () => {
+        try {
+          const data = await getDocs(collection(db, "events"));
+          const firestoreEventsData = [
+            data.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ];
+          let onlyUsersShows = firestoreEventsData[0].filter((show) =>
+            userData.events.includes(show.id)
+          );
+          onlyUsersShows[0].sort((a, b) => a.when.timestamp - b.when.timestamp);
+          setEventsData(onlyUsersShows);
+        } catch (error) {
+          console.error("Error loading data:", error);
+        }
+      };
+      fetchEventsData();
+    }
   }, []);
 
   async function saveData() {
@@ -76,10 +78,14 @@ const EditProfilePage = () => {
               <h2 className="profile__section-heading profile__section-heading--events">
                 Events
               </h2>
-              <EmblaCarousel
-                eventsData={eventsData}
-                eventIDs={userData.events}
-              />
+              {userData.events ? (
+                <EmblaCarousel
+                  eventsData={eventsData}
+                  eventIDs={userData.events}
+                />
+              ) : (
+                <p>You are not in any events!</p>
+              )}
             </section>
 
             <section className="edit-profile__section">
