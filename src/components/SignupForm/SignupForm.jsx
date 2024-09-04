@@ -14,6 +14,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState("");
   const [name, setName] = useState("");
+  const [homeCity, setHomeCity] = useState("");
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -45,6 +46,7 @@ const SignupForm = () => {
               uid: user.uid,
               email: email,
               profileURL: nameToURL(name),
+              homeCity: homeCity,
             });
           }
         );
@@ -58,6 +60,10 @@ const SignupForm = () => {
       setConfirmPW("");
     }
   };
+
+  function changeCity(e) {
+    setHomeCity(e.target.value);
+  }
 
   return (
     <>
@@ -102,6 +108,20 @@ const SignupForm = () => {
           onChange={(e) => setConfirmPW(e.target.value)}
           value={confirmPW}
         />
+        <select className="signup-form__select-city" onChange={changeCity}>
+          <option value="Montreal" className="event-listings-page__city-option">
+            Montreal
+          </option>
+          <option value="Toronto" className="event-listings-page__city-option">
+            Toronto
+          </option>
+          <option
+            value="Vancouver"
+            className="event-listings-page__city-option"
+          >
+            Vancouver
+          </option>
+        </select>
       </form>
       <button className="signup-page__submit-btn" onClick={signUp}>
         Sign Up
