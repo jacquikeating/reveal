@@ -49,10 +49,12 @@ const ProfilePage = () => {
           id: doc.id,
         })),
       ];
-      firestoreEventsData[0].sort(
-        (a, b) => a.when.timestamp - b.when.timestamp
+      let onlyUsersShows = firestoreEventsData[0].filter((show) =>
+        userData.events.includes(show.id)
       );
-      setEventsData(firestoreEventsData[0]);
+      onlyUsersShows[0].sort((a, b) => a.when.timestamp - b.when.timestamp);
+      setEventsData(onlyUsersShows);
+      setEventsData(onlyUsersShows);
       setLoading(false);
     } catch (error) {
       console.error("Error loading data:", error);
@@ -76,7 +78,11 @@ const ProfilePage = () => {
           <h2 className="profile__section-heading profile__section-heading--events">
             Events
           </h2>
-          <EmblaCarousel eventsData={eventsData} eventIDs={eventIDs} />
+          {userData.events ? (
+            <EmblaCarousel eventsData={eventsData} eventIDs={userData.events} />
+          ) : (
+            <p>This user is not in any events... yet!</p>
+          )}
         </section>
 
         <section className="profile__section">
