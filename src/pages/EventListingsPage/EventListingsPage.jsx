@@ -11,7 +11,7 @@ import { format, addMonths, subMonths } from "date-fns";
 const EventListingsPage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const [eventsData, setEventsData] = useState([]);
-  const [selectedCity, setSelectedCity] = useState(userData.homeCity);
+  const [selectedCity, setSelectedCity] = useState(userData?.homeCity || null);
   const eventsCollectionRef = collection(db, "events");
   const [displayCalendar, setDisplayCalendar] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -95,7 +95,7 @@ const EventListingsPage = () => {
           <h1 className="event-listings-page__h1">Events in</h1>
           <select
             className="event-listings-page__select-city"
-            defaultValue={userData.homeCity}
+            defaultValue={selectedCity}
             onChange={changeCity}
           >
             <option
