@@ -1,11 +1,8 @@
 import { useEffect, useState, Suspense, lazy } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
-import {
-  getSingleEventEndpoint,
-  getUsersListEndpoint,
-  emptyEventData,
-} from "../../utils/api-utils";
+import { emptyEventData } from "../../utils/api-utils";
+import { db } from "../../config/firebase.js";
+import { doc, setDoc } from "firebase/firestore";
 import Hero from "../../components/Hero/Hero";
 import DateDot from "../../components/DateDot/DateDot";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
@@ -14,71 +11,48 @@ import PerformersList from "../../components/PerformersList/PerformersList";
 import "./MakeEventPage.scss";
 
 const MakeEventPage = () => {
-  // const { eventID } = useParams();
   // const [eventData, setEventData] = useState(emptyEventData);
-  // const [performerIDs, setPerformerIDs] = useState([]);
-  // const [usersData, setUsersData] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  // const {
-  //   name,
-  //   subtitle,
-  //   city,
-  //   month,
-  //   day,
-  //   main_image,
-  //   description,
-  //   venue,
-  //   venue_address,
-  //   doors_time,
-  //   start_time,
-  //   end_time,
-  //   organizer,
-  //   ticket_prices,
-  //   performers,
-  //   buy_tickets,
-  //   gallery,
-  // } = eventData;
-  // const { GA, advanceGA, VIP, advanceVIP, tableDiscounts } =
-  //   eventData.ticket_prices;
+  const [eventName, setEventName] = useState("");
+  const [eventSubtitle, setEventSubtitle] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [eventProducer, setEventProducer] = useState("");
+  const [eventCity, setEventCity] = useState("");
+  const [eventVenue, setEventVenue] = useState("");
+  const [eventAddress, setEventAddress] = useState("");
+  const [eventTimestamp, setEventTimestamp] = useState("");
+  const [eventDoorsTime, setEventDoorsTime] = useState("");
+  const [eventEndTime, setEventEndTime] = useState("");
+  const [eventTicketPrices, setEventTicketPrices] = useState({});
+  const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
+  const [eventPerformers, setEventPerformers] = useState([]);
 
-  // useEffect(() => {}, []);
-
-  // const fetchUsersList = async () => {
-  //   try {
-  //     const response = await axios.get(getUsersListEndpoint());
-  //     setUsersData(response.data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error loading data:", error);
-  //     setError(error);
-  //     setLoading(false);
-  //   }
-  // };
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error loading data: {error.message}</p>;
+  async function createEvent() {
+    // await setDoc(doc(db, "events", `${user.uid}`), {
+    //   name: name,
+    //   uid: user.uid,
+    //   email: email,
+    //   profileURL: nameToURL(name),
+    //   homeCity: homeCity,
+    // });
+  }
 
   return (
     <>
       <main className="event">
         <section className="event__section">
-          <h1 className="event__name">{name}</h1>
-          {
-            // Renders a subtitle only if the organizer has opted to include one
-            subtitle ? <p className="event__subtitle">{subtitle}</p> : ""
-          }
+          <h1 className="event__name">{eventName}</h1>
+          <p className="event__subtitle">{eventSubtitle}</p>
           <div className="event__subsection">
-            <p className="event__description">{description}</p>
-            {/* <p className="event__organizer">Produced by {organizer}</p> */}
+            <p className="event__description">{eventDescription}</p>
+            <p className="event__organizer">Produced by {eventProducer}</p>
           </div>
 
           <div className="event__subsection">
             <h3 className="event__info-category-subheading">Venue</h3>
             <div className="event__location">
-              <p className="event__venue">{venue}</p>
+              <p className="event__venue">{eventVenue}</p>
               <p className="event__address">
-                {venue_address}&nbsp; • &nbsp;{city}
+                {eventAddress}&nbsp; • &nbsp;{eventCity}
               </p>
             </div>
           </div>
@@ -92,23 +66,23 @@ const MakeEventPage = () => {
             <div className="event__times">
               <h3 className="event__info-category-subheading">Time</h3>
               <table className="timetable">
-                <tbody>
+                {/* <tbody>
                   {doors_time ? (
                     <tr className="timetable__row">
                       <td className="timetable__cell tickets-table__cell--label">Doors Open</td>
-                      <td className="timetable__cell">{doors_time}</td>
+                      <td className="timetable__cell">{eventDoorsTime}</td>
                     </tr>) : ("")}
                   {start_time ? (
                     <tr className="timetable__row">
                       <td className="timetable__cell tickets-table__cell--label">Start Time</td>
-                      <td className="timetable__cell">{start_time}</td>
+                      <td className="timetable__cell">{eventTimestamp}</td>
                     </tr>) : ("")}
                   {end_time ? (
                     <tr className="timetable__row">
                       <td className="timetable__cell tickets-table__cell--label">End Time</td>
-                      <td className="timetable__cell">{end_time}</td>
+                      <td className="timetable__cell">{eventEndTime}</td>
                     </tr>) : ("")}
-                </tbody>
+                </tbody> */}
               </table>
             </div>
 
@@ -116,7 +90,7 @@ const MakeEventPage = () => {
           <div className="event__ticket-prices">
             <h3 className="event__info-category-subheading">Ticket Prices</h3>
             <table className="tickets-table">
-              <tbody>
+              {/* <tbody>
                 {advanceGA ? (
                   <tr className="tickets-table__row">
                     <td className="tickets-table__cell tickets-table__cell--label">Adv. General Admission</td>
@@ -137,30 +111,34 @@ const MakeEventPage = () => {
                     <td className="tickets-table__cell tickets-table__cell--label">VIP</td>
                     <td className="tickets-table__cell">${VIP}</td>
                   </tr>) : ("")}
-              </tbody>
+              </tbody> */}
             </table>
-            {tableDiscounts ? (
+            {/* {tableDiscounts ? (
               <p className="tickets-table__table-discounts">Table discounts available</p>
-            ) : ("")}
+            ) : ("")} */}
           </div>
           </div>
 
           <div className="buy-tickets">
-            <a href={buy_tickets} target="_blank" className="buy-tickets__link">
+            <a
+              href={eventBuyTicketsLink}
+              target="_blank"
+              className="buy-tickets__link"
+            >
               <button className="buy-tickets__button">Buy Tickets</button>
             </a>
           </div>
         </section>
 
         <section className="event__section">
-          <h2 className="event__section-heading">Featuring...</h2>
+          {/* <h2 className="event__section-heading">Featuring...</h2>
           <PerformersList
             performerIDs={performerIDs}
             allUsersList={usersData}
-          />
+          /> */}
 
           <p className="event__organizer">
-            Produced by <Link to="/">{organizer}</Link>
+            Produced by <Link to="/">{eventProducer}</Link>
           </p>
         </section>
 
@@ -173,7 +151,7 @@ const MakeEventPage = () => {
 
         <section className="event__section">
           <h2 className="event__section-heading">Posts</h2>
-          <PostsContainer />
+          {/* <PostsContainer /> */}
         </section>
       </main>
     </>

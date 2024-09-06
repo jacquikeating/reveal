@@ -20,6 +20,7 @@ import Footer from "/src/components/Footer/Footer.jsx";
 import NewAcctPage from "./pages/NewAcctPage/NewAcctPage";
 import TestPage from "./pages/TestPage/TestPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
+import MakeEventPage from "./pages/MakeEventPage/MakeEventPage";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -66,10 +67,6 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/welcome" element={<NewAcctPage />} />
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route
-            path="/profile"
-            element={<Navigate replace to={`/profile/${url}`} />}
-          /> */}
           <Route
             path="/profile/edit"
             element={<EditProfilePage userData={userData} />}
@@ -86,6 +83,7 @@ function App() {
             path="/account"
             element={<AccountPage userData={userData} />}
           />
+          <Route path="/events/new" element={<MakeEventPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
