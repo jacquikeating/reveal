@@ -37,124 +37,149 @@ const MakeEventPage = () => {
   }
 
   return (
-    <>
-      <main className="event">
-        <section className="event__section">
-          <h1 className="event__name">{eventName}</h1>
-          <p className="event__subtitle">{eventSubtitle}</p>
-          <div className="event__subsection">
-            <p className="event__description">{eventDescription}</p>
-            <p className="event__organizer">Produced by {eventProducer}</p>
-          </div>
+    <main className="make-event">
+      <form className="make-event__form">
+        <h3 className="make-event__subheading">Core Info</h3>
+        <label>
+          Event Name
+          <input
+            type="text"
+            className="make-event__name"
+            onChange={(e) => setEventName(e.target.value)}
+          />
+        </label>
+        <label>
+          Subtitle
+          <input
+            type="text"
+            className="make-event__subtitle"
+            onChange={(e) => setEventSubtitle(e.target.value)}
+          />
+        </label>
 
-          <div className="event__subsection">
-            <h3 className="event__info-category-subheading">Venue</h3>
-            <div className="event__location">
-              <p className="event__venue">{eventVenue}</p>
-              <p className="event__address">
-                {eventAddress}&nbsp; • &nbsp;{eventCity}
-              </p>
-            </div>
-          </div>
+        <label>
+          Description
+          <textarea
+            className="make-event__description"
+            onChange={(e) => setEventDescription(e.target.value)}
+          ></textarea>
+        </label>
 
-          {/* These tables use ternary operators to render rows only for truthy values. 
-              If any value is not specified (e.g. no end time provided, or no early bird discounts),
-              we won't bother rendering a table row for it. */}
+        <h3 className="make-event__subheading">Location</h3>
+        <label>
+          City
+          <select
+            className="make-event__select-city"
+            // defaultValue={selectedCity}
+            onChange={(e) => setEventCity(e.target.value)}
+          >
+            <option value="Montreal" className="make-event__city-option">
+              Montreal
+            </option>
+            <option value="Toronto" className="make-event__city-option">
+              Toronto
+            </option>
+            <option value="Vancouver" className="make-event__city-option">
+              Vancouver
+            </option>
+          </select>
+        </label>
 
-          {/* prettier-ignore */ }
-          <div className="event__subsection event__subsection--times-and-tickets">
-            <div className="event__times">
-              <h3 className="event__info-category-subheading">Time</h3>
-              <table className="timetable">
-                {/* <tbody>
-                  {doors_time ? (
-                    <tr className="timetable__row">
-                      <td className="timetable__cell tickets-table__cell--label">Doors Open</td>
-                      <td className="timetable__cell">{eventDoorsTime}</td>
-                    </tr>) : ("")}
-                  {start_time ? (
-                    <tr className="timetable__row">
-                      <td className="timetable__cell tickets-table__cell--label">Start Time</td>
-                      <td className="timetable__cell">{eventTimestamp}</td>
-                    </tr>) : ("")}
-                  {end_time ? (
-                    <tr className="timetable__row">
-                      <td className="timetable__cell tickets-table__cell--label">End Time</td>
-                      <td className="timetable__cell">{eventEndTime}</td>
-                    </tr>) : ("")}
-                </tbody> */}
-              </table>
-            </div>
+        <div className="event__location">
+          <label>
+            Venue Name
+            <input
+              type="text"
+              className="make-event__text-input"
+              onChange={(e) => setEventVenue(e.target.value)}
+            />
+          </label>
+          <label>
+            Venue Address
+            <input
+              type="text"
+              className="make-event__text-input"
+              onChange={(e) => setEventAddress(e.target.value)}
+            />
+          </label>
+        </div>
 
-          {/* prettier-ignore */ }
-          <div className="event__ticket-prices">
-            <h3 className="event__info-category-subheading">Ticket Prices</h3>
-            <table className="tickets-table">
-              {/* <tbody>
-                {advanceGA ? (
-                  <tr className="tickets-table__row">
-                    <td className="tickets-table__cell tickets-table__cell--label">Adv. General Admission</td>
-                    <td className="tickets-table__cell">${advanceGA}</td>
-                  </tr>) : ("")}
-                {GA ? (
-                  <tr className="tickets-table__row">
-                    <td className="tickets-table__cell tickets-table__cell--label">General Admission</td>
-                    <td className="tickets-table__cell">${GA}</td>
-                  </tr>) : ("")}
-                  {advanceVIP ? (
-                  <tr className="tickets-table__row">
-                    <td className="tickets-table__cell tickets-table__cell--label">Adv. VIP</td>
-                    <td className="tickets-table__cell">${advanceVIP}</td>
-                  </tr>) : ("")}
-                  {VIP ? (
-                  <tr className="tickets-table__row">
-                    <td className="tickets-table__cell tickets-table__cell--label">VIP</td>
-                    <td className="tickets-table__cell">${VIP}</td>
-                  </tr>) : ("")}
-              </tbody> */}
-            </table>
-            {/* {tableDiscounts ? (
-              <p className="tickets-table__table-discounts">Table discounts available</p>
-            ) : ("")} */}
-          </div>
-          </div>
+        <h3 className="make-event__subheading">Date & Time</h3>
+        <label>
+          Date & Official Start Time
+          <input
+            type="datetime-local"
+            className="make-event__datetime-input"
+            onChange={(e) => setEventTimestamp(e.target.value)}
+          />
+        </label>
 
-          <div className="buy-tickets">
-            <a
-              href={eventBuyTicketsLink}
-              target="_blank"
-              className="buy-tickets__link"
-            >
-              <button className="buy-tickets__button">Buy Tickets</button>
-            </a>
-          </div>
-        </section>
+        <label>
+          Doors Time
+          <input
+            type="time"
+            className="make-event__time-input"
+            onChange={(e) => setEventDoorsTime(e.target.value)}
+          />
+        </label>
 
-        <section className="event__section">
-          {/* <h2 className="event__section-heading">Featuring...</h2>
-          <PerformersList
-            performerIDs={performerIDs}
-            allUsersList={usersData}
-          /> */}
+        <label>
+          End Time
+          <input
+            type="time"
+            className="make-event__time-input"
+            onChange={(e) => setEventEndTime(e.target.value)}
+          />
+        </label>
 
-          <p className="event__organizer">
-            Produced by <Link to="/">{eventProducer}</Link>
-          </p>
-        </section>
+        <h3 className="make-event__subheading">Performers</h3>
 
-        {/* <section className="event__section">
-          <h2 className="event__section-heading">Gallery</h2>
-          <Suspense fallback={<p>Loading images...</p>}>
-            <Gallery gallery={eventData.gallery} />
-          </Suspense>
-        </section> */}
+        <h3 className="make-event__subheading">Tickets</h3>
+        <label>
+          Link to Buy Tickets
+          <input
+            type="text"
+            className="make-event__text-input"
+            onChange={(e) => setEventBuyTicketsLink(e.target.value)}
+          />
+        </label>
 
-        <section className="event__section">
-          <h2 className="event__section-heading">Posts</h2>
-          {/* <PostsContainer /> */}
-        </section>
-      </main>
-    </>
+        <label>
+          Advance GA
+          <input
+            type="number"
+            className="make-event__num-input"
+            // onChange={(e) => ????(e.target.value)}
+          />
+        </label>
+        <label>
+          Advance VIP
+          <input
+            type="number"
+            className="make-event__num-input"
+            // onChange={(e) => ????(e.target.value)}
+          />
+        </label>
+        <label>
+          GA
+          <input
+            type="number"
+            className="make-event__num-input"
+            // onChange={(e) => ????(e.target.value)}
+          />
+        </label>
+        <label>
+          VIP
+          <input
+            type="number"
+            className="make-event__num-input"
+            // onChange={(e) => ????(e.target.value)}
+          />
+        </label>
+
+        <button>Submit</button>
+      </form>
+    </main>
   );
 };
 
