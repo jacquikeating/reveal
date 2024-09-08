@@ -19,14 +19,47 @@ const MakeEventPage = () => {
   const [eventCity, setEventCity] = useState("");
   const [eventVenue, setEventVenue] = useState("");
   const [eventAddress, setEventAddress] = useState("");
-  const [eventTimestamp, setEventTimestamp] = useState("");
+  const [eventISODateTime, setEventISODateTime] = useState("");
+  // const [eventTimestamp, setEventTimestamp] = useState(
+  //   new Date(eventISODateTime).getTime()
+  // );
   const [eventDoorsTime, setEventDoorsTime] = useState("");
   const [eventEndTime, setEventEndTime] = useState("");
   const [eventTicketPrices, setEventTicketPrices] = useState({});
   const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
   const [eventPerformers, setEventPerformers] = useState([]);
 
-  async function createEvent() {
+  async function createEvent(e) {
+    e.preventDefault();
+
+    let newEvent = {
+      name: eventName,
+      subtitle: eventSubtitle,
+      description: eventDescription,
+      producer: eventProducer,
+      city: eventCity,
+      venue: eventVenue,
+      venueAddress: eventAddress,
+      when: {
+        timestamp: new Date(eventISODateTime).getTime(),
+        day: new Date(eventISODateTime).getDate(),
+        month: new Date(eventISODateTime).toLocaleString("default", {
+          month: "long",
+        }),
+        times: {
+          doors: eventDoorsTime,
+          start: new Date(eventISODateTime).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          end: eventEndTime,
+        },
+      },
+      ticketsLink: eventBuyTicketsLink,
+      ticketPrices: eventTicketPrices,
+      performers: eventPerformers,
+    };
+    console.log(newEvent);
     // await setDoc(doc(db, "events", `${user.uid}`), {
     //   name: name,
     //   uid: user.uid,
@@ -110,7 +143,7 @@ const MakeEventPage = () => {
           <input
             type="datetime-local"
             className="make-event__datetime-input"
-            onChange={(e) => setEventTimestamp(e.target.value)}
+            onChange={(e) => setEventISODateTime(e.target.value)}
           />
         </label>
 
@@ -177,7 +210,7 @@ const MakeEventPage = () => {
           />
         </label>
 
-        <button>Submit</button>
+        <button onClick={(e) => createEvent(e)}>Submit</button>
       </form>
     </main>
   );
