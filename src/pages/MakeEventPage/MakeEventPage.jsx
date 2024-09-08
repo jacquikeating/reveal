@@ -7,6 +7,8 @@ import Hero from "../../components/Hero/Hero";
 import DateDot from "../../components/DateDot/DateDot";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 import PerformersList from "../../components/PerformersList/PerformersList";
+import FileUploader from "../../components/FirestoreUpload/FirestoreUpload";
+import { Modal } from "react-responsive-modal";
 // const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 import "./MakeEventPage.scss";
 
@@ -28,6 +30,10 @@ const MakeEventPage = () => {
   const [eventTicketPrices, setEventTicketPrices] = useState({});
   const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
   const [eventPerformers, setEventPerformers] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   async function createEvent(e) {
     e.preventDefault();
@@ -68,7 +74,15 @@ const MakeEventPage = () => {
     //   homeCity: homeCity,
     // });
   }
+  function openModal(event) {
+    event.preventDefault();
+    onOpenModal();
+  }
 
+  function closeModal(event) {
+    // const newData = JSON.parse(localStorage.getItem("userData"));
+    onCloseModal();
+  }
   return (
     <main className="make-event">
       <form className="make-event__form">
@@ -209,6 +223,13 @@ const MakeEventPage = () => {
             // onChange={(e) => ????(e.target.value)}
           />
         </label>
+
+        <button className="make-event__upload-img-btn" onClick={openModal}>
+          Upload Main Image
+        </button>
+        <Modal open={open} onClose={closeModal} center>
+          <FileUploader></FileUploader>
+        </Modal>
 
         <button onClick={(e) => createEvent(e)}>Submit</button>
       </form>
