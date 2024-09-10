@@ -22,9 +22,6 @@ const MakeEventPage = () => {
   const [eventVenue, setEventVenue] = useState("");
   const [eventAddress, setEventAddress] = useState("");
   const [eventISODateTime, setEventISODateTime] = useState("");
-  // const [eventTimestamp, setEventTimestamp] = useState(
-  //   new Date(eventISODateTime).getTime()
-  // );
   const [eventDoorsTime, setEventDoorsTime] = useState("");
   const [eventEndTime, setEventEndTime] = useState("");
   const [eventTicketPrices, setEventTicketPrices] = useState({});
@@ -85,54 +82,65 @@ const MakeEventPage = () => {
   }
   return (
     <main className="make-event">
-      <form className="make-event__form">
-        <h3 className="make-event__subheading">Core Info</h3>
-        <label>
-          Event Name
-          <input
-            type="text"
-            className="make-event__name"
-            onChange={(e) => setEventName(e.target.value)}
-          />
-        </label>
-        <label>
-          Subtitle
-          <input
-            type="text"
-            className="make-event__subtitle"
-            onChange={(e) => setEventSubtitle(e.target.value)}
-          />
-        </label>
+      <section className="make-event__form">
+        <h1 className="make-event__title">New Event</h1>
+        {/* <form className="make-event__form"> */}
+        <div className="make-event__core-info">
+          <h3 className="make-event__subheading">Core Info</h3>
+          <label>
+            Event Name
+            <input
+              type="text"
+              className="make-event__name"
+              onChange={(e) => setEventName(e.target.value)}
+            />
+          </label>
+          <label>
+            Subtitle
+            <input
+              type="text"
+              className="make-event__subtitle"
+              onChange={(e) => setEventSubtitle(e.target.value)}
+            />
+          </label>
 
-        <label>
-          Description
-          <textarea
-            className="make-event__description"
-            onChange={(e) => setEventDescription(e.target.value)}
-          ></textarea>
-        </label>
+          <label>
+            Description
+            <textarea
+              className="make-event__description"
+              onChange={(e) => setEventDescription(e.target.value)}
+            ></textarea>
+          </label>
 
-        <h3 className="make-event__subheading">Location</h3>
-        <label>
-          City
-          <select
-            className="make-event__select-city"
-            // defaultValue={selectedCity}
-            onChange={(e) => setEventCity(e.target.value)}
-          >
-            <option value="Montreal" className="make-event__city-option">
-              Montreal
-            </option>
-            <option value="Toronto" className="make-event__city-option">
-              Toronto
-            </option>
-            <option value="Vancouver" className="make-event__city-option">
-              Vancouver
-            </option>
-          </select>
-        </label>
+          <button className="make-event__upload-img-btn" onClick={openModal}>
+            Upload Main Image
+          </button>
+          <Modal open={open} onClose={closeModal} center>
+            <FileUploader></FileUploader>
+          </Modal>
+        </div>
 
-        <div className="event__location">
+        <div className="make-event__location-info">
+          <h3 className="make-event__subheading">Location</h3>
+          <label>
+            City
+            <select
+              className="make-event__select-city"
+              // defaultValue={selectedCity}
+              onChange={(e) => setEventCity(e.target.value)}
+            >
+              <option value="Montreal" className="make-event__city-option">
+                Montreal
+              </option>
+              <option value="Toronto" className="make-event__city-option">
+                Toronto
+              </option>
+              <option value="Vancouver" className="make-event__city-option">
+                Vancouver
+              </option>
+            </select>
+          </label>
+
           <label>
             Venue Name
             <input
@@ -151,88 +159,93 @@ const MakeEventPage = () => {
           </label>
         </div>
 
-        <h3 className="make-event__subheading">Date & Time</h3>
-        <label>
-          Date & Official Start Time
-          <input
-            type="datetime-local"
-            className="make-event__datetime-input"
-            onChange={(e) => setEventISODateTime(e.target.value)}
-          />
-        </label>
+        <div className="make-event__time-info">
+          <h3 className="make-event__subheading">Date & Time</h3>
+          <label>
+            Date & Official Start Time
+            <input
+              type="datetime-local"
+              className="make-event__datetime-input"
+              onChange={(e) => setEventISODateTime(e.target.value)}
+            />
+          </label>
 
-        <label>
-          Doors Time
-          <input
-            type="time"
-            className="make-event__time-input"
-            onChange={(e) => setEventDoorsTime(e.target.value)}
-          />
-        </label>
+          <label>
+            Doors Time
+            <input
+              type="time"
+              className="make-event__time-input"
+              onChange={(e) => setEventDoorsTime(e.target.value)}
+            />
+          </label>
 
-        <label>
-          End Time
-          <input
-            type="time"
-            className="make-event__time-input"
-            onChange={(e) => setEventEndTime(e.target.value)}
-          />
-        </label>
+          <label>
+            End Time
+            <input
+              type="time"
+              className="make-event__time-input"
+              onChange={(e) => setEventEndTime(e.target.value)}
+            />
+          </label>
+        </div>
 
         <h3 className="make-event__subheading">Performers</h3>
 
-        <h3 className="make-event__subheading">Tickets</h3>
-        <label>
-          Link to Buy Tickets
-          <input
-            type="text"
-            className="make-event__text-input"
-            onChange={(e) => setEventBuyTicketsLink(e.target.value)}
-          />
-        </label>
+        <div className="make-event__tickets-info">
+          <h3 className="make-event__subheading">Tickets</h3>
+          <label>
+            Link to Buy Tickets
+            <input
+              type="text"
+              className="make-event__text-input"
+              onChange={(e) => setEventBuyTicketsLink(e.target.value)}
+            />
+          </label>
 
-        <label>
-          Advance GA
-          <input
-            type="number"
-            className="make-event__num-input"
-            // onChange={(e) => ????(e.target.value)}
-          />
-        </label>
-        <label>
-          Advance VIP
-          <input
-            type="number"
-            className="make-event__num-input"
-            // onChange={(e) => ????(e.target.value)}
-          />
-        </label>
-        <label>
-          GA
-          <input
-            type="number"
-            className="make-event__num-input"
-            // onChange={(e) => ????(e.target.value)}
-          />
-        </label>
-        <label>
-          VIP
-          <input
-            type="number"
-            className="make-event__num-input"
-            // onChange={(e) => ????(e.target.value)}
-          />
-        </label>
+          <div className="make-event__ticket-prices">
+            <label>
+              Advance GA
+              <input
+                type="number"
+                className="make-event__num-input"
+                // onChange={(e) => ????(e.target.value)}
+              />
+            </label>
+            <label>
+              Advance VIP
+              <input
+                type="number"
+                className="make-event__num-input"
+                // onChange={(e) => ????(e.target.value)}
+              />
+            </label>
+            <label>
+              GA
+              <input
+                type="number"
+                className="make-event__num-input"
+                // onChange={(e) => ????(e.target.value)}
+              />
+            </label>
+            <label>
+              VIP
+              <input
+                type="number"
+                className="make-event__num-input"
+                // onChange={(e) => ????(e.target.value)}
+              />
+            </label>
+          </div>
+        </div>
 
-        <button className="make-event__upload-img-btn" onClick={openModal}>
-          Upload Main Image
+        <button
+          className="make-event__submit-btn"
+          onClick={(e) => createEvent(e)}
+        >
+          Submit
         </button>
-        <Modal open={open} onClose={closeModal} center>
-          <FileUploader></FileUploader>
-        </Modal>
-
-        <button onClick={(e) => createEvent(e)}>Submit</button>
-      </form>
+        {/* </form> */}
+      </section>
     </main>
   );
 };
