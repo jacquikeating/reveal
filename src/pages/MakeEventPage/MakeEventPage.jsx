@@ -27,6 +27,10 @@ const MakeEventPage = () => {
   const [eventTicketPrices, setEventTicketPrices] = useState({});
   const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
   const [eventPerformers, setEventPerformers] = useState([]);
+  const [eventTicketPriceGA, setEventTicketPriceGA] = useState(0);
+  const [eventTicketPriceAdvGA, setEventTicketPriceAdvGA] = useState(0);
+  const [eventTicketPriceVIP, setEventTicketPriceVIP] = useState(0);
+  const [eventTicketPriceAdvVIP, setEventTicketPriceAdvVIP] = useState(0);
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
@@ -208,7 +212,7 @@ const MakeEventPage = () => {
               <input
                 type="number"
                 className="make-event__num-input"
-                // onChange={(e) => ????(e.target.value)}
+                onChange={(e) => setEventTicketPriceAdvGA(e.target.value)}
               />
             </label>
             <label>
@@ -216,7 +220,7 @@ const MakeEventPage = () => {
               <input
                 type="number"
                 className="make-event__num-input"
-                // onChange={(e) => ????(e.target.value)}
+                onChange={(e) => setEventTicketPriceAdvVIP(e.target.value)}
               />
             </label>
             <label>
@@ -224,7 +228,7 @@ const MakeEventPage = () => {
               <input
                 type="number"
                 className="make-event__num-input"
-                // onChange={(e) => ????(e.target.value)}
+                onChange={(e) => setEventTicketPriceGA(e.target.value)}
               />
             </label>
             <label>
@@ -232,7 +236,7 @@ const MakeEventPage = () => {
               <input
                 type="number"
                 className="make-event__num-input"
-                // onChange={(e) => ????(e.target.value)}
+                onChange={(e) => setEventTicketPriceVIP(e.target.value)}
               />
             </label>
           </div>
