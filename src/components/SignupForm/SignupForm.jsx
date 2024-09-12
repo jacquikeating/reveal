@@ -61,10 +61,6 @@ const SignupForm = () => {
     }
   };
 
-  function changeCity(e) {
-    setHomeCity(e.target.value);
-  }
-
   return (
     <>
       <form className="signup-form">
@@ -108,7 +104,11 @@ const SignupForm = () => {
           onChange={(e) => setConfirmPW(e.target.value)}
           value={confirmPW}
         />
-        <select className="signup-form__select-city" onChange={changeCity}>
+        <select
+          className="signup-form__select-city"
+          onChange={(e) => setHomeCity(e.target.value)}
+          required
+        >
           <option value="Montreal" className="event-listings-page__city-option">
             Montreal
           </option>
