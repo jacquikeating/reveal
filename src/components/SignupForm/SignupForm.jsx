@@ -21,6 +21,12 @@ const SignupForm = () => {
 
   const signUp = async (e) => {
     e.preventDefault();
+
+    if (!email || !password || !name || !homeCity) {
+      alert("Please fill out all of the fields.");
+      return;
+    }
+
     if (password && password === confirmPW) {
       try {
         await createUserWithEmailAndPassword(auth, email, password).then(
