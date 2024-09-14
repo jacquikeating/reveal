@@ -36,7 +36,7 @@ const EditProfilePage = () => {
           let onlyUsersShows = firestoreEventsData[0].filter((show) =>
             userData.events.includes(show.id)
           );
-          onlyUsersShows[0].sort((a, b) => a.when.timestamp - b.when.timestamp);
+          onlyUsersShows.sort((a, b) => a.when.timestamp - b.when.timestamp);
           setEventsData(onlyUsersShows);
         } catch (error) {
           console.error("Error loading data:", error);

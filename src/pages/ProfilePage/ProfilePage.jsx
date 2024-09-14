@@ -13,7 +13,6 @@ import "./ProfilePage.scss";
 const ProfilePage = () => {
   let { userName } = useParams(); // aurora-glitter
   const [userData, setUserData] = useState({});
-  const [eventIDs, setEventIDs] = useState([]);
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,10 +26,9 @@ const ProfilePage = () => {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           setUserData(doc.data());
-          setEventIDs(doc.data().events);
+          fetchEventsData(doc.data().events);
         });
         setLoading(false);
-        fetchEventsData();
       } catch (error) {
         console.error("Error loading data:", error);
         setError(error);
@@ -40,24 +38,26 @@ const ProfilePage = () => {
     fetchUserData();
   }, []);
 
-  const fetchEventsData = async () => {
-    try {
-      const data = await getDocs(collection(db, "events"));
-      const firestoreEventsData = [
-        data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        })),
-      ];
-      let onlyUsersShows = firestoreEventsData[0].filter((show) =>
-        userData.events.includes(show.id)
-      );
-      onlyUsersShows[0].sort((a, b) => a.when.timestamp - b.when.timestamp);
-      setEventsData(onlyUsersShows);
-      setEventsData(onlyUsersShows);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error loading data:", error);
+  const fetchEventsData = async (eventsArr) => {
+    if (userData.events) {
+      try {
+        const data = await getDocs(collection(db, "events"));
+        const firestoreEventsData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ];
+
+        let onlyUsersShows = firestoreEventsData[0].filter((show) =>
+          eventsArr.includes(show.id)
+        );
+        onlyUsersShows.sort((a, b) => a.when.timestamp - b.when.timestamp);
+        setEventsData(onlyUsersShows);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
     }
   };
 
