@@ -48,7 +48,8 @@ const Hero = ({ img, nextEvent, showEdit }) => {
   }
 
   return (
-    <div className="hero" style={{ "--img": `url(${imgSrc()})` }}>
+    <div className="hero">
+      {/* <div className="hero" style={{ "--img": `url(${imgSrc()})` }}> */}
       <img className="hero__img" src={imgSrc()} />
       <div className="hero__gradient-overlay"></div>
       {nextEvent ? (

@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { name, bio, cover_photo, events, gallery } = userData;
+  const { name, bio, coverImg, events, gallery } = userData;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -66,7 +66,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Hero img={cover_photo} />
+      <Hero img={coverImg} />
       <main className="profile">
         <section className="profile__section">
           <h1 className="profile__name">{name}</h1>
