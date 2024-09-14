@@ -55,7 +55,7 @@ const FileUploader = () => {
           }
         }
         getEventData();
-      } else {
+      } else if (captionText) {
         finalCaption = `<p className='caption'>${captionText}</p>`;
       }
     }
