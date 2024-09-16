@@ -1,38 +1,26 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import "./NewPostForm.scss";
-import {
-  getEventsListEndpoint,
-  getUsersListEndpoint,
-  getPostsListEndpoint,
-  getCitiesListEndpoint,
-  getVenuesListEndpoint,
-} from "../../utils/api-utils";
+import { doc, collection, setDoc } from "firebase/firestore";
+import { db } from "../../config/firebase.js";
 
 const NewPostForm = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("userData"));
+  const newPostRef = doc(collection(db, "posts"));
 
-  // const loggedInUser = {
-  //   id: 6,
-  //   name: "Dandy D'Light",
-  //   avatar:
-  //     "https://reveal-images.s3.us-east-2.amazonaws.com/dandydlight-main.jpg",
-  // };
-
-  const [eventsData, setEventsData] = useState([]);
-  const [usersData, setUsersData] = useState([]);
-  const [citiesData, setCitiesData] = useState([]);
-  const [venuesData, setVenuesData] = useState([]);
+  // const [eventsData, setEventsData] = useState([]);
+  // const [usersData, setUsersData] = useState([]);
+  // const [citiesData, setCitiesData] = useState([]);
+  // const [venuesData, setVenuesData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     content: "",
-    event: null,
-    user: null,
-    city: null,
-    venue: null,
+    // event: null,
+    // user: null,
+    // city: null,
+    // venue: null,
   });
 
   const handleChange = (e) => {
@@ -47,10 +35,10 @@ const NewPostForm = () => {
 
   const prepareFormData = (submittedData) => {
     let preparedFormData = {
-      user_id: loggedInUser.id,
-      user_name: loggedInUser.name,
+      userUID: loggedInUser.uid,
+      userName: loggedInUser.name,
+      userAvatar: loggedInUser.avatar,
       timestamp: new Date().getTime(),
-      avatar: loggedInUser.avatar,
       content: submittedData.content,
       likes: 0,
       comments: {},
@@ -78,86 +66,74 @@ const NewPostForm = () => {
     e.preventDefault();
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-      const preparedData = prepareFormData(formData);
-      //   const stringifiedData = JSON.stringify(preparedData);
-      const dataToSubmit = preparedData;
-      console.log(dataToSubmit);
-      const res = await axios.post(getPostsListEndpoint(), dataToSubmit);
-      if (res.status != 201) {
-        console.error(
-          "Something went wrong during POST operation! (%d) %s",
-          res.status,
-          res.data
-        );
-      } else {
-        console.debug("Post added successfully: %s", JSON.stringify(res.data));
-        setFormData({
-          content: "",
-          user: null,
-          event: null,
-          city: null,
-          venue: null,
-        });
-        Toastify({
-          text: "Posted! Return home?",
-          duration: 5000,
-          destination: "/",
-          newWindow: false,
-          close: true,
-          offset: {
-            y: "165px",
-          },
-          gravity: "bottom", // `top` or `bottom`
-          position: "right", // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: `linear-gradient(to right, $red, $light-purple)`,
-          },
-          onClick: function () {}, // Callback after click
-        }).showToast();
-      }
+      const dataToSubmit = prepareFormData(formData);
+      await setDoc(newPostRef, dataToSubmit);
+      setFormData({
+        content: "",
+        user: null,
+        event: null,
+        city: null,
+        venue: null,
+      });
+      Toastify({
+        text: "Posted! Return home?",
+        duration: 5000,
+        destination: "/",
+        newWindow: false,
+        close: true,
+        offset: {
+          y: "165px",
+        },
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: `linear-gradient(to right, $red, $light-purple)`,
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
     } else {
       console.error("Missing required field");
     }
   };
 
-  useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     axios
-    //       .all([
-    //         axios.get(getEventsListEndpoint()),
-    //         axios.get(getUsersListEndpoint()),
-    //         axios.get(getCitiesListEndpoint()),
-    //         axios.get(getVenuesListEndpoint()),
-    //       ])
-    //       .then(
-    //         axios.spread((...responses) => {
-    //           function alphabetizedData(array) {
-    //             const alphabetizedArray = array.sort((a, b) => {
-    //               return a.name.localeCompare(b.name);
-    //             });
-    //             return alphabetizedArray;
-    //           }
-    //           const alphabetizedEvents = alphabetizedData(responses[0].data);
-    //           const alphabetizedUsers = alphabetizedData(responses[1].data);
-    //           const alphabetizedCities = alphabetizedData(responses[2].data);
-    //           const alphabetizedVenues = alphabetizedData(responses[3].data);
-    //           setEventsData(alphabetizedEvents);
-    //           setUsersData(alphabetizedUsers);
-    //           setCitiesData(alphabetizedCities);
-    //           setVenuesData(alphabetizedVenues);
-    //         })
-    //       );
-    //     setLoading(false);
-    //   } catch (error) {
-    //     console.error("Error loading data:", error);
-    //     setError(error);
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchData();
-  }, []);
+  // useEffect(() => {
+  //   // const fetchData = async () => {
+  //   //   try {
+  //   //     axios
+  //   //       .all([
+  //   //         axios.get(getEventsListEndpoint()),
+  //   //         axios.get(getUsersListEndpoint()),
+  //   //         axios.get(getCitiesListEndpoint()),
+  //   //         axios.get(getVenuesListEndpoint()),
+  //   //       ])
+  //   //       .then(
+  //   //         axios.spread((...responses) => {
+  //   //           function alphabetizedData(array) {
+  //   //             const alphabetizedArray = array.sort((a, b) => {
+  //   //               return a.name.localeCompare(b.name);
+  //   //             });
+  //   //             return alphabetizedArray;
+  //   //           }
+  //   //           const alphabetizedEvents = alphabetizedData(responses[0].data);
+  //   //           const alphabetizedUsers = alphabetizedData(responses[1].data);
+  //   //           const alphabetizedCities = alphabetizedData(responses[2].data);
+  //   //           const alphabetizedVenues = alphabetizedData(responses[3].data);
+  //   //           setEventsData(alphabetizedEvents);
+  //   //           setUsersData(alphabetizedUsers);
+  //   //           setCitiesData(alphabetizedCities);
+  //   //           setVenuesData(alphabetizedVenues);
+  //   //         })
+  //   //       );
+  //   //     setLoading(false);
+  //   //   } catch (error) {
+  //   //     console.error("Error loading data:", error);
+  //   //     setError(error);
+  //   //     setLoading(false);
+  //   //   }
+  //   // };
+  //   // fetchData();
+  // }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
