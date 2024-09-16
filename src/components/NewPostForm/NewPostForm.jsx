@@ -12,18 +12,20 @@ import {
 } from "../../utils/api-utils";
 
 const NewPostForm = () => {
-  const loggedInUser = {
-    id: 6,
-    name: "Dandy D'Light",
-    avatar:
-      "https://reveal-images.s3.us-east-2.amazonaws.com/dandydlight-main.jpg",
-  };
+  const loggedInUser = JSON.parse(localStorage.getItem("userData"));
+
+  // const loggedInUser = {
+  //   id: 6,
+  //   name: "Dandy D'Light",
+  //   avatar:
+  //     "https://reveal-images.s3.us-east-2.amazonaws.com/dandydlight-main.jpg",
+  // };
 
   const [eventsData, setEventsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [citiesData, setCitiesData] = useState([]);
   const [venuesData, setVenuesData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     content: "",
@@ -120,43 +122,41 @@ const NewPostForm = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        axios
-          .all([
-            axios.get(getEventsListEndpoint()),
-            axios.get(getUsersListEndpoint()),
-            axios.get(getCitiesListEndpoint()),
-            axios.get(getVenuesListEndpoint()),
-          ])
-          .then(
-            axios.spread((...responses) => {
-              function alphabetizedData(array) {
-                const alphabetizedArray = array.sort((a, b) => {
-                  return a.name.localeCompare(b.name);
-                });
-                return alphabetizedArray;
-              }
-
-              const alphabetizedEvents = alphabetizedData(responses[0].data);
-              const alphabetizedUsers = alphabetizedData(responses[1].data);
-              const alphabetizedCities = alphabetizedData(responses[2].data);
-              const alphabetizedVenues = alphabetizedData(responses[3].data);
-
-              setEventsData(alphabetizedEvents);
-              setUsersData(alphabetizedUsers);
-              setCitiesData(alphabetizedCities);
-              setVenuesData(alphabetizedVenues);
-            })
-          );
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   try {
+    //     axios
+    //       .all([
+    //         axios.get(getEventsListEndpoint()),
+    //         axios.get(getUsersListEndpoint()),
+    //         axios.get(getCitiesListEndpoint()),
+    //         axios.get(getVenuesListEndpoint()),
+    //       ])
+    //       .then(
+    //         axios.spread((...responses) => {
+    //           function alphabetizedData(array) {
+    //             const alphabetizedArray = array.sort((a, b) => {
+    //               return a.name.localeCompare(b.name);
+    //             });
+    //             return alphabetizedArray;
+    //           }
+    //           const alphabetizedEvents = alphabetizedData(responses[0].data);
+    //           const alphabetizedUsers = alphabetizedData(responses[1].data);
+    //           const alphabetizedCities = alphabetizedData(responses[2].data);
+    //           const alphabetizedVenues = alphabetizedData(responses[3].data);
+    //           setEventsData(alphabetizedEvents);
+    //           setUsersData(alphabetizedUsers);
+    //           setCitiesData(alphabetizedCities);
+    //           setVenuesData(alphabetizedVenues);
+    //         })
+    //       );
+    //     setLoading(false);
+    //   } catch (error) {
+    //     console.error("Error loading data:", error);
+    //     setError(error);
+    //     setLoading(false);
+    //   }
+    // };
+    // fetchData();
   }, []);
 
   if (loading) return <p>Loading...</p>;
@@ -178,7 +178,7 @@ const NewPostForm = () => {
           />
         </div>
 
-        <div className="post-form__mentions">
+        {/* <div className="post-form__mentions">
           <p className="post-form__add-tags-text">
             Add Tags <span>(Optional)</span>
           </p>
@@ -251,7 +251,7 @@ const NewPostForm = () => {
               })}
             </select>
           </label>
-        </div>
+        </div> */}
 
         <button type="submit" className="post-form__submit-btn">
           Post
