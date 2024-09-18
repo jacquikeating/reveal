@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import "./NewPostForm.scss";
-import { doc, collection, setDoc } from "firebase/firestore";
+import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 
 const NewPostForm = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("userData"));
-  const newPostRef = doc(collection(db, "posts"));
-
-  // const [eventsData, setEventsData] = useState([]);
-  // const [usersData, setUsersData] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
   // const [citiesData, setCitiesData] = useState([]);
   // const [venuesData, setVenuesData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,6 +20,69 @@ const NewPostForm = () => {
     // city: null,
     // venue: null,
   });
+
+  useEffect(() => {
+    const fetchEventsData = async () => {
+      try {
+        const data = await getDocs(collection(db, "events"));
+        const firestoreEventsData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ];
+        setEventsData(firestoreEventsData[0]);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+    const fetchUsersData = async () => {
+      try {
+        const data = await getDocs(collection(db, "users"));
+        const firestoreEventsData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ];
+        setUsersData(firestoreEventsData[0]);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+    // const fetchCitiesData = async () => {
+    //   try {
+    //     const data = await getDocs(collection(db, "cities"));
+    //     const firestoreEventsData = [
+    //       data.docs.map((doc) => ({
+    //         ...doc.data(),
+    //         id: doc.id,
+    //       })),
+    //     ];
+    //     setCitiesData(firestoreEventsData[0]);
+    //   } catch (error) {
+    //     console.error("Error loading data:", error);
+    //   }
+    // };
+    // const fetchVenuesData = async () => {
+    //   try {
+    //     const data = await getDocs(collection(db, "venues"));
+    //     const firestoreEventsData = [
+    //       data.docs.map((doc) => ({
+    //         ...doc.data(),
+    //         id: doc.id,
+    //       })),
+    //     ];
+    //     setEventsData(firestoreEventsData[0]);
+    //   } catch (error) {
+    //     console.error("Error loading data:", error);
+    //   }
+    // };
+    fetchEventsData();
+    fetchUsersData();
+    // fetchCitiesData();
+    // fetchVenuesData();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -67,7 +128,7 @@ const NewPostForm = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       const dataToSubmit = prepareFormData(formData);
-      await setDoc(newPostRef, dataToSubmit);
+      await setDoc(doc(collection(db, "posts")), dataToSubmit);
       setFormData({
         content: "",
         user: null,
@@ -150,6 +211,7 @@ const NewPostForm = () => {
             name="content"
             placeholder="Start writing..."
             required
+            value={formData.content}
             onChange={handleChange}
           />
         </div>
