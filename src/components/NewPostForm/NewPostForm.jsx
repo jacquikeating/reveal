@@ -19,10 +19,10 @@ const NewPostForm = () => {
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     content: "",
-    event: null,
-    user: null,
-    city: null,
-    venue: null,
+    event: "",
+    user: "",
+    city: "",
+    venue: "",
   });
   const form = document.getElementById("form");
 
@@ -152,10 +152,10 @@ const NewPostForm = () => {
       await setDoc(doc(collection(db, "posts")), dataToSubmit);
       setFormData({
         content: "",
-        user: undefined,
-        event: undefined,
-        city: undefined,
-        venue: undefined,
+        user: "",
+        event: "",
+        city: "",
+        venue: "",
       });
       form.reset();
       Toastify({
