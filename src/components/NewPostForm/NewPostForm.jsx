@@ -24,6 +24,7 @@ const NewPostForm = () => {
     city: null,
     venue: null,
   });
+  const form = document.getElementById("form");
 
   useEffect(() => {
     const fetchEventsData = async () => {
@@ -151,11 +152,12 @@ const NewPostForm = () => {
       await setDoc(doc(collection(db, "posts")), dataToSubmit);
       setFormData({
         content: "",
-        user: null,
-        event: null,
-        city: null,
-        venue: null,
+        user: undefined,
+        event: undefined,
+        city: undefined,
+        venue: undefined,
       });
+      form.reset();
       Toastify({
         text: "Posted! Return home?",
         duration: 5000,
@@ -223,7 +225,7 @@ const NewPostForm = () => {
     <section>
       <h1>New Post</h1>
 
-      <form className="post-form" onSubmit={handleSubmit}>
+      <form className="post-form" onSubmit={handleSubmit} id="form">
         <div className="post-form__top">
           <img src={loggedInUser.avatar} className="post-form__user-avatar" />
           <textarea
