@@ -9,16 +9,20 @@ const NewPostForm = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("userData"));
   const [eventsData, setEventsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
-  // const [citiesData, setCitiesData] = useState([]);
-  // const [venuesData, setVenuesData] = useState([]);
+  const [citiesData, setCitiesData] = useState([
+    "Toronto",
+    "Montreal",
+    "Vancouver",
+  ]);
+  const [venuesData, setVenuesData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     content: "",
-    // event: null,
-    // user: null,
-    // city: null,
-    // venue: null,
+    event: null,
+    user: null,
+    city: null,
+    venue: null,
   });
 
   useEffect(() => {
@@ -28,10 +32,13 @@ const NewPostForm = () => {
         const firestoreEventsData = [
           data.docs.map((doc) => ({
             ...doc.data(),
-            id: doc.id,
           })),
         ];
-        setEventsData(firestoreEventsData[0]);
+        const eventsList = firestoreEventsData[0].map((event) => event.name);
+        const alphabetizedEventsList = eventsList.sort((a, b) => {
+          return a.localeCompare(b);
+        });
+        setEventsData(alphabetizedEventsList);
       } catch (error) {
         console.error("Error loading data:", error);
       }
@@ -39,13 +46,16 @@ const NewPostForm = () => {
     const fetchUsersData = async () => {
       try {
         const data = await getDocs(collection(db, "users"));
-        const firestoreEventsData = [
+        const firestoreUsersData = [
           data.docs.map((doc) => ({
             ...doc.data(),
-            id: doc.id,
           })),
         ];
-        setUsersData(firestoreEventsData[0]);
+        const usersList = firestoreUsersData[0].map((user) => user.name);
+        const alphabetizedUsersList = usersList.sort((a, b) => {
+          return a.localeCompare(b);
+        });
+        setUsersData(alphabetizedUsersList);
       } catch (error) {
         console.error("Error loading data:", error);
       }
@@ -53,35 +63,40 @@ const NewPostForm = () => {
     // const fetchCitiesData = async () => {
     //   try {
     //     const data = await getDocs(collection(db, "cities"));
-    //     const firestoreEventsData = [
+    //     const firestoreCitiesData = [
     //       data.docs.map((doc) => ({
     //         ...doc.data(),
     //         id: doc.id,
     //       })),
     //     ];
-    //     setCitiesData(firestoreEventsData[0]);
+    // const alphabetizedCitiesList = firestoreVenuesData[0].sort((a, b) => {
+    //   return a.name.localeCompare(b.name);
+    // });
+    //     setCitiesData(alphabetizedCitiesList);
     //   } catch (error) {
     //     console.error("Error loading data:", error);
     //   }
     // };
-    // const fetchVenuesData = async () => {
-    //   try {
-    //     const data = await getDocs(collection(db, "venues"));
-    //     const firestoreEventsData = [
-    //       data.docs.map((doc) => ({
-    //         ...doc.data(),
-    //         id: doc.id,
-    //       })),
-    //     ];
-    //     setEventsData(firestoreEventsData[0]);
-    //   } catch (error) {
-    //     console.error("Error loading data:", error);
-    //   }
-    // };
+    const fetchVenuesData = async () => {
+      try {
+        const data = await getDocs(collection(db, "venues"));
+        const firestoreVenuesData = [
+          data.docs.map((doc) => ({
+            ...doc.data(),
+            // id: doc.id,
+          })),
+        ];
+        const venuesList = firestoreVenuesData[0].map((venue) => venue.name);
+        // Comes pre-alphabetized due to Firestore document names
+        setVenuesData(venuesList);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
     fetchEventsData();
     fetchUsersData();
     // fetchCitiesData();
-    // fetchVenuesData();
+    fetchVenuesData();
   }, []);
 
   const handleChange = (e) => {
@@ -103,7 +118,12 @@ const NewPostForm = () => {
       content: submittedData.content,
       likes: 0,
       comments: {},
-      hashtags: {},
+      hashtags: {
+        event: formData.event,
+        user: formData.user,
+        city: formData.city,
+        venue: formData.venue,
+      },
     };
     Reflect.deleteProperty(submittedData, "content");
     const data = Array.isArray(submittedData)
@@ -216,7 +236,7 @@ const NewPostForm = () => {
           />
         </div>
 
-        {/* <div className="post-form__mentions">
+        <div className="post-form__mentions">
           <p className="post-form__add-tags-text">
             Add Tags <span>(Optional)</span>
           </p>
@@ -231,8 +251,8 @@ const NewPostForm = () => {
               <option value="null">(none)</option>{" "}
               {usersData.map((user) => {
                 return (
-                  <option key={user.id} value={user.id}>
-                    {user.name}
+                  <option key={user} value={user}>
+                    {user}
                   </option>
                 );
               })}
@@ -248,8 +268,8 @@ const NewPostForm = () => {
               <option value="null">(none)</option>{" "}
               {eventsData.map((show) => {
                 return (
-                  <option key={show.id} value={show.id}>
-                    {show.name}
+                  <option key={show} value={show}>
+                    {show}
                   </option>
                 );
               })}
@@ -265,8 +285,8 @@ const NewPostForm = () => {
               <option value="null">(none)</option>{" "}
               {citiesData.map((city) => {
                 return (
-                  <option key={city.id} value={city.id}>
-                    {city.name}
+                  <option key={city} value={city}>
+                    {city}
                   </option>
                 );
               })}
@@ -282,14 +302,14 @@ const NewPostForm = () => {
               <option value="null">(none)</option>
               {venuesData.map((venue) => {
                 return (
-                  <option key={venue.id} value={venue.id}>
-                    {venue.name}
+                  <option key={venue} value={venue}>
+                    {venue}
                   </option>
                 );
               })}
             </select>
           </label>
-        </div> */}
+        </div>
 
         <button type="submit" className="post-form__submit-btn">
           Post
