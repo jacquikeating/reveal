@@ -70,10 +70,8 @@ const NewPostForm = () => {
     //         id: doc.id,
     //       })),
     //     ];
-    // const alphabetizedCitiesList = firestoreVenuesData[0].sort((a, b) => {
-    //   return a.name.localeCompare(b.name);
-    // });
-    //     setCitiesData(alphabetizedCitiesList);
+    // const citiesList = firestoreCitiesData[0].map((city) => city.name);
+    //     setCitiesData(citiesList);
     //   } catch (error) {
     //     console.error("Error loading data:", error);
     //   }
@@ -179,44 +177,6 @@ const NewPostForm = () => {
       console.error("Missing required field");
     }
   };
-
-  // useEffect(() => {
-  //   // const fetchData = async () => {
-  //   //   try {
-  //   //     axios
-  //   //       .all([
-  //   //         axios.get(getEventsListEndpoint()),
-  //   //         axios.get(getUsersListEndpoint()),
-  //   //         axios.get(getCitiesListEndpoint()),
-  //   //         axios.get(getVenuesListEndpoint()),
-  //   //       ])
-  //   //       .then(
-  //   //         axios.spread((...responses) => {
-  //   //           function alphabetizedData(array) {
-  //   //             const alphabetizedArray = array.sort((a, b) => {
-  //   //               return a.name.localeCompare(b.name);
-  //   //             });
-  //   //             return alphabetizedArray;
-  //   //           }
-  //   //           const alphabetizedEvents = alphabetizedData(responses[0].data);
-  //   //           const alphabetizedUsers = alphabetizedData(responses[1].data);
-  //   //           const alphabetizedCities = alphabetizedData(responses[2].data);
-  //   //           const alphabetizedVenues = alphabetizedData(responses[3].data);
-  //   //           setEventsData(alphabetizedEvents);
-  //   //           setUsersData(alphabetizedUsers);
-  //   //           setCitiesData(alphabetizedCities);
-  //   //           setVenuesData(alphabetizedVenues);
-  //   //         })
-  //   //       );
-  //   //     setLoading(false);
-  //   //   } catch (error) {
-  //   //     console.error("Error loading data:", error);
-  //   //     setError(error);
-  //   //     setLoading(false);
-  //   //   }
-  //   // };
-  //   // fetchData();
-  // }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;
