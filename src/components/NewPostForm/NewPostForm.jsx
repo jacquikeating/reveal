@@ -6,7 +6,7 @@ import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 
 const NewPostForm = () => {
-  const loggedInUser = JSON.parse(localStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const [eventsData, setEventsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [citiesData, setCitiesData] = useState([
@@ -110,9 +110,9 @@ const NewPostForm = () => {
 
   const prepareFormData = (submittedData) => {
     let preparedFormData = {
-      userUID: loggedInUser.uid,
-      userName: loggedInUser.name,
-      userAvatar: loggedInUser.avatar,
+      userUID: userData.uid,
+      userName: userData.name,
+      userAvatar: userData.avatar,
       timestamp: new Date().getTime(),
       content: submittedData.content,
       likes: 0,
@@ -187,7 +187,7 @@ const NewPostForm = () => {
 
       <form className="post-form" onSubmit={handleSubmit} id="form">
         <div className="post-form__top">
-          <img src={loggedInUser.avatar} className="post-form__user-avatar" />
+          <img src={userData.avatar} className="post-form__user-avatar" />
           <textarea
             className="post-form__content"
             name="content"
