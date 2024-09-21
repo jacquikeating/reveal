@@ -94,11 +94,14 @@ const EditProfilePage = () => {
                 <Gallery gallery={userData.gallery} showEdit={true} />
               </Suspense>
             </section>
-            {/* 
+
             <section className="profile__section">
               <h2 className="profile__section-heading">Posts</h2>
-              <PostsContainer desiredID={loggedInUser} />
-            </section> */}
+              <PostsContainer
+                filterType={"userName"}
+                filterTarget={userData.name}
+              />
+            </section>
 
             <button className="save-btn" onClick={saveData}>
               <p className="save-btn__text">Save</p>

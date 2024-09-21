@@ -176,10 +176,10 @@ const EventDetailsPage = () => {
           </Suspense>
         </section> */}
 
-        {/* <section className="event__section">
+        <section className="event__section">
           <h2 className="event__section-heading">Posts</h2>
-          <PostsContainer />
-        </section> */}
+          <PostsContainer filterType={hashtags.event} filterTarget={name} />
+        </section>
       </main>
     </>
   );

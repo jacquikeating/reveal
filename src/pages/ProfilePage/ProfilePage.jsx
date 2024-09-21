@@ -94,7 +94,10 @@ const ProfilePage = () => {
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Posts</h2>
-          <PostsContainer desiredID={userName} />
+          <PostsContainer
+            filterType={"userName"}
+            filterTarget={userData.name}
+          />
         </section>
       </main>
     </>
