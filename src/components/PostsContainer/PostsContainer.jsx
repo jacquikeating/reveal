@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Post from "../../components/Post/Post";
-import {
-  getPostsListEndpoint,
-  getFilteredPostsListEndpoint,
-} from "../../utils/api-utils";
+import { db } from "../../config/firebase.js";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import "./PostsContainer.scss";
 
-const PostsContainer = ({ desiredID }) => {
-  const userData = desiredID || 6;
-
-  const [postsData, setPostsData] = useState([]);
+const PostsContainer = ({}) => {
+  const filterType = "userName";
+  const filterTarget = "Cherie Fatale";
+  // Hardcoded for early development; will be passed as props: filterType, filterTarget
+  // filterType helps handler fucntions for user/event/whatever
+  // filterTarget is the actual "search term"
+  const [postsData, setPostsData] = useState([]); // array of posts from backend
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const returnEndpoint = () => {
-    if (desiredID) {
-      return getFilteredPostsListEndpoint(desiredID);
-    } else {
-      return getPostsListEndpoint();
-    }
-  };
 
   useEffect(() => {
     const fetchPostsData = async () => {
       try {
-        const response = await axios.get(returnEndpoint());
-        setPostsData(response.data.reverse().slice(0, 10));
+        const q = query(
+          collection(db, "posts"),
+          where(`${filterType}`, "==", `${filterTarget}`)
+        );
+        const querySnapshot = await getDocs(q);
+        const postsArray = [];
+        querySnapshot.forEach((doc) => {
+          postsArray.push(doc.data());
+        });
+        setPostsData(postsArray);
         setLoading(false);
       } catch (error) {
         console.error("Error loading data:", error);
@@ -34,7 +34,6 @@ const PostsContainer = ({ desiredID }) => {
         setLoading(false);
       }
     };
-
     fetchPostsData();
   }, []);
 
@@ -46,7 +45,7 @@ const PostsContainer = ({ desiredID }) => {
       {postsData.map((post) => {
         return (
           <li className="posts-container__item" key={post.id}>
-            <Post postData={post} userData={userData} />
+            <Post postData={post} />
           </li>
         );
       })}
