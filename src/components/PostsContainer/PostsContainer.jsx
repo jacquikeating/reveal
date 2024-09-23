@@ -8,11 +8,12 @@ const PostsContainer = ({ filterType, filterTarget }) => {
   // const filterType = "userName";
   // const filterTarget = "Cherie Fatale";
   // Hardcoded for early development; will be passed as props: filterType, filterTarget
-  // filterType helps handler fucntions for user/event/whatever
+  // filterType determines which query will be used (user/event/etc)
   // filterTarget is the actual "search term"
   const [postsData, setPostsData] = useState([]); // array of posts from backend
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
     const fetchPostsData = async () => {
@@ -56,7 +57,7 @@ const PostsContainer = ({ filterType, filterTarget }) => {
       {postsData.map((post) => {
         return (
           <li className="posts-container__item" key={post.timestamp}>
-            <Post postData={post} />
+            <Post postData={post} userData={userData} />
           </li>
         );
       })}
