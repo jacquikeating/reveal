@@ -10,8 +10,7 @@ import "./Post.scss";
 // const [postLikes, setPostLikes] = useState(likes);
 // const currentLikes = Number(postLikes);
 
-const Post = ({ postData, loggedInUser }) => {
-  console.log(postData);
+const Post = ({ postData, userData }) => {
   let {
     userAvatar,
     userProfileURL,
@@ -27,11 +26,15 @@ const Post = ({ postData, loggedInUser }) => {
     timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   }
   content = content.replace(/&#x27;/g, "'");
+  // likes is an array containing the UIDs of all users who have liked the post
+  const [likesCount, setLikesCount] = useState(likes.length);
+  const [isLiked, setIsLiked] = useState(likes.includes(userData.uid));
 
   // async function addLikes() {
   //   console.log(`current likes: ${likes}`);
   //   const newLikesCount = Number(likes) + 1;
   //   console.log(`new likes: ${newLikesCount}`);
+  async function addLikes() {
 
   //   const updatedPost = { ...postData, likes: newLikesCount };
   //   console.log(updatedPost);
@@ -45,6 +48,7 @@ const Post = ({ postData, loggedInUser }) => {
   //     console.error("Error updating item:", error);
   //   }
   // }
+  }
 
   return (
     <article className="post">
@@ -65,14 +69,20 @@ const Post = ({ postData, loggedInUser }) => {
         <p className="post__content">{content}</p>
 
         <div className="post__reactions">
-          <button className="post__btn">
-            {" "}
-            {/* onClick={addLikes}*/}
-            <img
-              className="post__icon post__icon--likes"
-              src="../../src/assets/icons/heart.svg"
-            />
-            <p className="post__likes">{likes}</p>
+          <button className="post__btn" onClick={addLikes}>
+            {isLiked ? (
+              <img
+                className="post__icon post__icon--likes"
+                src="../../src/assets/icons/heart-solid.svg"
+              />
+            ) : (
+              <img
+                className="post__icon post__icon--likes"
+                src="../../src/assets/icons/heart.svg"
+              />
+            )}
+
+            <p className="post__likes">{likesCount}</p>
           </button>
           <button className="post__btn">
             <img
