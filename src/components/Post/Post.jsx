@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import { Link } from "react-router-dom";
-// import {
-//   getSinglePostEndpoint,
-//   putPostEndpoint,
-// } from "../../utils/api-utils.js";
+import { db } from "../../config/firebase.js";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  addDoc,
+} from "firebase/firestore";
 import "./Post.scss";
-
-// const [postLikes, setPostLikes] = useState(likes);
-// const currentLikes = Number(postLikes);
 
 const Post = ({ postData, userData }) => {
   let {
@@ -30,25 +30,40 @@ const Post = ({ postData, userData }) => {
   const [likesCount, setLikesCount] = useState(likes.length);
   const [isLiked, setIsLiked] = useState(likes.includes(userData.uid));
 
-  // async function addLikes() {
-  //   console.log(`current likes: ${likes}`);
-  //   const newLikesCount = Number(likes) + 1;
-  //   console.log(`new likes: ${newLikesCount}`);
+  const postRef = doc(db, "posts", userData.uid);
+  let inputValues = {};
+  const updatedPostData = { ...postData, ...inputValues };
+
   async function addLikes() {
+    console.log(`current likes: ${likes}`);
+    let newLikes = [];
 
-  //   const updatedPost = { ...postData, likes: newLikesCount };
-  //   console.log(updatedPost);
+    if (isLiked) {
+      newLikes = likes.filter((uid) => uid !== userData.uid);
+      setIsLiked(false);
+      setLikesCount(likesCount - 1);
+    } else {
+      newLikes = likes.push(userData.uid);
+      setIsLiked(true);
+      setLikesCount(likesCount + 1);
+    }
 
-  //   try {
-  //     const newLikesCount = Number(likes) + 1;
-  //     const updatedPost = { ...postData, likes: newLikesCount };
+    updatePostData();
+    // const updatedPost = { ...postData, likes: newLikesCount };
+    // console.log(updatedPost);
+    // setLikesCount(likesCount + 1);
 
-  //     await axios.put(putPostEndpoint(id), updatedPost);
-  //   } catch (error) {
-  //     console.error("Error updating item:", error);
-  //   }
-  // }
+    // try {
+    //   const newLikesCount = Number(likes) + 1;
+    //   const updatedPost = { ...postData, likes: newLikesCount };
+
+    //   await axios.put(putPostEndpoint(id), updatedPost);
+    // } catch (error) {
+    //   console.error("Error updating item:", error);
+    // }
   }
+
+  async function updatePostData() {}
 
   return (
     <article className="post">
