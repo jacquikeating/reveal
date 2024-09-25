@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import "./NewPostForm.scss";
-import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 
 const NewPostForm = () => {
@@ -113,9 +112,9 @@ const NewPostForm = () => {
       userUID: userData.uid,
       userName: userData.name,
       userAvatar: userData.avatar,
-      timestamp: new Date().getTime(),
+      timestamp: new Date().getTime().toString(),
       content: submittedData.content,
-      likes: 0,
+      likes: [],
       comments: {},
       hashtags: {
         event: formData.event,
@@ -147,7 +146,6 @@ const NewPostForm = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       const dataToSubmit = prepareFormData(formData);
-      await setDoc(doc(collection(db, "posts")), dataToSubmit);
       setFormData({
         content: "",
         user: "",

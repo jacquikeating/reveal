@@ -38,6 +38,7 @@ const PostsContainer = ({ filterType, filterTarget }) => {
         querySnapshot.forEach((doc) => {
           postsArray.push(doc.data());
         });
+        postsArray.sort((a, b) => b.timestamp - a.timestamp);
         setPostsData(postsArray);
         setLoading(false);
       } catch (error) {

@@ -22,9 +22,7 @@ const Post = ({ postData, userData }) => {
     comments,
   } = postData;
   comments = [];
-  if (timestamp.length === 13) {
-    timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
-  }
+  timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   content = content.replace(/&#x27;/g, "'");
   // likes is an array containing the UIDs of all users who have liked the post
   const [likesCount, setLikesCount] = useState(likes.length);
