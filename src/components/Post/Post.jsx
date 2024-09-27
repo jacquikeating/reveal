@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase.js";
-import {
-  collection,
-  getDocs,
-  doc,
-  updateDoc,
-  addDoc,
-} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import "./Post.scss";
 
 const Post = ({ postData, userData }) => {
@@ -20,48 +14,33 @@ const Post = ({ postData, userData }) => {
     likes,
     hashtags,
     comments,
+    id,
   } = postData;
   comments = [];
   timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   content = content.replace(/&#x27;/g, "'");
+  const userID = userData.uid;
   // likes is an array containing the UIDs of all users who have liked the post
   const [likesCount, setLikesCount] = useState(likes.length);
-  const [isLiked, setIsLiked] = useState(likes.includes(userData.uid));
+  const [isLiked, setIsLiked] = useState(likes.includes(userID));
+  const postRef = doc(db, "posts", id);
 
-  const postRef = doc(db, "posts", userData.uid);
-  let inputValues = {};
-  const updatedPostData = { ...postData, ...inputValues };
-
-  async function addLikes() {
-    console.log(`current likes: ${likes}`);
-    let newLikes = [];
-
+  async function updateLikes() {
     if (isLiked) {
-      newLikes = likes.filter((uid) => uid !== userData.uid);
       setIsLiked(false);
       setLikesCount(likesCount - 1);
+      await updateDoc(postRef, {
+        likes: arrayRemove(userID),
+      });
+      return;
     } else {
-      newLikes = likes.push(userData.uid);
       setIsLiked(true);
       setLikesCount(likesCount + 1);
+      await updateDoc(postRef, {
+        likes: arrayUnion(userID),
+      });
     }
-
-    updatePostData();
-    // const updatedPost = { ...postData, likes: newLikesCount };
-    // console.log(updatedPost);
-    // setLikesCount(likesCount + 1);
-
-    // try {
-    //   const newLikesCount = Number(likes) + 1;
-    //   const updatedPost = { ...postData, likes: newLikesCount };
-
-    //   await axios.put(putPostEndpoint(id), updatedPost);
-    // } catch (error) {
-    //   console.error("Error updating item:", error);
-    // }
   }
-
-  async function updatePostData() {}
 
   return (
     <article className="post">
@@ -82,7 +61,7 @@ const Post = ({ postData, userData }) => {
         <p className="post__content">{content}</p>
 
         <div className="post__reactions">
-          <button className="post__btn" onClick={addLikes}>
+          <button className="post__btn" onClick={updateLikes}>
             {isLiked ? (
               <img
                 className="post__icon post__icon--likes"
