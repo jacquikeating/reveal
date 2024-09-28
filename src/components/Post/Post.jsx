@@ -43,6 +43,35 @@ const Post = ({ postData, userData }) => {
     }
   }
 
+  function handleDeleteClick() {
+    toast(
+      <div className="confirm-delete">
+        <p className="confirm-delete__text">
+          Are you sure you wish to delete this post?
+        </p>
+        <div className="confirm-delete__button-container">
+          <button className="confirm-delete__button" onClick={deletePost}>
+            Yes
+          </button>
+          <button className="confirm-delete__button" onClick={dismissToast}>
+            No
+          </button>
+        </div>
+      </div>,
+      {
+        theme: "dark",
+      }
+    );
+
+    function dismissToast() {
+      toast.dismiss();
+    }
+
+    async function deletePost() {
+      console.log("Pretend the post has just been deleted.");
+      dismissToast();
+    }
+  }
   return (
     <article className="post">
       <Link to={`/profile/${userProfileURL}`}>
@@ -97,6 +126,7 @@ const Post = ({ postData, userData }) => {
                 <img
                   className="post__icon post__icon--delete"
                   src="../../src/assets/icons/trash.svg"
+                  onClick={handleDeleteClick}
                 />
               </button>
             </div>
