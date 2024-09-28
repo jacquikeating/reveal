@@ -114,12 +114,6 @@ const Post = ({ postData, userData }) => {
             onChange={(e) => setBodyText(e.target.value)}
           />
         )}
-        {/* <p className="post__content">{bodyText}</p> */}
-        {/* <textarea
-          className="post__edit-body-textarea"
-          defaultValue={bodyText}
-          onChange={(e) => setBodyText(e.target.value)}
-        /> */}
 
         <div className="post__reactions">
           <button className="post__btn" onClick={updateLikes}>
