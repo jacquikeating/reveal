@@ -141,12 +141,25 @@ const Post = ({ postData, userData }) => {
 
           {userID == userUID ? (
             <div className="post__manage">
-              <button className="post__btn" onClick={handleEditClick}>
-                <img
-                  className="post__icon post__icon--edit"
-                  src="../../src/assets/icons/edit.svg"
-                />
-              </button>
+              {!editMode ? (
+                <button className="post__btn" onClick={handleEditClick}>
+                  <img
+                    className="post__icon post__icon--edit"
+                    src="../../src/assets/icons/edit.svg"
+                  />
+                </button>
+              ) : (
+                <button
+                  className="post__btn"
+                  onClick={() => setEditMode(false)}
+                >
+                  <img
+                    className="post__icon post__icon--check"
+                    src="../../src/assets/icons/check.svg"
+                  />
+                </button>
+              )}
+
               <button className="post__btn" onClick={handleDeleteClick}>
                 <img
                   className="post__icon post__icon--delete"
