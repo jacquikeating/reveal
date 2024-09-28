@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase.js";
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  deleteDoc,
+} from "firebase/firestore";
+import { toast } from "react-toastify";
 import "./Post.scss";
 
 const Post = ({ postData, userData }) => {
@@ -68,7 +75,7 @@ const Post = ({ postData, userData }) => {
     }
 
     async function deletePost() {
-      console.log("Pretend the post has just been deleted.");
+      await deleteDoc(postRef);
       dismissToast();
     }
   }
