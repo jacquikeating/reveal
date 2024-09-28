@@ -32,6 +32,8 @@ const Post = ({ postData, userData }) => {
   const [likesCount, setLikesCount] = useState(likes.length);
   const [isLiked, setIsLiked] = useState(likes.includes(userID));
   const [postDisplay, setPostDisplay] = useState("flex");
+  const [editMode, setEditMode] = useState(false);
+  const [bodyText, setBodyText] = useState(content);
   const postRef = doc(db, "posts", id);
 
   async function updateLikes() {
@@ -81,6 +83,11 @@ const Post = ({ postData, userData }) => {
       dismissToast();
     }
   }
+
+  function handleEditClick() {
+    setEditMode(true);
+  }
+
   return (
     <article className="post" style={{ display: `${postDisplay}` }}>
       <Link to={`/profile/${userProfileURL}`}>
@@ -97,7 +104,22 @@ const Post = ({ postData, userData }) => {
           </Link>
           <p className="post__timestamp">{timestamp}</p>
         </div>
-        <p className="post__content">{content}</p>
+
+        {!editMode ? (
+          <p className="post__content">{bodyText}</p>
+        ) : (
+          <textarea
+            className="post__edit-body-textarea"
+            defaultValue={bodyText}
+            onChange={(e) => setBodyText(e.target.value)}
+          />
+        )}
+        {/* <p className="post__content">{bodyText}</p> */}
+        {/* <textarea
+          className="post__edit-body-textarea"
+          defaultValue={bodyText}
+          onChange={(e) => setBodyText(e.target.value)}
+        /> */}
 
         <div className="post__reactions">
           <button className="post__btn" onClick={updateLikes}>
@@ -129,6 +151,7 @@ const Post = ({ postData, userData }) => {
                 <img
                   className="post__icon post__icon--edit"
                   src="../../src/assets/icons/edit.svg"
+                  onClick={handleEditClick}
                 />
               </button>
               <button className="post__btn">

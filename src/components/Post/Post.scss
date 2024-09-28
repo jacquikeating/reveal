@@ -78,4 +78,11 @@
             padding: 0 1rem;
         }
     }
+
+    &__edit-body-textarea {
+        width: 100%;
+        background-color: $purple!important;
+        color: $light!important;
+        @include input;
+    }
 }
