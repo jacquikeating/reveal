@@ -31,6 +31,7 @@ const Post = ({ postData, userData }) => {
   // likes is an array containing the UIDs of all users who have liked the post
   const [likesCount, setLikesCount] = useState(likes.length);
   const [isLiked, setIsLiked] = useState(likes.includes(userID));
+  const [postDisplay, setPostDisplay] = useState("flex");
   const postRef = doc(db, "posts", id);
 
   async function updateLikes() {
@@ -76,11 +77,12 @@ const Post = ({ postData, userData }) => {
 
     async function deletePost() {
       await deleteDoc(postRef);
+      setPostDisplay("none");
       dismissToast();
     }
   }
   return (
-    <article className="post">
+    <article className="post" style={{ display: `${postDisplay}` }}>
       <Link to={`/profile/${userProfileURL}`}>
         <img
           className="post__avatar"
