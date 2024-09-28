@@ -9,6 +9,7 @@ const Post = ({ postData, userData }) => {
     userAvatar,
     userProfileURL,
     userName,
+    userUID,
     timestamp,
     content,
     likes,
@@ -84,7 +85,7 @@ const Post = ({ postData, userData }) => {
             <p className="post__comments">{comments.length}</p>
           </button>
 
-          {/* {loggedInUser == user_id ? (
+          {userID == userUID ? (
             <div className="post__manage">
               <button className="post__btn">
                 <img
@@ -101,7 +102,7 @@ const Post = ({ postData, userData }) => {
             </div>
           ) : (
             ""
-          )} */}
+          )}
         </div>
       </div>
     </article>
