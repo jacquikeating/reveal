@@ -141,18 +141,16 @@ const Post = ({ postData, userData }) => {
 
           {userID == userUID ? (
             <div className="post__manage">
-              <button className="post__btn">
+              <button className="post__btn" onClick={handleEditClick}>
                 <img
                   className="post__icon post__icon--edit"
                   src="../../src/assets/icons/edit.svg"
-                  onClick={handleEditClick}
                 />
               </button>
-              <button className="post__btn">
+              <button className="post__btn" onClick={handleDeleteClick}>
                 <img
                   className="post__icon post__icon--delete"
                   src="../../src/assets/icons/trash.svg"
-                  onClick={handleDeleteClick}
                 />
               </button>
             </div>
