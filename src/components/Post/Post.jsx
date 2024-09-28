@@ -84,8 +84,11 @@ const Post = ({ postData, userData }) => {
     }
   }
 
-  function handleEditClick() {
-    setEditMode(true);
+  async function updatePostContent() {
+    await updateDoc(postRef, {
+      content: bodyText,
+    });
+    setEditMode(false);
   }
 
   return (
@@ -142,17 +145,14 @@ const Post = ({ postData, userData }) => {
           {userID == userUID ? (
             <div className="post__manage">
               {!editMode ? (
-                <button className="post__btn" onClick={handleEditClick}>
+                <button className="post__btn" onClick={() => setEditMode(true)}>
                   <img
                     className="post__icon post__icon--edit"
                     src="../../src/assets/icons/edit.svg"
                   />
                 </button>
               ) : (
-                <button
-                  className="post__btn"
-                  onClick={() => setEditMode(false)}
-                >
+                <button className="post__btn" onClick={updatePostContent}>
                   <img
                     className="post__icon post__icon--check"
                     src="../../src/assets/icons/check.svg"
