@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Toastify from "toastify-js";
-import "toastify-js/src/toastify.css";
 import "./NewCommentForm.scss";
 import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
@@ -26,77 +24,77 @@ const NewCommentForm = () => {
   });
   const form = document.getElementById("form");
 
-  useEffect(() => {
-    const fetchEventsData = async () => {
-      try {
-        const data = await getDocs(collection(db, "events"));
-        const firestoreEventsData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-          })),
-        ];
-        const eventsList = firestoreEventsData[0].map((event) => event.name);
-        const alphabetizedEventsList = eventsList.sort((a, b) => {
-          return a.localeCompare(b);
-        });
-        setEventsData(alphabetizedEventsList);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
-    const fetchUsersData = async () => {
-      try {
-        const data = await getDocs(collection(db, "users"));
-        const firestoreUsersData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-          })),
-        ];
-        const usersList = firestoreUsersData[0].map((user) => user.name);
-        const alphabetizedUsersList = usersList.sort((a, b) => {
-          return a.localeCompare(b);
-        });
-        setUsersData(alphabetizedUsersList);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
-    // const fetchCitiesData = async () => {
-    //   try {
-    //     const data = await getDocs(collection(db, "cities"));
-    //     const firestoreCitiesData = [
-    //       data.docs.map((doc) => ({
-    //         ...doc.data(),
-    //         id: doc.id,
-    //       })),
-    //     ];
-    // const citiesList = firestoreCitiesData[0].map((city) => city.name);
-    //     setCitiesData(citiesList);
-    //   } catch (error) {
-    //     console.error("Error loading data:", error);
-    //   }
-    // };
-    const fetchVenuesData = async () => {
-      try {
-        const data = await getDocs(collection(db, "venues"));
-        const firestoreVenuesData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-            // id: doc.id,
-          })),
-        ];
-        const venuesList = firestoreVenuesData[0].map((venue) => venue.name);
-        // Comes pre-alphabetized due to Firestore document names
-        setVenuesData(venuesList);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
-    fetchEventsData();
-    fetchUsersData();
-    // fetchCitiesData();
-    fetchVenuesData();
-  }, []);
+  //   useEffect(() => {
+  //     const fetchEventsData = async () => {
+  //       try {
+  //         const data = await getDocs(collection(db, "events"));
+  //         const firestoreEventsData = [
+  //           data.docs.map((doc) => ({
+  //             ...doc.data(),
+  //           })),
+  //         ];
+  //         const eventsList = firestoreEventsData[0].map((event) => event.name);
+  //         const alphabetizedEventsList = eventsList.sort((a, b) => {
+  //           return a.localeCompare(b);
+  //         });
+  //         setEventsData(alphabetizedEventsList);
+  //       } catch (error) {
+  //         console.error("Error loading data:", error);
+  //       }
+  //     };
+  //     const fetchUsersData = async () => {
+  //       try {
+  //         const data = await getDocs(collection(db, "users"));
+  //         const firestoreUsersData = [
+  //           data.docs.map((doc) => ({
+  //             ...doc.data(),
+  //           })),
+  //         ];
+  //         const usersList = firestoreUsersData[0].map((user) => user.name);
+  //         const alphabetizedUsersList = usersList.sort((a, b) => {
+  //           return a.localeCompare(b);
+  //         });
+  //         setUsersData(alphabetizedUsersList);
+  //       } catch (error) {
+  //         console.error("Error loading data:", error);
+  //       }
+  //     };
+  //     // const fetchCitiesData = async () => {
+  //     //   try {
+  //     //     const data = await getDocs(collection(db, "cities"));
+  //     //     const firestoreCitiesData = [
+  //     //       data.docs.map((doc) => ({
+  //     //         ...doc.data(),
+  //     //         id: doc.id,
+  //     //       })),
+  //     //     ];
+  //     // const citiesList = firestoreCitiesData[0].map((city) => city.name);
+  //     //     setCitiesData(citiesList);
+  //     //   } catch (error) {
+  //     //     console.error("Error loading data:", error);
+  //     //   }
+  //     // };
+  //     const fetchVenuesData = async () => {
+  //       try {
+  //         const data = await getDocs(collection(db, "venues"));
+  //         const firestoreVenuesData = [
+  //           data.docs.map((doc) => ({
+  //             ...doc.data(),
+  //             // id: doc.id,
+  //           })),
+  //         ];
+  //         const venuesList = firestoreVenuesData[0].map((venue) => venue.name);
+  //         // Comes pre-alphabetized due to Firestore document names
+  //         setVenuesData(venuesList);
+  //       } catch (error) {
+  //         console.error("Error loading data:", error);
+  //       }
+  //     };
+  //     fetchEventsData();
+  //     fetchUsersData();
+  //     // fetchCitiesData();
+  //     fetchVenuesData();
+  //   }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -160,23 +158,6 @@ const NewCommentForm = () => {
         venue: "",
       });
       form.reset();
-      Toastify({
-        text: "Posted! Return home?",
-        duration: 5000,
-        destination: "/",
-        newWindow: false,
-        close: true,
-        offset: {
-          y: "165px",
-        },
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: `linear-gradient(to right, $red, $light-purple)`,
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
     } else {
       console.error("Missing required field");
     }

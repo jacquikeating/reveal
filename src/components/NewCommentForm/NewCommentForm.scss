@@ -77,4 +77,14 @@
         background-color: transparent;
         padding: 1rem;
     }
+    
+    &__check-btn {
+        position: absolute;
+        bottom: -1rem;
+        right: 0.6rem;
+        border: none;
+        border-radius: 50%;
+        background-color: transparent;
+        padding: 1rem;
+    }
 }
