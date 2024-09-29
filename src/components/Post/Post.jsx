@@ -9,7 +9,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
-import NewPostForm from "../NewPostForm/NewPostForm.jsx";
+import NewCommentForm from "../NewCommentForm/NewCommentForm.jsx";
 import "./Post.scss";
 
 const Post = ({ postData, userData }) => {
@@ -174,7 +174,7 @@ const Post = ({ postData, userData }) => {
           )}
         </div>
 
-        {writeComment ? <NewPostForm /> : ""}
+        {writeComment ? <NewCommentForm /> : ""}
       </div>
     </article>
   );

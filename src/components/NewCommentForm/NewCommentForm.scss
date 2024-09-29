@@ -1,0 +1,75 @@
+@use "/src/styles/__globals" as *;
+
+.post-form {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid $purple;
+    padding: 2rem;
+    position: relative;
+    border-radius: 2px;
+
+    &__top {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        gap: 1.5rem;
+    }
+
+    &__user-avatar {
+        position: absolute;
+        left: -2.2rem;
+        top: 2.5rem;
+        border: 2px solid $purple;
+        @include avatar(4.5rem);
+    }
+
+    &__content {
+        margin-bottom: 1rem;
+        height: 10rem;
+        width: calc(100% - 2rem);
+        @include input;
+    }
+
+    &__label {
+        display: block;
+        margin-top: 1rem;
+        width: 45%;
+    }
+
+    &__mentions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    &__add-tags-text {
+        width: 100%;
+        margin: 2rem 0 1rem;
+
+        & span {
+            margin-left: 0.5rem;
+            font-size: 0.85em;
+            opacity: 0.8;
+            font-style: italic;
+            letter-spacing: 0.04em;
+        }
+    }
+
+    &__select {
+        margin-top: 0.5rem;
+        width: 100%;
+        background-color: $purple!important;
+        color: $light!important;
+        @include input;
+    }
+
+    &__submit-btn {
+        position: absolute;
+        bottom: -2rem;
+        @include button;
+    }
+}
