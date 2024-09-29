@@ -174,7 +174,7 @@ const Post = ({ postData, userData }) => {
           )}
         </div>
 
-        {writeComment ? <NewPostForm /> : ""}
+        {writeComment ? <NewCommentForm /> : ""}
       </div>
     </article>
   );
