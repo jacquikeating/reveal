@@ -186,31 +186,28 @@ const NewCommentForm = () => {
   if (error) return <p>Error loading data: {error.message}</p>;
 
   return (
-    <section>
-      <h1>New Post</h1>
+    <form className="comment-form" onSubmit={handleSubmit} id="form">
+      <div className="comment-form__top">
+        <img src={userData.avatar} className="comment-form__user-avatar" />
+        <textarea
+          className="comment-form__content"
+          name="content"
+          placeholder="Start writing..."
+          required
+          value={formData.content}
+          onChange={handleChange}
+        />
+      </div>
 
-      <form className="post-form" onSubmit={handleSubmit} id="form">
-        <div className="post-form__top">
-          <img src={userData.avatar} className="post-form__user-avatar" />
-          <textarea
-            className="post-form__content"
-            name="content"
-            placeholder="Start writing..."
-            required
-            value={formData.content}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="post-form__mentions">
-          <p className="post-form__add-tags-text">
+      {/* <div className="comment-form__mentions">
+          <p className="comment-form__add-tags-text">
             Add Tags <span>(Optional)</span>
           </p>
 
-          <label className="post-form__label">
+          <label className="comment-form__label">
             Person
             <select
-              className="post-form__select"
+              className="comment-form__select"
               name="person"
               onChange={handleChange}
             >
@@ -224,10 +221,10 @@ const NewCommentForm = () => {
               })}
             </select>
           </label>
-          <label className="post-form__label">
+          <label className="comment-form__label">
             Event
             <select
-              className="post-form__select"
+              className="comment-form__select"
               name="event"
               onChange={handleChange}
             >
@@ -241,10 +238,10 @@ const NewCommentForm = () => {
               })}
             </select>
           </label>
-          <label className="post-form__label">
+          <label className="comment-form__label">
             City
             <select
-              className="post-form__select"
+              className="comment-form__select"
               name="city"
               onChange={handleChange}
             >
@@ -258,10 +255,10 @@ const NewCommentForm = () => {
               })}
             </select>
           </label>
-          <label className="post-form__label">
+          <label className="comment-form__label">
             Venue
             <select
-              className="post-form__select"
+              className="comment-form__select"
               name="venue"
               onChange={handleChange}
             >
@@ -275,13 +272,15 @@ const NewCommentForm = () => {
               })}
             </select>
           </label>
-        </div>
+        </div> */}
 
-        <button type="submit" className="post-form__submit-btn">
-          Post
-        </button>
-      </form>
-    </section>
+      <button type="submit" className="comment-form__submit-btn">
+        <img
+          className="post__icon post__icon--check"
+          src="../../src/assets/icons/check.svg"
+        />
+      </button>
+    </form>
   );
 };
 

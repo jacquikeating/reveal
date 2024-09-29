@@ -1,12 +1,12 @@
 @use "/src/styles/__globals" as *;
 
-.post-form {
+.comment-form {
     margin: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid $purple;
-    padding: 2rem;
+    border-left: 2px solid $purple;
+    // padding: 2rem;
     position: relative;
     border-radius: 2px;
 
@@ -15,6 +15,7 @@
         justify-content: flex-end;
         width: 100%;
         gap: 1.5rem;
+        margin-bottom: 0!important;
     }
 
     &__user-avatar {
@@ -22,13 +23,13 @@
         left: -2.2rem;
         top: 2.5rem;
         border: 2px solid $purple;
-        @include avatar(4.5rem);
+        @include avatar(4rem);
     }
 
     &__content {
-        margin-bottom: 1rem;
+        margin-bottom: 0!important;
         height: 10rem;
-        width: calc(100% - 2rem);
+        width: calc(100% - 1rem);
         @include input;
     }
 
@@ -69,7 +70,11 @@
 
     &__submit-btn {
         position: absolute;
-        bottom: -2rem;
-        @include button;
+        bottom: -1rem;
+        right: 0.6rem;
+        border: none;
+        border-radius: 50%;
+        background-color: transparent;
+        padding: 1rem;
     }
 }
