@@ -9,6 +9,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import NewPostForm from "../NewPostForm/NewPostForm.jsx";
 import "./Post.scss";
 
 const Post = ({ postData, userData }) => {
@@ -34,6 +35,7 @@ const Post = ({ postData, userData }) => {
   const [postDisplay, setPostDisplay] = useState("flex");
   const [editMode, setEditMode] = useState(false);
   const [bodyText, setBodyText] = useState(content);
+  const [writeComment, setWriteComment] = useState(false);
   const postRef = doc(db, "posts", id);
 
   async function updateLikes() {
@@ -134,7 +136,7 @@ const Post = ({ postData, userData }) => {
 
             <p className="post__likes">{likesCount}</p>
           </button>
-          <button className="post__btn">
+          <button className="post__btn" onClick={() => setWriteComment(true)}>
             <img
               className="post__icon post__icon--comments"
               src="../../src/assets/icons/comment.svg"
@@ -171,6 +173,8 @@ const Post = ({ postData, userData }) => {
             ""
           )}
         </div>
+
+        {writeComment ? <NewPostForm /> : ""}
       </div>
     </article>
   );
