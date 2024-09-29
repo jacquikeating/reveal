@@ -23,6 +23,7 @@ const NewCommentForm = () => {
     venue: "",
   });
   const form = document.getElementById("form");
+  const [writeComment, setWriteComment] = useState(true);
 
   //   useEffect(() => {
   //     const fetchEventsData = async () => {
@@ -158,6 +159,7 @@ const NewCommentForm = () => {
         venue: "",
       });
       form.reset();
+      setWriteComment(false);
     } else {
       console.error("Missing required field");
     }
@@ -168,17 +170,21 @@ const NewCommentForm = () => {
 
   return (
     <form className="comment-form" onSubmit={handleSubmit} id="form">
-      <div className="comment-form__top">
-        <img src={userData.avatar} className="comment-form__user-avatar" />
-        <textarea
-          className="comment-form__content"
-          name="content"
-          placeholder="Start writing..."
-          required
-          value={formData.content}
-          onChange={handleChange}
-        />
-      </div>
+      {writeComment ? (
+        <div className="comment-form__top">
+          <img src={userData.avatar} className="comment-form__user-avatar" />
+          <textarea
+            className="comment-form__content"
+            name="content"
+            placeholder="Start writing..."
+            required
+            value={formData.content}
+            onChange={handleChange}
+          />
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* <div className="comment-form__mentions">
           <p className="comment-form__add-tags-text">
@@ -254,13 +260,16 @@ const NewCommentForm = () => {
             </select>
           </label>
         </div> */}
-
-      <button type="submit" className="comment-form__submit-btn">
-        <img
-          className="post__icon post__icon--check"
-          src="../../src/assets/icons/check.svg"
-        />
-      </button>
+      {writeComment ? (
+        <button type="submit" className="comment-form__check-btn">
+          <img
+            className="post__icon post__icon--check"
+            src="../../src/assets/icons/check.svg"
+          />
+        </button>
+      ) : (
+        ""
+      )}
     </form>
   );
 };
