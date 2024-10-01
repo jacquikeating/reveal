@@ -1,101 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./NewCommentForm.scss";
+import React, { useState } from "react";
 import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
+import "./NewCommentForm.scss";
 
 const NewCommentForm = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
-  const [eventsData, setEventsData] = useState([]);
-  const [usersData, setUsersData] = useState([]);
-  const [citiesData, setCitiesData] = useState([
-    "Toronto",
-    "Montreal",
-    "Vancouver",
-  ]);
-  const [venuesData, setVenuesData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     content: "",
-    event: "",
-    user: "",
-    city: "",
-    venue: "",
   });
   const form = document.getElementById("form");
   const [writeComment, setWriteComment] = useState(true);
-
-  //   useEffect(() => {
-  //     const fetchEventsData = async () => {
-  //       try {
-  //         const data = await getDocs(collection(db, "events"));
-  //         const firestoreEventsData = [
-  //           data.docs.map((doc) => ({
-  //             ...doc.data(),
-  //           })),
-  //         ];
-  //         const eventsList = firestoreEventsData[0].map((event) => event.name);
-  //         const alphabetizedEventsList = eventsList.sort((a, b) => {
-  //           return a.localeCompare(b);
-  //         });
-  //         setEventsData(alphabetizedEventsList);
-  //       } catch (error) {
-  //         console.error("Error loading data:", error);
-  //       }
-  //     };
-  //     const fetchUsersData = async () => {
-  //       try {
-  //         const data = await getDocs(collection(db, "users"));
-  //         const firestoreUsersData = [
-  //           data.docs.map((doc) => ({
-  //             ...doc.data(),
-  //           })),
-  //         ];
-  //         const usersList = firestoreUsersData[0].map((user) => user.name);
-  //         const alphabetizedUsersList = usersList.sort((a, b) => {
-  //           return a.localeCompare(b);
-  //         });
-  //         setUsersData(alphabetizedUsersList);
-  //       } catch (error) {
-  //         console.error("Error loading data:", error);
-  //       }
-  //     };
-  //     // const fetchCitiesData = async () => {
-  //     //   try {
-  //     //     const data = await getDocs(collection(db, "cities"));
-  //     //     const firestoreCitiesData = [
-  //     //       data.docs.map((doc) => ({
-  //     //         ...doc.data(),
-  //     //         id: doc.id,
-  //     //       })),
-  //     //     ];
-  //     // const citiesList = firestoreCitiesData[0].map((city) => city.name);
-  //     //     setCitiesData(citiesList);
-  //     //   } catch (error) {
-  //     //     console.error("Error loading data:", error);
-  //     //   }
-  //     // };
-  //     const fetchVenuesData = async () => {
-  //       try {
-  //         const data = await getDocs(collection(db, "venues"));
-  //         const firestoreVenuesData = [
-  //           data.docs.map((doc) => ({
-  //             ...doc.data(),
-  //             // id: doc.id,
-  //           })),
-  //         ];
-  //         const venuesList = firestoreVenuesData[0].map((venue) => venue.name);
-  //         // Comes pre-alphabetized due to Firestore document names
-  //         setVenuesData(venuesList);
-  //       } catch (error) {
-  //         console.error("Error loading data:", error);
-  //       }
-  //     };
-  //     fetchEventsData();
-  //     fetchUsersData();
-  //     // fetchCitiesData();
-  //     fetchVenuesData();
-  //   }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -115,29 +31,8 @@ const NewCommentForm = () => {
       timestamp: new Date().getTime().toString(),
       content: submittedData.content,
       likes: [],
-      comments: {},
-      hashtags: {
-        event: formData.event,
-        user: formData.user,
-        city: formData.city,
-        venue: formData.venue,
-      },
     };
     Reflect.deleteProperty(submittedData, "content");
-    const data = Array.isArray(submittedData)
-      ? submittedData.filter(Boolean)
-      : submittedData;
-    const trimmedHashtags = Object.keys(data).reduce(
-      (acc, key) => {
-        const value = data[key];
-
-        if (Boolean(value))
-          acc[key] = typeof value === "object" ? compactObject(value) : value;
-        return acc;
-      },
-      Array.isArray(submittedData) ? [] : {}
-    );
-    preparedFormData.hashtags = trimmedHashtags;
     return preparedFormData;
   };
 
@@ -153,10 +48,6 @@ const NewCommentForm = () => {
       });
       setFormData({
         content: "",
-        user: "",
-        event: "",
-        city: "",
-        venue: "",
       });
       form.reset();
       setWriteComment(false);
@@ -186,80 +77,6 @@ const NewCommentForm = () => {
         ""
       )}
 
-      {/* <div className="comment-form__mentions">
-          <p className="comment-form__add-tags-text">
-            Add Tags <span>(Optional)</span>
-          </p>
-
-          <label className="comment-form__label">
-            Person
-            <select
-              className="comment-form__select"
-              name="person"
-              onChange={handleChange}
-            >
-              <option value="null">(none)</option>{" "}
-              {usersData.map((user) => {
-                return (
-                  <option key={user} value={user}>
-                    {user}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          <label className="comment-form__label">
-            Event
-            <select
-              className="comment-form__select"
-              name="event"
-              onChange={handleChange}
-            >
-              <option value="null">(none)</option>{" "}
-              {eventsData.map((show) => {
-                return (
-                  <option key={show} value={show}>
-                    {show}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          <label className="comment-form__label">
-            City
-            <select
-              className="comment-form__select"
-              name="city"
-              onChange={handleChange}
-            >
-              <option value="null">(none)</option>{" "}
-              {citiesData.map((city) => {
-                return (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          <label className="comment-form__label">
-            Venue
-            <select
-              className="comment-form__select"
-              name="venue"
-              onChange={handleChange}
-            >
-              <option value="null">(none)</option>
-              {venuesData.map((venue) => {
-                return (
-                  <option key={venue} value={venue}>
-                    {venue}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-        </div> */}
       {writeComment ? (
         <button type="submit" className="comment-form__check-btn">
           <img
