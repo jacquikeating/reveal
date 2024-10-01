@@ -3,7 +3,7 @@ import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import "./NewCommentForm.scss";
 
-const NewCommentForm = () => {
+const NewCommentForm = ({ postRef, postData }) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -41,10 +41,10 @@ const NewCommentForm = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       const dataToSubmit = prepareFormData(formData);
-      const docRef = await addDoc(collection(db, "posts"), dataToSubmit);
-      const docID = docRef.id;
-      await updateDoc(docRef, {
-        id: docID,
+      const commentsArr = postData.comments;
+      commentsArr.push(dataToSubmit);
+      await updateDoc(postRef, {
+        comments: commentsArr,
       });
       setFormData({
         content: "",

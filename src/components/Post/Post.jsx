@@ -174,7 +174,11 @@ const Post = ({ postData, userData }) => {
           )}
         </div>
 
-        {writeComment ? <NewCommentForm /> : ""}
+        {writeComment ? (
+          <NewCommentForm postRef={postRef} postData={postData} />
+        ) : (
+          ""
+        )}
       </div>
     </article>
   );
