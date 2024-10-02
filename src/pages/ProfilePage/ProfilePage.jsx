@@ -11,21 +11,21 @@ import { db } from "../../config/firebase.js";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
-  let { userName } = useParams(); // aurora-glitter
-  const [userData, setUserData] = useState({});
+  let { profileURL } = useParams();
+  const [profileData, setProfileData] = useState({});
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { name, bio, coverImg, events, gallery } = userData;
+  const { name, bio, coverImg, events, gallery } = profileData;
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchProfileData = async () => {
       try {
         const usersRef = collection(db, "users");
-        const q = query(usersRef, where("profileURL", "==", `${userName}`));
+        const q = query(usersRef, where("profileURL", "==", `${profileURL}`));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          setUserData(doc.data());
+          setProfileData(doc.data());
           fetchEventsData(doc.data().events);
         });
         setLoading(false);
@@ -35,11 +35,11 @@ const ProfilePage = () => {
         setLoading(false);
       }
     };
-    fetchUserData();
+    fetchProfileData();
   }, []);
 
   const fetchEventsData = async (eventsArr) => {
-    if (userData.events) {
+    if (profileData.events) {
       try {
         const data = await getDocs(collection(db, "events"));
         const firestoreEventsData = [
@@ -78,25 +78,28 @@ const ProfilePage = () => {
           <h2 className="profile__section-heading profile__section-heading--events">
             Events
           </h2>
-          {userData.events ? (
-            <EmblaCarousel eventsData={eventsData} eventIDs={userData.events} />
+          {profileData.events ? (
+            <EmblaCarousel
+              eventsData={eventsData}
+              eventIDs={profileData.events}
+            />
           ) : (
-            <p>This user is not in any events... yet!</p>
+            <p>This profile is not in any events... yet!</p>
           )}
         </section>
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Gallery</h2>
           <Suspense fallback={<p>Loading images...</p>}>
-            <Gallery gallery={userData.gallery} />
+            <Gallery gallery={profileData.gallery} />
           </Suspense>
         </section>
 
         <section className="profile__section">
           <h2 className="profile__section-heading">Posts</h2>
           <PostsContainer
-            filterType={"userName"}
-            filterTarget={userData.name}
+            filterType={"profileName"}
+            filterTarget={profileData.name}
           />
         </section>
       </main>
