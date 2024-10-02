@@ -11,7 +11,7 @@ import { db } from "../../config/firebase.js";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
-  let { profileURL } = useParams();
+  let { userName } = useParams();
   const [profileData, setProfileData] = useState({});
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ const ProfilePage = () => {
     const fetchProfileData = async () => {
       try {
         const usersRef = collection(db, "users");
-        const q = query(usersRef, where("profileURL", "==", `${profileURL}`));
+        const q = query(usersRef, where("profileURL", "==", `${userName}`));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           setProfileData(doc.data());
@@ -98,7 +98,7 @@ const ProfilePage = () => {
         <section className="profile__section">
           <h2 className="profile__section-heading">Posts</h2>
           <PostsContainer
-            filterType={"profileName"}
+            filterType={"userName"}
             filterTarget={profileData.name}
           />
         </section>
