@@ -39,25 +39,23 @@ const ProfilePage = () => {
   }, []);
 
   const fetchEventsData = async (eventsArr) => {
-    if (profileData.events) {
-      try {
-        const data = await getDocs(collection(db, "events"));
-        const firestoreEventsData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          })),
-        ];
+    try {
+      const data = await getDocs(collection(db, "events"));
+      const firestoreEventsData = [
+        data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      ];
 
-        let onlyUsersShows = firestoreEventsData[0].filter((show) =>
-          eventsArr.includes(show.id)
-        );
-        onlyUsersShows.sort((a, b) => a.when.timestamp - b.when.timestamp);
-        setEventsData(onlyUsersShows);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
+      let onlyUsersShows = firestoreEventsData[0].filter((show) =>
+        eventsArr.includes(show.id)
+      );
+      onlyUsersShows.sort((a, b) => a.when.timestamp - b.when.timestamp);
+      setEventsData(onlyUsersShows);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading data:", error);
     }
   };
 
