@@ -40,21 +40,21 @@ const EventDetailsPage = () => {
     eventData.ticket_prices;
 
   useEffect(() => {
-    async function getEventData() {
-      const docRef = doc(db, "events", eventID);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setEventData(docSnap.data());
-        setLoading(false);
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }
-
     getEventData();
   }, []);
+
+  async function getEventData() {
+    const docRef = doc(db, "events", eventID);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setEventData(docSnap.data());
+      setLoading(false);
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <section>Error loading data: {error.message}</section>;
@@ -78,7 +78,6 @@ const EventDetailsPage = () => {
           }
           <div className="event__subsection">
             <p className="event__description">{description}</p>
-            {/* <p className="event__organizer">Produced by {organizer}</p> */}
           </div>
 
           <div className="event__subsection">
@@ -169,16 +168,16 @@ const EventDetailsPage = () => {
           </p>
         </section>
 
-        {/* <section className="event__section">
+        <section className="event__section">
           <h2 className="event__section-heading">Gallery</h2>
           <Suspense fallback={<p>Loading images...</p>}>
-            <Gallery gallery={eventData.gallery} />
+            <Gallery gallery={gallery} />
           </Suspense>
-        </section> */}
+        </section>
 
         <section className="event__section">
           <h2 className="event__section-heading">Posts</h2>
-          <PostsContainer filterType={hashtags.event} filterTarget={name} />
+          <PostsContainer filterType={"hashtags.event"} filterTarget={name} />
         </section>
       </main>
     </>

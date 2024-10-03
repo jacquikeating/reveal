@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import "./EmblaCarousel.scss";
 import EventPreview from "../EventPreview/EventPreview";
+import "./EmblaCarousel.scss";
 
-const EmblaCarousel = ({ eventsData, eventIDs }) => {
-  // useEmblaCarousel.globalOptions = { loop: true };
+const EmblaCarousel = ({ eventsData }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
+  // useEmblaCarousel.globalOptions = { loop: true };
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -14,10 +14,6 @@ const EmblaCarousel = ({ eventsData, eventIDs }) => {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-
-  // if (eventIDs.length) {
-  // eventsData = eventsData.filter((show) => eventIDs.includes(show.id));
-  // }
 
   return (
     <div className="embla">

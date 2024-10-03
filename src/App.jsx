@@ -71,7 +71,7 @@ function App() {
             path="/profile/edit"
             element={<EditProfilePage userData={userData} />}
           />
-          <Route path="/profile/:userName" element={<ProfilePage />} />
+          <Route path="/profile/:profileURL" element={<ProfilePage />} />
           <Route path="/events" element={<EventListingsPage />} />
           <Route path="/events/:eventID" element={<EventDetailsPage />} />
           <Route path="/venue" element={<VenuePage />} />

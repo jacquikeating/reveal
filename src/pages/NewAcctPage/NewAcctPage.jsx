@@ -1,19 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { auth, db } from "../../config/firebase.js";
-import {
-  getDoc,
-  getDocs,
-  collection,
-  addDoc,
-  deleteDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
-import FirestoreUpload from "../../components/FirestoreUpload/FirestoreUpload.jsx";
 import "./NewAcctPage.scss";
-import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
 
 const NewAcctPage = () => {
   return (

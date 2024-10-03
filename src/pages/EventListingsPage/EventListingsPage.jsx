@@ -19,29 +19,30 @@ const EventListingsPage = () => {
     new Date().toLocaleString("default", { month: "long" })
   );
 
+  useEffect(() => {
+    fetchEventsData();
+  }, []);
+
+  const fetchEventsData = async () => {
+    try {
+      const data = await getDocs(eventsCollectionRef);
+      const firestoreEventsData = [
+        data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      ];
+      setEventsData(firestoreEventsData[0]);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  };
+
   const filteredEvents = eventsData
     .filter((event) => {
       return event.month == currentMonthName && event.city == selectedCity;
     })
     .sort((a, b) => a.day - b.day);
-
-  useEffect(() => {
-    const fetchEventsData = async () => {
-      try {
-        const data = await getDocs(eventsCollectionRef);
-        const firestoreEventsData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          })),
-        ];
-        setEventsData(firestoreEventsData[0]);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
-    fetchEventsData();
-  }, []);
 
   function switchDisplay() {
     if (displayCalendar) {

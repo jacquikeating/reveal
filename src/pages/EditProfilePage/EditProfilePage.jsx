@@ -1,6 +1,5 @@
-import "./EditProfilePage.scss";
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
 import Hero from "../../components/Hero/Hero";
@@ -8,6 +7,7 @@ import EditSocials from "../../components/EditSocials/EditSocials";
 import EmblaCarousel from "../../components/EmblaCarousel/EmblaCarousel";
 import PostsContainer from "../../components/PostsContainer/PostsContainer";
 const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
+import "./EditProfilePage.scss";
 
 const EditProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -24,27 +24,28 @@ const EditProfilePage = () => {
 
   useEffect(() => {
     if (userData.events) {
-      const fetchEventsData = async () => {
-        try {
-          const data = await getDocs(collection(db, "events"));
-          const firestoreEventsData = [
-            data.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            })),
-          ];
-          let onlyUsersShows = firestoreEventsData[0].filter((show) =>
-            userData.events.includes(show.id)
-          );
-          onlyUsersShows.sort((a, b) => a.when.timestamp - b.when.timestamp);
-          setEventsData(onlyUsersShows);
-        } catch (error) {
-          console.error("Error loading data:", error);
-        }
-      };
       fetchEventsData();
     }
   }, []);
+
+  const fetchEventsData = async () => {
+    try {
+      const data = await getDocs(collection(db, "events"));
+      const firestoreEventsData = [
+        data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      ];
+      let onlyUsersShows = firestoreEventsData[0].filter((show) =>
+        userData.events.includes(show.id)
+      );
+      onlyUsersShows.sort((a, b) => a.when.timestamp - b.when.timestamp);
+      setEventsData(onlyUsersShows);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  };
 
   async function saveData() {
     await updateDoc(userRef, updatedUserData);
@@ -65,6 +66,7 @@ const EditProfilePage = () => {
                 defaultValue={name}
                 onChange={(e) => setName(e.target.value)}
               />
+
               <textarea
                 className="edit-profile__bio"
                 defaultValue={bio}
@@ -79,12 +81,9 @@ const EditProfilePage = () => {
                 Events
               </h2>
               {userData.events ? (
-                <EmblaCarousel
-                  eventsData={eventsData}
-                  eventIDs={userData.events}
-                />
+                <EmblaCarousel eventsData={eventsData} />
               ) : (
-                <p>You are not in any events!</p>
+                <p>You are not in any events...yet!</p>
               )}
             </section>
 

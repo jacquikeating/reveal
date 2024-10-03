@@ -16,29 +16,30 @@ const HomePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
-    const fetchEventsData = async () => {
-      try {
-        const data = await getDocs(collection(db, "events"));
-        const firestoreEventsData = [
-          data.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          })),
-        ];
-        firestoreEventsData[0].sort(
-          (a, b) => a.when.timestamp - b.when.timestamp
-        );
-        setEventsData(firestoreEventsData[0]);
-        setNextEvent(firestoreEventsData[0][0]);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(true);
-        setLoading(false);
-      }
-    };
     fetchEventsData();
   }, []);
+
+  const fetchEventsData = async () => {
+    try {
+      const data = await getDocs(collection(db, "events"));
+      const firestoreEventsData = [
+        data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      ];
+      firestoreEventsData[0].sort(
+        (a, b) => a.when.timestamp - b.when.timestamp
+      );
+      setEventsData(firestoreEventsData[0]);
+      setNextEvent(firestoreEventsData[0][0]);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setError(true);
+      setLoading(false);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data: {error.message}</p>;

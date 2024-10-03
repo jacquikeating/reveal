@@ -12,21 +12,21 @@ const PostPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPostData = async () => {
-      try {
-        const response = await axios.get(getSinglePostEndpoint(postID));
-        setPostData(response.data);
-        console.log(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
-
     fetchPostData();
   }, [postID]);
+
+  const fetchPostData = async () => {
+    try {
+      const response = await axios.get(getSinglePostEndpoint(postID));
+      setPostData(response.data);
+      console.log(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setError(error);
+      setLoading(false);
+    }
+  };
 
   return (
     <main>

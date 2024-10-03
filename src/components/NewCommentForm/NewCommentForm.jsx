@@ -41,7 +41,9 @@ const NewCommentForm = ({ postRef, postData }) => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       const dataToSubmit = prepareFormData(formData);
-      const commentsArr = postData.comments;
+      console.log(dataToSubmit);
+      let commentsArr = postData.comments;
+      console.log(commentsArr);
       commentsArr.push(dataToSubmit);
       await updateDoc(postRef, {
         comments: commentsArr,
@@ -51,6 +53,7 @@ const NewCommentForm = ({ postRef, postData }) => {
       });
       form.reset();
       setWriteComment(false);
+      setLoading(false);
     } else {
       console.error("Missing required field");
     }
@@ -62,22 +65,30 @@ const NewCommentForm = ({ postRef, postData }) => {
   return (
     <form className="comment-form" onSubmit={handleSubmit} id="form">
       {writeComment ? (
-        <div className="comment-form__top">
-          <img src={userData.avatar} className="comment-form__user-avatar" />
-          <textarea
-            className="comment-form__content"
-            name="content"
-            placeholder="Start writing..."
-            required
-            value={formData.content}
-            onChange={handleChange}
-          />
-        </div>
+        <>
+          <div className="comment-form__top">
+            <img src={userData.avatar} className="comment-form__user-avatar" />
+            <textarea
+              className="comment-form__content"
+              name="content"
+              placeholder="Start writing..."
+              required
+              value={formData.content}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" className="comment-form__check-btn">
+            <img
+              className="post__icon post__icon--check"
+              src="../../src/assets/icons/check.svg"
+            />
+          </button>
+        </>
       ) : (
         ""
       )}
 
-      {writeComment ? (
+      {/* {writeComment ? (
         <button type="submit" className="comment-form__check-btn">
           <img
             className="post__icon post__icon--check"
@@ -86,7 +97,7 @@ const NewCommentForm = ({ postRef, postData }) => {
         </button>
       ) : (
         ""
-      )}
+      )} */}
     </form>
   );
 };
