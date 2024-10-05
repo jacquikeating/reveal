@@ -120,6 +120,41 @@ const Post = ({ postData, userData }) => {
           />
         )}
 
+        {hashtags ? (
+          <div className="post__hashtags">
+            {hashtags.person ? (
+              <Link to={`/`}>
+                <p className="post__hashtag"># {hashtags.person}</p>
+              </Link>
+            ) : (
+              ""
+            )}
+            {hashtags.event ? (
+              <Link to={`/`}>
+                <p className="post__hashtag"># {hashtags.event}</p>
+              </Link>
+            ) : (
+              ""
+            )}
+            {hashtags.venue ? (
+              <Link to={`/`}>
+                <p className="post__hashtag"># {hashtags.venue}</p>
+              </Link>
+            ) : (
+              ""
+            )}
+            {hashtags.city ? (
+              <Link to={`/`}>
+                <p className="post__hashtag"># {hashtags.city}</p>
+              </Link>
+            ) : (
+              ""
+            )}
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="post__reactions">
           <button className="post__btn" onClick={updateLikes}>
             {isLiked ? (

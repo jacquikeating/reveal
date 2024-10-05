@@ -85,4 +85,13 @@
         color: $light!important;
         @include input;
     }
+
+    &__hashtag {
+        margin-right: 1.5rem;
+        display: inline;
+        font-size: 0.85em;
+        letter-spacing: 0.025em;
+        font-style: italic;
+        opacity: 0.85;
+    }
 }
