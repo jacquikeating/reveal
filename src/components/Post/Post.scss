@@ -88,10 +88,17 @@
 
     &__hashtag {
         margin-right: 1.5rem;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 0.2rem;
         display: inline;
         font-size: 0.85em;
         letter-spacing: 0.025em;
         font-style: italic;
-        opacity: 0.85;
+        opacity: 0.8;
+
+        &:hover {
+            border-bottom: 1px solid $red;
+            opacity: 1;
+        }
     }
 }
