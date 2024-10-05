@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import NewCommentForm from "../NewCommentForm/NewCommentForm.jsx";
+import Comment from "../Comment/Comment.jsx";
 import "./Post.scss";
 
 const Post = ({ postData, userData }) => {
@@ -25,7 +26,6 @@ const Post = ({ postData, userData }) => {
     comments,
     id,
   } = postData;
-  comments = [];
   timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   content = content.replace(/&#x27;/g, "'");
   const userID = userData.uid;
@@ -179,6 +179,16 @@ const Post = ({ postData, userData }) => {
         ) : (
           ""
         )}
+
+        {comments
+          ? comments.map((comment) => {
+              return (
+                <div className="post__comment">
+                  <Comment commentData={comment} key={comment.timestamp} />
+                </div>
+              );
+            })
+          : ""}
       </div>
     </article>
   );
