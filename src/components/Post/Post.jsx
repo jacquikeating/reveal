@@ -94,143 +94,147 @@ const Post = ({ postData, userData }) => {
   const postRef = doc(db, "posts", id);
 
   return (
-    <article className="post" style={{ display: `${postDisplay}` }}>
-      <Link to={`/profile/${userProfileURL}`}>
-        <img
-          className="post__avatar"
-          alt={`${userName}'s avatar`}
-          src={userAvatar}
-        />
-      </Link>
-      <div className="post__text">
-        <div className="post__name-and-time">
-          <Link to={`/profile/${userProfileURL}`}>
-            <p className="post__username">{userName}</p>
-          </Link>
-          <p className="post__timestamp">{timestamp}</p>
-        </div>
-
-        {!editMode ? (
-          <p className="post__content">{bodyText}</p>
-        ) : (
-          <textarea
-            className="post__edit-body-textarea"
-            defaultValue={bodyText}
-            onChange={(e) => setBodyText(e.target.value)}
+    <>
+      <article className="post" style={{ display: `${postDisplay}` }}>
+        <Link to={`/profile/${userProfileURL}`}>
+          <img
+            className="post__avatar"
+            alt={`${userName}'s avatar`}
+            src={userAvatar}
           />
-        )}
-
-        {hashtags ? (
-          <div className="post__hashtags">
-            {hashtags.person ? (
-              <Link to={`/`}>
-                <p className="post__hashtag"># {hashtags.person}</p>
-              </Link>
-            ) : (
-              ""
-            )}
-            {hashtags.event ? (
-              <Link to={`/`}>
-                <p className="post__hashtag"># {hashtags.event}</p>
-              </Link>
-            ) : (
-              ""
-            )}
-            {hashtags.venue ? (
-              <Link to={`/`}>
-                <p className="post__hashtag"># {hashtags.venue}</p>
-              </Link>
-            ) : (
-              ""
-            )}
-            {hashtags.city ? (
-              <Link to={`/`}>
-                <p className="post__hashtag"># {hashtags.city}</p>
-              </Link>
-            ) : (
-              ""
-            )}
+        </Link>
+        <div className="post__text">
+          <div className="post__name-and-time">
+            <Link to={`/profile/${userProfileURL}`}>
+              <p className="post__username">{userName}</p>
+            </Link>
+            <p className="post__timestamp">{timestamp}</p>
           </div>
-        ) : (
-          ""
-        )}
 
-        <div className="post__reactions">
-          <button className="post__btn" onClick={updateLikes}>
-            {isLiked ? (
-              <img
-                className="post__icon post__icon--likes"
-                src="../../src/assets/icons/heart-solid.svg"
-              />
-            ) : (
-              <img
-                className="post__icon post__icon--likes"
-                src="../../src/assets/icons/heart.svg"
-              />
-            )}
-
-            <p className="post__likes">{likesCount}</p>
-          </button>
-          <button className="post__btn" onClick={() => setWriteComment(true)}>
-            <img
-              className="post__icon post__icon--comments"
-              src="../../src/assets/icons/comment.svg"
+          {!editMode ? (
+            <p className="post__content">{bodyText}</p>
+          ) : (
+            <textarea
+              className="post__edit-body-textarea"
+              defaultValue={bodyText}
+              onChange={(e) => setBodyText(e.target.value)}
             />
-            <p className="post__comments">{comments.length}</p>
-          </button>
+          )}
 
-          {userID == userUID ? (
-            <div className="post__manage">
-              {!editMode ? (
-                <button className="post__btn" onClick={() => setEditMode(true)}>
-                  <img
-                    className="post__icon post__icon--edit"
-                    src="../../src/assets/icons/edit.svg"
-                  />
-                </button>
+          {hashtags ? (
+            <div className="post__hashtags">
+              {hashtags.person ? (
+                <Link to={`/`}>
+                  <p className="post__hashtag"># {hashtags.person}</p>
+                </Link>
               ) : (
-                <button className="post__btn" onClick={updatePostContent}>
-                  <img
-                    className="post__icon post__icon--check"
-                    src="../../src/assets/icons/check.svg"
-                  />
-                </button>
+                ""
               )}
-
-              <button className="post__btn" onClick={handleDeleteClick}>
-                <img
-                  className="post__icon post__icon--delete"
-                  src="../../src/assets/icons/trash.svg"
-                />
-              </button>
+              {hashtags.event ? (
+                <Link to={`/`}>
+                  <p className="post__hashtag"># {hashtags.event}</p>
+                </Link>
+              ) : (
+                ""
+              )}
+              {hashtags.venue ? (
+                <Link to={`/`}>
+                  <p className="post__hashtag"># {hashtags.venue}</p>
+                </Link>
+              ) : (
+                ""
+              )}
+              {hashtags.city ? (
+                <Link to={`/`}>
+                  <p className="post__hashtag"># {hashtags.city}</p>
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
           ) : (
             ""
           )}
-        </div>
 
-        {writeComment ? (
-          <NewCommentForm postRef={postRef} postData={postData} />
-        ) : (
-          ""
-        )}
+          <div className="post__reactions">
+            <button className="post__btn" onClick={updateLikes}>
+              {isLiked ? (
+                <img
+                  className="post__icon post__icon--likes"
+                  src="../../src/assets/icons/heart-solid.svg"
+                />
+              ) : (
+                <img
+                  className="post__icon post__icon--likes"
+                  src="../../src/assets/icons/heart.svg"
+                />
+              )}
 
-        {comments
-          ? comments.map((comment) => {
-              return (
-                <div className="post__comment">
-                  <Comment
-                    commentData={comment}
-                    key={comment.timestamp}
-                    userData={userData}
-                    parentID={id}
+              <p className="post__likes">{likesCount}</p>
+            </button>
+            <button className="post__btn" onClick={() => setWriteComment(true)}>
+              <img
+                className="post__icon post__icon--comments"
+                src="../../src/assets/icons/comment.svg"
+              />
+              <p className="post__comments">{comments.length}</p>
+            </button>
+
+            {userID == userUID ? (
+              <div className="post__manage">
+                {!editMode ? (
+                  <button
+                    className="post__btn"
+                    onClick={() => setEditMode(true)}
+                  >
+                    <img
+                      className="post__icon post__icon--edit"
+                      src="../../src/assets/icons/edit.svg"
+                    />
+                  </button>
+                ) : (
+                  <button className="post__btn" onClick={updatePostContent}>
+                    <img
+                      className="post__icon post__icon--check"
+                      src="../../src/assets/icons/check.svg"
+                    />
+                  </button>
+                )}
+
+                <button className="post__btn" onClick={handleDeleteClick}>
+                  <img
+                    className="post__icon post__icon--delete"
+                    src="../../src/assets/icons/trash.svg"
                   />
-                </div>
-              );
-            })
-          : ""}
-      </div>
-    </article>
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
+          {writeComment ? (
+            <NewCommentForm postRef={postRef} postData={postData} />
+          ) : (
+            ""
+          )}
+        </div>
+      </article>
+      {comments
+        ? comments.map((comment) => {
+            return (
+              <article className="post__comment">
+                <Comment
+                  commentData={comment}
+                  key={comment.timestamp}
+                  userData={userData}
+                  parentID={id}
+                />
+              </article>
+            );
+          })
+        : ""}
+    </>
   );
 };
 
