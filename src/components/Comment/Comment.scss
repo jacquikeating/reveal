@@ -1,1 +1,26 @@
 @use "/src/styles/__globals" as *;
+@use "../Post/Post.scss" as *;
+
+.comment {
+    margin: 0.5rem 0 1.5rem 15%;
+    max-width: 75%;
+    // border-left: 2px solid $purple;
+    padding: 0.5rem 1.7rem 0rem;
+    border-radius: 2px;
+    position: relative;
+    @extend .post;
+
+    &__line {
+        position: absolute;
+        border-width: 2px;
+        border-style: solid;
+        border-top: none;
+        border-right: none;
+        border-image: linear-gradient(to right, $purple 0%, $purple 5%, rgba(0,0,0,0) 20%)1;
+        z-index: -1;
+        width: 80%;
+        height: 45%;
+        left: -0.8rem;
+        bottom: 70%;
+    }
+}

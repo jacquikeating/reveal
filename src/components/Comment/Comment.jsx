@@ -35,7 +35,8 @@ const Comment = ({ commentData, userData, parentID }) => {
   const postRef = doc(db, "posts", parentID);
 
   return (
-    <article className="post" style={{ display: `${postDisplay}` }}>
+    <article className="comment" style={{ display: `${postDisplay}` }}>
+      <div className="comment__line"></div>
       <Link to={`/profile/${userProfileURL}`}>
         <img
           className="post__avatar"
