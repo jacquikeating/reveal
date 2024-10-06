@@ -10,7 +10,63 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import NewCommentForm from "../NewCommentForm/NewCommentForm.jsx";
+import Comment from "../Comment/Comment.jsx";
 import "./Post.scss";
+
+export async function updateLikes() {
+  if (isLiked) {
+    setIsLiked(false);
+    setLikesCount(likesCount - 1);
+    await updateDoc(postRef, {
+      likes: arrayRemove(userID),
+    });
+    return;
+  } else {
+    setIsLiked(true);
+    setLikesCount(likesCount + 1);
+    await updateDoc(postRef, {
+      likes: arrayUnion(userID),
+    });
+  }
+}
+
+export function handleDeleteClick() {
+  toast(
+    <div className="confirm-delete">
+      <p className="confirm-delete__text">
+        Are you sure you wish to delete this post?
+      </p>
+      <div className="confirm-delete__button-container">
+        <button className="confirm-delete__button" onClick={deletePost}>
+          Yes
+        </button>
+        <button className="confirm-delete__button" onClick={dismissToast}>
+          No
+        </button>
+      </div>
+    </div>,
+    {
+      theme: "dark",
+    }
+  );
+
+  function dismissToast() {
+    toast.dismiss();
+  }
+
+  async function deletePost() {
+    await deleteDoc(postRef);
+    setPostDisplay("none");
+    dismissToast();
+  }
+}
+
+export async function updatePostContent() {
+  await updateDoc(postRef, {
+    content: bodyText,
+  });
+  setEditMode(false);
+}
 
 const Post = ({ postData, userData }) => {
   let {
@@ -25,7 +81,6 @@ const Post = ({ postData, userData }) => {
     comments,
     id,
   } = postData;
-  comments = [];
   timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   content = content.replace(/&#x27;/g, "'");
   const userID = userData.uid;
@@ -37,61 +92,6 @@ const Post = ({ postData, userData }) => {
   const [bodyText, setBodyText] = useState(content);
   const [writeComment, setWriteComment] = useState(false);
   const postRef = doc(db, "posts", id);
-
-  async function updateLikes() {
-    if (isLiked) {
-      setIsLiked(false);
-      setLikesCount(likesCount - 1);
-      await updateDoc(postRef, {
-        likes: arrayRemove(userID),
-      });
-      return;
-    } else {
-      setIsLiked(true);
-      setLikesCount(likesCount + 1);
-      await updateDoc(postRef, {
-        likes: arrayUnion(userID),
-      });
-    }
-  }
-
-  function handleDeleteClick() {
-    toast(
-      <div className="confirm-delete">
-        <p className="confirm-delete__text">
-          Are you sure you wish to delete this post?
-        </p>
-        <div className="confirm-delete__button-container">
-          <button className="confirm-delete__button" onClick={deletePost}>
-            Yes
-          </button>
-          <button className="confirm-delete__button" onClick={dismissToast}>
-            No
-          </button>
-        </div>
-      </div>,
-      {
-        theme: "dark",
-      }
-    );
-
-    function dismissToast() {
-      toast.dismiss();
-    }
-
-    async function deletePost() {
-      await deleteDoc(postRef);
-      setPostDisplay("none");
-      dismissToast();
-    }
-  }
-
-  async function updatePostContent() {
-    await updateDoc(postRef, {
-      content: bodyText,
-    });
-    setEditMode(false);
-  }
 
   return (
     <article className="post" style={{ display: `${postDisplay}` }}>
@@ -214,6 +214,21 @@ const Post = ({ postData, userData }) => {
         ) : (
           ""
         )}
+
+        {comments
+          ? comments.map((comment) => {
+              return (
+                <div className="post__comment">
+                  <Comment
+                    commentData={comment}
+                    key={comment.timestamp}
+                    userData={userData}
+                    parentID={id}
+                  />
+                </div>
+              );
+            })
+          : ""}
       </div>
     </article>
   );
