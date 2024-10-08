@@ -87,11 +87,33 @@ const Post = ({ postData, userData }) => {
   // likes is an array containing the UIDs of all users who have liked the post
   const [likesCount, setLikesCount] = useState(likes.length);
   const [isLiked, setIsLiked] = useState(likes.includes(userID));
+  const [isCommented, setIsCommented] = useState(
+    comments.some((c) => c.userUID === userID)
+  );
   const [postDisplay, setPostDisplay] = useState("flex");
   const [editMode, setEditMode] = useState(false);
   const [bodyText, setBodyText] = useState(content);
   const [writeComment, setWriteComment] = useState(false);
   const postRef = doc(db, "posts", id);
+
+  console.log(isCommented);
+
+  async function updateLikes() {
+    if (isLiked) {
+      setIsLiked(false);
+      setLikesCount(likesCount - 1);
+      await updateDoc(postRef, {
+        likes: arrayRemove(userID),
+      });
+      return;
+    } else {
+      setIsLiked(true);
+      setLikesCount(likesCount + 1);
+      await updateDoc(postRef, {
+        likes: arrayUnion(userID),
+      });
+    }
+  }
 
   return (
     <>
@@ -173,10 +195,17 @@ const Post = ({ postData, userData }) => {
               <p className="post__likes">{likesCount}</p>
             </button>
             <button className="post__btn" onClick={() => setWriteComment(true)}>
-              <img
-                className="post__icon post__icon--comments"
-                src="../../src/assets/icons/comment.svg"
-              />
+              {isCommented ? (
+                <img
+                  className="post__icon post__icon--comments"
+                  src="../../src/assets/icons/comment-solid.svg"
+                />
+              ) : (
+                <img
+                  className="post__icon post__icon--comments"
+                  src="../../src/assets/icons/comment.svg"
+                />
+              )}
               <p className="post__comments">{comments.length}</p>
             </button>
 
