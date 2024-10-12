@@ -6,59 +6,101 @@ import { Modal } from "react-responsive-modal";
 import "./MakeEventPage.scss";
 
 const MakeEventPage = () => {
-  const [eventName, setEventName] = useState("");
-  const [eventSubtitle, setEventSubtitle] = useState("");
-  const [eventDescription, setEventDescription] = useState("");
-  const [eventProducer, setEventProducer] = useState("");
-  const [eventCity, setEventCity] = useState("");
-  const [eventVenue, setEventVenue] = useState("");
-  const [eventAddress, setEventAddress] = useState("");
-  const [eventISODateTime, setEventISODateTime] = useState("");
-  const [eventDoorsTime, setEventDoorsTime] = useState("");
-  const [eventEndTime, setEventEndTime] = useState("");
-  const [eventTicketPrices, setEventTicketPrices] = useState({});
-  const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
-  const [eventPerformers, setEventPerformers] = useState([]);
-  const [eventTicketPriceGA, setEventTicketPriceGA] = useState(0);
-  const [eventTicketPriceAdvGA, setEventTicketPriceAdvGA] = useState(0);
-  const [eventTicketPriceVIP, setEventTicketPriceVIP] = useState(0);
-  const [eventTicketPriceAdvVIP, setEventTicketPriceAdvVIP] = useState(0);
+  // const [eventName, setEventName] = useState("");
+  // const [eventSubtitle, setEventSubtitle] = useState("");
+  // const [eventDescription, setEventDescription] = useState("");
+  // const [eventProducer, setEventProducer] = useState("");
+  // const [eventCity, setEventCity] = useState("");
+  // const [eventVenue, setEventVenue] = useState("");
+  // const [eventAddress, setEventAddress] = useState("");
+  // const [eventISODateTime, setEventISODateTime] = useState("");
+  // const [eventDoorsTime, setEventDoorsTime] = useState("");
+  // const [eventEndTime, setEventEndTime] = useState("");
+  // const [eventTicketPrices, setEventTicketPrices] = useState({});
+  // const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
+  // const [eventPerformers, setEventPerformers] = useState([]);
+  // const [eventTicketPriceGA, setEventTicketPriceGA] = useState(0);
+  // const [eventTicketPriceAdvGA, setEventTicketPriceAdvGA] = useState(0);
+  // const [eventTicketPriceVIP, setEventTicketPriceVIP] = useState(0);
+  // const [eventTicketPriceAdvVIP, setEventTicketPriceAdvVIP] = useState(0);
   const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    subtitle: "",
+    description: "",
+    main_image: "",
+    organizer: "",
+    performers: [],
+    gallery: [],
+    where: {
+      city: "",
+      venueName: "",
+      venueAddress: "",
+      venueURL: "",
+    },
+    when: {
+      timestamp: 0,
+      day: 0,
+      month: "",
+      year: 0,
+      times: {
+        doors: "",
+        start: "",
+        end: "",
+      },
+      tickets: {
+        purchaseURL: "",
+        prices: {
+          GA: 0,
+          VIP: 0,
+          advGA: 0,
+          advVIP: 0,
+          standing: 0,
+        },
+        tableDiscounts: false,
+      },
+    },
+  });
+  const form = document.getElementById("form");
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  async function createEvent(e) {
-    e.preventDefault();
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    let newEvent = {
-      name: eventName,
-      subtitle: eventSubtitle,
-      description: eventDescription,
-      producer: eventProducer,
-      city: eventCity,
-      venue: eventVenue,
-      venueAddress: eventAddress,
-      when: {
-        timestamp: new Date(eventISODateTime).getTime(),
-        day: new Date(eventISODateTime).getDate(),
-        month: new Date(eventISODateTime).toLocaleString("default", {
-          month: "long",
-        }),
-        times: {
-          doors: eventDoorsTime,
-          start: new Date(eventISODateTime).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          end: eventEndTime,
-        },
-      },
-      ticketsLink: eventBuyTicketsLink,
-      ticketPrices: eventTicketPrices,
-      performers: eventPerformers,
-    };
-  }
+  // async function createEvent(e) {
+  //   e.preventDefault();
+
+  //   let newEvent = {
+  //     name: eventName,
+  //     subtitle: eventSubtitle,
+  //     description: eventDescription,
+  //     producer: eventProducer,
+  //     city: eventCity,
+  //     venue: eventVenue,
+  //     venueAddress: eventAddress,
+  //     when: {
+  //       timestamp: new Date(eventISODateTime).getTime(),
+  //       day: new Date(eventISODateTime).getDate(),
+  //       month: new Date(eventISODateTime).toLocaleString("default", {
+  //         month: "long",
+  //       }),
+  //       times: {
+  //         doors: eventDoorsTime,
+  //         start: new Date(eventISODateTime).toLocaleTimeString([], {
+  //           hour: "2-digit",
+  //           minute: "2-digit",
+  //         }),
+  //         end: eventEndTime,
+  //       },
+  //     },
+  //     ticketsLink: eventBuyTicketsLink,
+  //     ticketPrices: eventTicketPrices,
+  //     performers: eventPerformers,
+  //   };
+  // }
 
   function openModal(event) {
     event.preventDefault();
@@ -81,7 +123,7 @@ const MakeEventPage = () => {
               <input
                 type="text"
                 className="make-event__name"
-                onChange={(e) => setEventName(e.target.value)}
+                onChange={handleChange}
               />
             </label>
             <label>
@@ -89,7 +131,7 @@ const MakeEventPage = () => {
               <input
                 type="text"
                 className="make-event__subtitle"
-                onChange={(e) => setEventSubtitle(e.target.value)}
+                onChange={handleChange}
               />
             </label>
 
@@ -97,7 +139,7 @@ const MakeEventPage = () => {
               Description
               <textarea
                 className="make-event__description"
-                onChange={(e) => setEventDescription(e.target.value)}
+                onChange={handleChange}
               ></textarea>
             </label>
 
@@ -116,7 +158,7 @@ const MakeEventPage = () => {
               <select
                 className="make-event__select-city"
                 // defaultValue={selectedCity}
-                onChange={(e) => setEventCity(e.target.value)}
+                onChange={handleChange}
               >
                 <option value="Montreal" className="make-event__city-option">
                   Montreal
@@ -135,7 +177,7 @@ const MakeEventPage = () => {
               <input
                 type="text"
                 className="make-event__text-input"
-                onChange={(e) => setEventVenue(e.target.value)}
+                onChange={handleChange}
               />
             </label>
             <label>
@@ -143,7 +185,7 @@ const MakeEventPage = () => {
               <input
                 type="text"
                 className="make-event__text-input"
-                onChange={(e) => setEventAddress(e.target.value)}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -155,7 +197,7 @@ const MakeEventPage = () => {
               <input
                 type="datetime-local"
                 className="make-event__datetime-input"
-                onChange={(e) => setEventISODateTime(e.target.value)}
+                onChange={handleChange}
               />
             </label>
 
@@ -164,7 +206,7 @@ const MakeEventPage = () => {
               <input
                 type="time"
                 className="make-event__time-input"
-                onChange={(e) => setEventDoorsTime(e.target.value)}
+                onChange={handleChange}
               />
             </label>
 
@@ -173,7 +215,7 @@ const MakeEventPage = () => {
               <input
                 type="time"
                 className="make-event__time-input"
-                onChange={(e) => setEventEndTime(e.target.value)}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -187,7 +229,7 @@ const MakeEventPage = () => {
               <input
                 type="text"
                 className="make-event__text-input"
-                onChange={(e) => setEventBuyTicketsLink(e.target.value)}
+                onChange={handleChange}
               />
             </label>
 
@@ -197,7 +239,7 @@ const MakeEventPage = () => {
                 <input
                   type="number"
                   className="make-event__num-input"
-                  onChange={(e) => setEventTicketPriceAdvGA(e.target.value)}
+                  onChange={handleChange}
                 />
               </label>
               <label>
@@ -205,7 +247,7 @@ const MakeEventPage = () => {
                 <input
                   type="number"
                   className="make-event__num-input"
-                  onChange={(e) => setEventTicketPriceAdvVIP(e.target.value)}
+                  onChange={handleChange}
                 />
               </label>
               <label>
@@ -213,7 +255,7 @@ const MakeEventPage = () => {
                 <input
                   type="number"
                   className="make-event__num-input"
-                  onChange={(e) => setEventTicketPriceGA(e.target.value)}
+                  onChange={handleChange}
                 />
               </label>
               <label>
@@ -221,7 +263,7 @@ const MakeEventPage = () => {
                 <input
                   type="number"
                   className="make-event__num-input"
-                  onChange={(e) => setEventTicketPriceVIP(e.target.value)}
+                  onChange={handleChange}
                 />
               </label>
             </div>
@@ -229,7 +271,7 @@ const MakeEventPage = () => {
 
           <button
             className="make-event__submit-btn"
-            onClick={(e) => createEvent(e)}
+            // onClick={(e) => createEvent(e)}
           >
             Submit
           </button>
