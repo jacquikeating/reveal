@@ -39,6 +39,7 @@ const MakeEventPage = () => {
       venueURL: "",
     },
     when: {
+      ISODateTime: "",
       timestamp: 0,
       day: 0,
       month: "",
@@ -122,6 +123,7 @@ const MakeEventPage = () => {
               Event Name
               <input
                 type="text"
+                name="name"
                 className="make-event__name"
                 onChange={handleChange}
               />
@@ -130,6 +132,7 @@ const MakeEventPage = () => {
               Subtitle
               <input
                 type="text"
+                name="subtitle"
                 className="make-event__subtitle"
                 onChange={handleChange}
               />
@@ -138,6 +141,7 @@ const MakeEventPage = () => {
             <label>
               Description
               <textarea
+                name="description"
                 className="make-event__description"
                 onChange={handleChange}
               ></textarea>
@@ -156,6 +160,7 @@ const MakeEventPage = () => {
             <label>
               City
               <select
+                name="where.city"
                 className="make-event__select-city"
                 // defaultValue={selectedCity}
                 onChange={handleChange}
@@ -176,6 +181,7 @@ const MakeEventPage = () => {
               Venue Name
               <input
                 type="text"
+                name="where.venueName"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -184,6 +190,16 @@ const MakeEventPage = () => {
               Venue Address
               <input
                 type="text"
+                name="where.venueAddress"
+                className="make-event__text-input"
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Venue URL
+              <input
+                type="text"
+                name="where.venueURL"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -196,6 +212,7 @@ const MakeEventPage = () => {
               Date & Official Start Time
               <input
                 type="datetime-local"
+                name="when.ISODateTime"
                 className="make-event__datetime-input"
                 onChange={handleChange}
               />
@@ -205,6 +222,7 @@ const MakeEventPage = () => {
               Doors Time
               <input
                 type="time"
+                name="when.times.doors"
                 className="make-event__time-input"
                 onChange={handleChange}
               />
@@ -214,6 +232,7 @@ const MakeEventPage = () => {
               End Time
               <input
                 type="time"
+                name="when.times.end"
                 className="make-event__time-input"
                 onChange={handleChange}
               />
@@ -228,6 +247,7 @@ const MakeEventPage = () => {
               Link to Buy Tickets
               <input
                 type="text"
+                name="tickets.purchaseURL"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -238,6 +258,7 @@ const MakeEventPage = () => {
                 Advance GA
                 <input
                   type="number"
+                  name="tickets.prices.advGA"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -246,6 +267,7 @@ const MakeEventPage = () => {
                 Advance VIP
                 <input
                   type="number"
+                  name="tickets.prices.advVIP"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -254,6 +276,7 @@ const MakeEventPage = () => {
                 GA
                 <input
                   type="number"
+                  name="tickets.prices.GA"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -262,6 +285,7 @@ const MakeEventPage = () => {
                 VIP
                 <input
                   type="number"
+                  name="tickets.prices.VIP"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
