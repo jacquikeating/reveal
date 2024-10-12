@@ -28,10 +28,8 @@ const MakeEventPage = () => {
     name: "",
     subtitle: "",
     description: "",
-    main_image: "",
+    // main_image: "",
     organizer: "",
-    performers: [],
-    gallery: [],
     where: {
       city: "",
       venueName: "",
@@ -40,26 +38,21 @@ const MakeEventPage = () => {
     },
     when: {
       ISODateTime: "",
-      timestamp: 0,
-      day: 0,
-      month: "",
-      year: 0,
       times: {
         doors: "",
-        start: "",
         end: "",
       },
-      tickets: {
-        purchaseURL: "",
-        prices: {
-          GA: 0,
-          VIP: 0,
-          advGA: 0,
-          advVIP: 0,
-          standing: 0,
-        },
-        tableDiscounts: false,
+    },
+    tickets: {
+      purchaseURL: "",
+      prices: {
+        GA: 0,
+        VIP: 0,
+        advGA: 0,
+        advVIP: 0,
+        // standing: 0,
       },
+      // tableDiscounts: false,
     },
   });
   const form = document.getElementById("form");
@@ -71,37 +64,120 @@ const MakeEventPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // async function createEvent(e) {
-  //   e.preventDefault();
+  const validate = () => {
+    let formErrors = {};
+    if (!formData.content) formErrors.content = "This field is required";
+    return formErrors;
+  };
 
-  //   let newEvent = {
-  //     name: eventName,
-  //     subtitle: eventSubtitle,
-  //     description: eventDescription,
-  //     producer: eventProducer,
-  //     city: eventCity,
-  //     venue: eventVenue,
-  //     venueAddress: eventAddress,
-  //     when: {
-  //       timestamp: new Date(eventISODateTime).getTime(),
-  //       day: new Date(eventISODateTime).getDate(),
-  //       month: new Date(eventISODateTime).toLocaleString("default", {
-  //         month: "long",
-  //       }),
-  //       times: {
-  //         doors: eventDoorsTime,
-  //         start: new Date(eventISODateTime).toLocaleTimeString([], {
-  //           hour: "2-digit",
-  //           minute: "2-digit",
-  //         }),
-  //         end: eventEndTime,
-  //       },
-  //     },
-  //     ticketsLink: eventBuyTicketsLink,
-  //     ticketPrices: eventTicketPrices,
-  //     performers: eventPerformers,
-  //   };
-  // }
+  const prepareFormData = (submittedData) => {
+    let preparedFormData = {
+      name: formData.name,
+      subtitle: formData.subtitle,
+      description: formData.description,
+      // main_image: formData.main_image,
+      organizer: formData.organizer,
+      performers: [],
+      gallery: [],
+      where: {
+        city: formData.where.city,
+        venueName: formData.where.venueName,
+        venueAddress: formData.where.venueAddress,
+        venueURL: formData.where.venueURL,
+      },
+      when: {
+        ISODateTime: formData.where.ISODateTime,
+        timestamp: new Date(formData.where.ISODateTime).getTime(),
+        day: new Date(formData.where.ISODateTime).getDate(),
+        month: new Date(formData.where.ISODateTime).toLocaleString("default", {
+          month: "long",
+        }),
+        year: 0,
+        times: {
+          doors: formData.when.times.doors,
+          start: new Date(formData.where.ISODateTime).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          end: formData.when.times.end,
+        },
+      },
+      tickets: {
+        purchaseURL: formData.tickets.purchaseURL,
+        prices: {
+          GA: formData.tickets.prices.GA,
+          VIP: formData.tickets.prices.VIP,
+          advGA: formData.tickets.prices.advGA,
+          advVIP: formData.tickets.prices.advVIP,
+          // standing: 0,
+        },
+        // tableDiscounts: formData.tickets.tableDiscounts,
+      },
+    };
+    Reflect.deleteProperty(submittedData, "content");
+    const data = Array.isArray(submittedData)
+      ? submittedData.filter(Boolean)
+      : submittedData;
+    const trimmedHashtags = Object.keys(data).reduce(
+      (acc, key) => {
+        const value = data[key];
+
+        if (Boolean(value))
+          acc[key] = typeof value === "object" ? compactObject(value) : value;
+        return acc;
+      },
+      Array.isArray(submittedData) ? [] : {}
+    );
+    preparedFormData.hashtags = trimmedHashtags;
+    return preparedFormData;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formErrors = validate();
+    if (Object.keys(formErrors).length === 0) {
+      const dataToSubmit = prepareFormData(formData);
+      const docRef = await addDoc(collection(db, "posts"), dataToSubmit);
+      const docID = docRef.id;
+      await updateDoc(docRef, {
+        id: docID,
+      });
+      setFormData({
+        name: "",
+        subtitle: "",
+        description: "",
+        // main_image: "",
+        organizer: "",
+        where: {
+          city: "",
+          venueName: "",
+          venueAddress: "",
+          venueURL: "",
+        },
+        when: {
+          ISODateTime: "",
+          times: {
+            doors: "",
+            end: "",
+          },
+        },
+        tickets: {
+          purchaseURL: "",
+          prices: {
+            GA: 0,
+            VIP: 0,
+            advGA: 0,
+            advVIP: 0,
+            // standing: 0,
+          },
+          // tableDiscounts: false,
+        },
+      });
+      form.reset();
+    } else {
+      console.error("Missing required field");
+    }
+  };
 
   function openModal(event) {
     event.preventDefault();
