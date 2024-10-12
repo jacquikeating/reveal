@@ -1,19 +1,11 @@
-import { useEffect, useState, Suspense, lazy } from "react";
-import { useParams, Link } from "react-router-dom";
-import { emptyEventData } from "../../utils/api-utils";
+import { useState } from "react";
+import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase.js";
-import { doc, setDoc } from "firebase/firestore";
-import Hero from "../../components/Hero/Hero";
-import DateDot from "../../components/DateDot/DateDot";
-import PostsContainer from "../../components/PostsContainer/PostsContainer";
-import PerformersList from "../../components/PerformersList/PerformersList";
 import FileUploader from "../../components/FirestoreUpload/FirestoreUpload";
 import { Modal } from "react-responsive-modal";
-// const Gallery = lazy(() => import("../../components/Gallery/Gallery"));
 import "./MakeEventPage.scss";
 
 const MakeEventPage = () => {
-  // const [eventData, setEventData] = useState(emptyEventData);
   const [eventName, setEventName] = useState("");
   const [eventSubtitle, setEventSubtitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
@@ -66,189 +58,182 @@ const MakeEventPage = () => {
       ticketPrices: eventTicketPrices,
       performers: eventPerformers,
     };
-    console.log(newEvent);
-    // await setDoc(doc(db, "events", `${user.uid}`), {
-    //   name: name,
-    //   uid: user.uid,
-    //   email: email,
-    //   profileURL: nameToURL(name),
-    //   homeCity: homeCity,
-    // });
   }
+
   function openModal(event) {
     event.preventDefault();
     onOpenModal();
   }
 
-  function closeModal(event) {
-    // const newData = JSON.parse(localStorage.getItem("userData"));
+  function closeModal() {
     onCloseModal();
   }
+
   return (
     <main className="make-event">
       <section className="make-event__form">
         <h1 className="make-event__title">New Event</h1>
-        {/* <form className="make-event__form"> */}
-        <div className="make-event__core-info">
-          <h3 className="make-event__subheading">Core Info</h3>
-          <label>
-            Event Name
-            <input
-              type="text"
-              className="make-event__name"
-              onChange={(e) => setEventName(e.target.value)}
-            />
-          </label>
-          <label>
-            Subtitle
-            <input
-              type="text"
-              className="make-event__subtitle"
-              onChange={(e) => setEventSubtitle(e.target.value)}
-            />
-          </label>
-
-          <label>
-            Description
-            <textarea
-              className="make-event__description"
-              onChange={(e) => setEventDescription(e.target.value)}
-            ></textarea>
-          </label>
-
-          <button className="make-event__upload-img-btn" onClick={openModal}>
-            Upload Main Image
-          </button>
-          <Modal open={open} onClose={closeModal} center>
-            <FileUploader></FileUploader>
-          </Modal>
-        </div>
-
-        <div className="make-event__location-info">
-          <h3 className="make-event__subheading">Location</h3>
-          <label>
-            City
-            <select
-              className="make-event__select-city"
-              // defaultValue={selectedCity}
-              onChange={(e) => setEventCity(e.target.value)}
-            >
-              <option value="Montreal" className="make-event__city-option">
-                Montreal
-              </option>
-              <option value="Toronto" className="make-event__city-option">
-                Toronto
-              </option>
-              <option value="Vancouver" className="make-event__city-option">
-                Vancouver
-              </option>
-            </select>
-          </label>
-
-          <label>
-            Venue Name
-            <input
-              type="text"
-              className="make-event__text-input"
-              onChange={(e) => setEventVenue(e.target.value)}
-            />
-          </label>
-          <label>
-            Venue Address
-            <input
-              type="text"
-              className="make-event__text-input"
-              onChange={(e) => setEventAddress(e.target.value)}
-            />
-          </label>
-        </div>
-
-        <div className="make-event__time-info">
-          <h3 className="make-event__subheading">Date & Time</h3>
-          <label>
-            Date & Official Start Time
-            <input
-              type="datetime-local"
-              className="make-event__datetime-input"
-              onChange={(e) => setEventISODateTime(e.target.value)}
-            />
-          </label>
-
-          <label>
-            Doors Time
-            <input
-              type="time"
-              className="make-event__time-input"
-              onChange={(e) => setEventDoorsTime(e.target.value)}
-            />
-          </label>
-
-          <label>
-            End Time
-            <input
-              type="time"
-              className="make-event__time-input"
-              onChange={(e) => setEventEndTime(e.target.value)}
-            />
-          </label>
-        </div>
-
-        <h3 className="make-event__subheading">Performers</h3>
-
-        <div className="make-event__tickets-info">
-          <h3 className="make-event__subheading">Tickets</h3>
-          <label>
-            Link to Buy Tickets
-            <input
-              type="text"
-              className="make-event__text-input"
-              onChange={(e) => setEventBuyTicketsLink(e.target.value)}
-            />
-          </label>
-
-          <div className="make-event__ticket-prices">
+        <form className="make-event__form">
+          <div className="make-event__core-info">
+            <h3 className="make-event__subheading">Core Info</h3>
             <label>
-              Advance GA
+              Event Name
               <input
-                type="number"
-                className="make-event__num-input"
-                onChange={(e) => setEventTicketPriceAdvGA(e.target.value)}
+                type="text"
+                className="make-event__name"
+                onChange={(e) => setEventName(e.target.value)}
               />
             </label>
             <label>
-              Advance VIP
+              Subtitle
               <input
-                type="number"
-                className="make-event__num-input"
-                onChange={(e) => setEventTicketPriceAdvVIP(e.target.value)}
+                type="text"
+                className="make-event__subtitle"
+                onChange={(e) => setEventSubtitle(e.target.value)}
+              />
+            </label>
+
+            <label>
+              Description
+              <textarea
+                className="make-event__description"
+                onChange={(e) => setEventDescription(e.target.value)}
+              ></textarea>
+            </label>
+
+            <button className="make-event__upload-img-btn" onClick={openModal}>
+              Upload Main Image
+            </button>
+            <Modal open={open} onClose={closeModal} center>
+              <FileUploader></FileUploader>
+            </Modal>
+          </div>
+
+          <div className="make-event__location-info">
+            <h3 className="make-event__subheading">Location</h3>
+            <label>
+              City
+              <select
+                className="make-event__select-city"
+                // defaultValue={selectedCity}
+                onChange={(e) => setEventCity(e.target.value)}
+              >
+                <option value="Montreal" className="make-event__city-option">
+                  Montreal
+                </option>
+                <option value="Toronto" className="make-event__city-option">
+                  Toronto
+                </option>
+                <option value="Vancouver" className="make-event__city-option">
+                  Vancouver
+                </option>
+              </select>
+            </label>
+
+            <label>
+              Venue Name
+              <input
+                type="text"
+                className="make-event__text-input"
+                onChange={(e) => setEventVenue(e.target.value)}
               />
             </label>
             <label>
-              GA
+              Venue Address
               <input
-                type="number"
-                className="make-event__num-input"
-                onChange={(e) => setEventTicketPriceGA(e.target.value)}
-              />
-            </label>
-            <label>
-              VIP
-              <input
-                type="number"
-                className="make-event__num-input"
-                onChange={(e) => setEventTicketPriceVIP(e.target.value)}
+                type="text"
+                className="make-event__text-input"
+                onChange={(e) => setEventAddress(e.target.value)}
               />
             </label>
           </div>
-        </div>
 
-        <button
-          className="make-event__submit-btn"
-          onClick={(e) => createEvent(e)}
-        >
-          Submit
-        </button>
-        {/* </form> */}
+          <div className="make-event__time-info">
+            <h3 className="make-event__subheading">Date & Time</h3>
+            <label>
+              Date & Official Start Time
+              <input
+                type="datetime-local"
+                className="make-event__datetime-input"
+                onChange={(e) => setEventISODateTime(e.target.value)}
+              />
+            </label>
+
+            <label>
+              Doors Time
+              <input
+                type="time"
+                className="make-event__time-input"
+                onChange={(e) => setEventDoorsTime(e.target.value)}
+              />
+            </label>
+
+            <label>
+              End Time
+              <input
+                type="time"
+                className="make-event__time-input"
+                onChange={(e) => setEventEndTime(e.target.value)}
+              />
+            </label>
+          </div>
+
+          <h3 className="make-event__subheading">Performers</h3>
+
+          <div className="make-event__tickets-info">
+            <h3 className="make-event__subheading">Tickets</h3>
+            <label>
+              Link to Buy Tickets
+              <input
+                type="text"
+                className="make-event__text-input"
+                onChange={(e) => setEventBuyTicketsLink(e.target.value)}
+              />
+            </label>
+
+            <div className="make-event__ticket-prices">
+              <label>
+                Advance GA
+                <input
+                  type="number"
+                  className="make-event__num-input"
+                  onChange={(e) => setEventTicketPriceAdvGA(e.target.value)}
+                />
+              </label>
+              <label>
+                Advance VIP
+                <input
+                  type="number"
+                  className="make-event__num-input"
+                  onChange={(e) => setEventTicketPriceAdvVIP(e.target.value)}
+                />
+              </label>
+              <label>
+                GA
+                <input
+                  type="number"
+                  className="make-event__num-input"
+                  onChange={(e) => setEventTicketPriceGA(e.target.value)}
+                />
+              </label>
+              <label>
+                VIP
+                <input
+                  type="number"
+                  className="make-event__num-input"
+                  onChange={(e) => setEventTicketPriceVIP(e.target.value)}
+                />
+              </label>
+            </div>
+          </div>
+
+          <button
+            className="make-event__submit-btn"
+            onClick={(e) => createEvent(e)}
+          >
+            Submit
+          </button>
+        </form>
       </section>
     </main>
   );
