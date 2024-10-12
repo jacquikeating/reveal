@@ -120,7 +120,7 @@ const MakeEventPage = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       const dataToSubmit = prepareFormData(formData);
-      const docRef = await addDoc(collection(db, "posts"), dataToSubmit);
+      const docRef = await addDoc(collection(db, "events"), dataToSubmit);
       const docID = docRef.id;
       await updateDoc(docRef, {
         id: docID,
