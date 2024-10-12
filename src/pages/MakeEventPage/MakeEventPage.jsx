@@ -6,23 +6,6 @@ import { Modal } from "react-responsive-modal";
 import "./MakeEventPage.scss";
 
 const MakeEventPage = () => {
-  // const [eventName, setEventName] = useState("");
-  // const [eventSubtitle, setEventSubtitle] = useState("");
-  // const [eventDescription, setEventDescription] = useState("");
-  // const [eventProducer, setEventProducer] = useState("");
-  // const [eventCity, setEventCity] = useState("");
-  // const [eventVenue, setEventVenue] = useState("");
-  // const [eventAddress, setEventAddress] = useState("");
-  // const [eventISODateTime, setEventISODateTime] = useState("");
-  // const [eventDoorsTime, setEventDoorsTime] = useState("");
-  // const [eventEndTime, setEventEndTime] = useState("");
-  // const [eventTicketPrices, setEventTicketPrices] = useState({});
-  // const [eventBuyTicketsLink, setEventBuyTicketsLink] = useState("");
-  // const [eventPerformers, setEventPerformers] = useState([]);
-  // const [eventTicketPriceGA, setEventTicketPriceGA] = useState(0);
-  // const [eventTicketPriceAdvGA, setEventTicketPriceAdvGA] = useState(0);
-  // const [eventTicketPriceVIP, setEventTicketPriceVIP] = useState(0);
-  // const [eventTicketPriceAdvVIP, setEventTicketPriceAdvVIP] = useState(0);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
