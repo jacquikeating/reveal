@@ -11,32 +11,24 @@ const MakeEventPage = () => {
     name: "",
     subtitle: "",
     description: "",
-    // main_image: "",
     organizer: "",
-    where: {
-      city: "",
-      venueName: "",
-      venueAddress: "",
-      venueURL: "",
-    },
-    when: {
-      ISODateTime: "",
-      times: {
-        doors: "",
-        end: "",
-      },
-    },
-    tickets: {
-      purchaseURL: "",
-      prices: {
-        GA: 0,
-        VIP: 0,
-        advGA: 0,
-        advVIP: 0,
-        // standing: 0,
-      },
-      // tableDiscounts: false,
-    },
+    // main_image: "",
+    // organizer: "",
+    city: "",
+    venueName: "",
+    venueAddress: "",
+    venueURL: "",
+    ISODateTime: "",
+    doorsTime: "",
+    endTime: "",
+    ticketsPurchaseURL: "",
+    GA: 0,
+    VIP: 0,
+    advGA: 0,
+    advVIP: 0,
+    // standing: 0,
+
+    // tableDiscounts: false,
   });
   const form = document.getElementById("form");
 
@@ -63,35 +55,35 @@ const MakeEventPage = () => {
       performers: [],
       gallery: [],
       where: {
-        city: formData.where.city,
-        venueName: formData.where.venueName,
-        venueAddress: formData.where.venueAddress,
-        venueURL: formData.where.venueURL,
+        city: formData.city,
+        venueName: formData.venueName,
+        venueAddress: formData.venueAddress,
+        venueURL: formData.venueURL,
       },
       when: {
-        ISODateTime: formData.where.ISODateTime,
-        timestamp: new Date(formData.where.ISODateTime).getTime(),
-        day: new Date(formData.where.ISODateTime).getDate(),
-        month: new Date(formData.where.ISODateTime).toLocaleString("default", {
+        ISODateTime: formData.ISODateTime,
+        timestamp: new Date(formData.ISODateTime).getTime(),
+        day: new Date(formData.ISODateTime).getDate(),
+        month: new Date(formData.ISODateTime).toLocaleString("default", {
           month: "long",
         }),
         year: 0,
         times: {
-          doors: formData.when.times.doors,
-          start: new Date(formData.where.ISODateTime).toLocaleTimeString([], {
+          doors: formData.doorsTime,
+          start: new Date(formData.ISODateTime).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           }),
-          end: formData.when.times.end,
+          end: formData.endTime,
         },
       },
       tickets: {
-        purchaseURL: formData.tickets.purchaseURL,
+        purchaseURL: formData.ticketsPurchaseURL,
         prices: {
-          GA: formData.tickets.prices.GA,
-          VIP: formData.tickets.prices.VIP,
-          advGA: formData.tickets.prices.advGA,
-          advVIP: formData.tickets.prices.advVIP,
+          GA: formData.GA,
+          VIP: formData.VIP,
+          advGA: formData.advGA,
+          advVIP: formData.advVIP,
           // standing: 0,
         },
         // tableDiscounts: formData.tickets.tableDiscounts,
@@ -101,65 +93,56 @@ const MakeEventPage = () => {
     const data = Array.isArray(submittedData)
       ? submittedData.filter(Boolean)
       : submittedData;
-    const trimmedHashtags = Object.keys(data).reduce(
-      (acc, key) => {
-        const value = data[key];
+    // const trimmedHashtags = Object.keys(data).reduce(
+    //   (acc, key) => {
+    //     const value = data[key];
 
-        if (Boolean(value))
-          acc[key] = typeof value === "object" ? compactObject(value) : value;
-        return acc;
-      },
-      Array.isArray(submittedData) ? [] : {}
-    );
-    preparedFormData.hashtags = trimmedHashtags;
+    //     if (Boolean(value))
+    //       acc[key] = typeof value === "object" ? compactObject(value) : value;
+    //     return acc;
+    //   },
+    //   Array.isArray(submittedData) ? [] : {}
+    // );
+    // preparedFormData.hashtags = trimmedHashtags;
     return preparedFormData;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validate();
-    if (Object.keys(formErrors).length === 0) {
-      const dataToSubmit = prepareFormData(formData);
-      const docRef = await addDoc(collection(db, "events"), dataToSubmit);
-      const docID = docRef.id;
-      await updateDoc(docRef, {
-        id: docID,
-      });
-      setFormData({
-        name: "",
-        subtitle: "",
-        description: "",
-        // main_image: "",
-        organizer: "",
-        where: {
-          city: "",
-          venueName: "",
-          venueAddress: "",
-          venueURL: "",
-        },
-        when: {
-          ISODateTime: "",
-          times: {
-            doors: "",
-            end: "",
-          },
-        },
-        tickets: {
-          purchaseURL: "",
-          prices: {
-            GA: 0,
-            VIP: 0,
-            advGA: 0,
-            advVIP: 0,
-            // standing: 0,
-          },
-          // tableDiscounts: false,
-        },
-      });
-      form.reset();
-    } else {
-      console.error("Missing required field");
-    }
+    // const formErrors = validate();
+    // if (Object.keys(formErrors).length === 0) {
+    const dataToSubmit = prepareFormData(formData);
+    const docRef = await addDoc(collection(db, "events"), dataToSubmit);
+    const docID = docRef.id;
+    await updateDoc(docRef, {
+      id: docID,
+    });
+    setFormData({
+      name: "",
+      subtitle: "",
+      description: "",
+      // main_image: "",
+      organizer: "",
+      city: "",
+      venueName: "",
+      venueAddress: "",
+      venueURL: "",
+
+      ISODateTime: "",
+      doorsTime: "",
+      endTime: "",
+      ticketsPurchaseURL: "",
+      GA: 0,
+      VIP: 0,
+      advGA: 0,
+      advVIP: 0,
+      // standing: 0,
+      // tableDiscounts: false,
+    });
+    form.reset();
+    // } else {
+    //   console.error("Missing required field");
+    // }
   };
 
   function openModal(event) {
@@ -175,7 +158,7 @@ const MakeEventPage = () => {
     <main className="make-event">
       <section className="make-event__form">
         <h1 className="make-event__title">New Event</h1>
-        <form className="make-event__form">
+        <form className="make-event__form" id="form" onSubmit={handleSubmit}>
           <div className="make-event__core-info">
             <h3 className="make-event__subheading">Core Info</h3>
             <label>
@@ -206,12 +189,22 @@ const MakeEventPage = () => {
               ></textarea>
             </label>
 
-            <button className="make-event__upload-img-btn" onClick={openModal}>
+            <label>
+              Organizer
+              <input
+                type="text"
+                name="organizer"
+                className="make-event__organizer"
+                onChange={handleChange}
+              />
+            </label>
+
+            {/* <button className="make-event__upload-img-btn" onClick={openModal}>
               Upload Main Image
             </button>
             <Modal open={open} onClose={closeModal} center>
               <FileUploader></FileUploader>
-            </Modal>
+            </Modal> */}
           </div>
 
           <div className="make-event__location-info">
@@ -219,7 +212,7 @@ const MakeEventPage = () => {
             <label>
               City
               <select
-                name="where.city"
+                name="city"
                 className="make-event__select-city"
                 // defaultValue={selectedCity}
                 onChange={handleChange}
@@ -240,7 +233,7 @@ const MakeEventPage = () => {
               Venue Name
               <input
                 type="text"
-                name="where.venueName"
+                name="venueName"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -249,7 +242,7 @@ const MakeEventPage = () => {
               Venue Address
               <input
                 type="text"
-                name="where.venueAddress"
+                name="venueAddress"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -258,7 +251,7 @@ const MakeEventPage = () => {
               Venue URL
               <input
                 type="text"
-                name="where.venueURL"
+                name="venueURL"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -271,7 +264,7 @@ const MakeEventPage = () => {
               Date & Official Start Time
               <input
                 type="datetime-local"
-                name="when.ISODateTime"
+                name="ISODateTime"
                 className="make-event__datetime-input"
                 onChange={handleChange}
               />
@@ -281,7 +274,7 @@ const MakeEventPage = () => {
               Doors Time
               <input
                 type="time"
-                name="when.times.doors"
+                name="doorsTime"
                 className="make-event__time-input"
                 onChange={handleChange}
               />
@@ -291,7 +284,7 @@ const MakeEventPage = () => {
               End Time
               <input
                 type="time"
-                name="when.times.end"
+                name="endTime"
                 className="make-event__time-input"
                 onChange={handleChange}
               />
@@ -306,7 +299,7 @@ const MakeEventPage = () => {
               Link to Buy Tickets
               <input
                 type="text"
-                name="tickets.purchaseURL"
+                name="ticketsPurchaseURL"
                 className="make-event__text-input"
                 onChange={handleChange}
               />
@@ -317,7 +310,7 @@ const MakeEventPage = () => {
                 Advance GA
                 <input
                   type="number"
-                  name="tickets.prices.advGA"
+                  name="advGA"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -326,7 +319,7 @@ const MakeEventPage = () => {
                 Advance VIP
                 <input
                   type="number"
-                  name="tickets.prices.advVIP"
+                  name="advVIP"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -335,7 +328,7 @@ const MakeEventPage = () => {
                 GA
                 <input
                   type="number"
-                  name="tickets.prices.GA"
+                  name="GA"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -344,7 +337,7 @@ const MakeEventPage = () => {
                 VIP
                 <input
                   type="number"
-                  name="tickets.prices.VIP"
+                  name="VIP"
                   className="make-event__num-input"
                   onChange={handleChange}
                 />
@@ -353,6 +346,7 @@ const MakeEventPage = () => {
           </div>
 
           <button
+            type="submit"
             className="make-event__submit-btn"
             // onClick={(e) => createEvent(e)}
           >
