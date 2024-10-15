@@ -67,7 +67,7 @@ const MakeEventPage = () => {
         month: new Date(formData.ISODateTime).toLocaleString("default", {
           month: "long",
         }),
-        year: 0,
+        year: new Date(formData.ISODateTime).getFullYear(),
         times: {
           doors: formData.doorsTime,
           start: new Date(formData.ISODateTime).toLocaleTimeString([], {
@@ -345,11 +345,7 @@ const MakeEventPage = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="make-event__submit-btn"
-            // onClick={(e) => createEvent(e)}
-          >
+          <button type="submit" className="make-event__submit-btn">
             Submit
           </button>
         </form>
