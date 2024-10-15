@@ -5,9 +5,6 @@ import { collection, query, where, getDocs, or } from "firebase/firestore";
 import "./PostsContainer.scss";
 
 const PostsContainer = ({ filterType, filterTarget }) => {
-  // const filterType = "userName";
-  // const filterTarget = "Cherie Fatale";
-  // Hardcoded for early development; will be passed as props: filterType, filterTarget
   // filterType determines which query will be used (user/event/etc)
   // filterTarget is the actual "search term"
   const [postsData, setPostsData] = useState([]); // array of posts from backend
@@ -18,27 +15,39 @@ const PostsContainer = ({ filterType, filterTarget }) => {
   useEffect(() => {
     const fetchPostsData = async () => {
       let q = "";
+      let postsArray = [];
       try {
-        if (filterType == "userName") {
-          q = query(
-            collection(db, "posts"),
-            or(
-              where(`${filterType}`, "==", `${filterTarget}`),
-              where("hashtags.person", "==", `${filterTarget}`)
-            )
-          );
+        if (!filterType && !filterTarget) {
+          const data = await getDocs(collection(db, "posts"));
+          const firestorePostsData = [
+            data.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ];
+          postsArray = firestorePostsData[0].slice(0, 10);
+          postsArray.sort((a, b) => b.likes.length - a.likes.length);
         } else {
-          q = query(
-            collection(db, "posts"),
-            where(`${filterType}`, "==", `${filterTarget}`)
-          );
+          if (filterType == "userName") {
+            q = query(
+              collection(db, "posts"),
+              or(
+                where(`${filterType}`, "==", `${filterTarget}`),
+                where("hashtags.person", "==", `${filterTarget}`)
+              )
+            );
+          } else {
+            q = query(
+              collection(db, "posts"),
+              where(`${filterType}`, "==", `${filterTarget}`)
+            );
+          }
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            postsArray.push(doc.data());
+          });
+          postsArray.sort((a, b) => b.timestamp - a.timestamp);
         }
-        const querySnapshot = await getDocs(q);
-        const postsArray = [];
-        querySnapshot.forEach((doc) => {
-          postsArray.push(doc.data());
-        });
-        postsArray.sort((a, b) => b.timestamp - a.timestamp);
         setPostsData(postsArray);
         setLoading(false);
       } catch (error) {
