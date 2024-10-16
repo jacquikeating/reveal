@@ -113,10 +113,11 @@ const NewPostForm = () => {
       userUID: userData.uid,
       userName: userData.name,
       userAvatar: userData.avatar,
+      userProfileURL: userData.profileURL,
       timestamp: new Date().getTime().toString(),
       content: submittedData.content,
       likes: [],
-      comments: {},
+      comments: [],
       hashtags: {
         event: formData.event,
         user: formData.user,

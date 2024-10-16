@@ -28,6 +28,7 @@ const NewCommentForm = ({ postRef, postData }) => {
       userUID: userData.uid,
       userName: userData.name,
       userAvatar: userData.avatar,
+      userProfileURL: userData.profileURL,
       timestamp: new Date().getTime().toString(),
       content: submittedData.content,
       likes: [],

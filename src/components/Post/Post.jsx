@@ -96,8 +96,6 @@ const Post = ({ postData, userData }) => {
   const [writeComment, setWriteComment] = useState(false);
   const postRef = doc(db, "posts", id);
 
-  console.log(isCommented);
-
   async function updateLikes() {
     if (isLiked) {
       setIsLiked(false);
