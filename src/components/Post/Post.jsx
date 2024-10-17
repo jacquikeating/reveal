@@ -88,7 +88,7 @@ const Post = ({ postData, userData }) => {
   const [likesCount, setLikesCount] = useState(likes.length);
   const [isLiked, setIsLiked] = useState(likes.includes(userID));
   const [isCommented, setIsCommented] = useState(
-    comments.some((c) => c.userUID === userID)
+    comments?.some((c) => c.userUID === userID)
   );
   const [postDisplay, setPostDisplay] = useState("flex");
   const [editMode, setEditMode] = useState(false);
@@ -204,7 +204,7 @@ const Post = ({ postData, userData }) => {
                   src="../../src/assets/icons/comment.svg"
                 />
               )}
-              <p className="post__comments">{comments.length}</p>
+              <p className="post__comments">{comments?.length}</p>
             </button>
 
             {userID == userUID ? (
