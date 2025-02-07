@@ -1,0 +1,1 @@
+import{j as n,o as a}from"./index-DFBRDh8w.js";const i=({filteredEvents:t})=>n.jsx("div",{className:"events-list",children:t.length>0?t.map(e=>n.jsx(a,{id:e.id,name:e.name,date:`${e.month} ${e.day}`,image:e.main_image},e.id)):n.jsx("p",{className:"events-list__none-found-msg",children:"No events found for this month"})});export{i as default};
