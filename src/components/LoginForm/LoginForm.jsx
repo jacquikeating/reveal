@@ -14,6 +14,8 @@ const LoginForm = () => {
     try {
       signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
+          console.log(userCredential);
+          console.log(userCredential.user);
           localStorage.setItem("user", userCredential.user.uid);
         }
       );

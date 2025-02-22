@@ -83,7 +83,7 @@ const Post = ({ postData, userData }) => {
   } = postData;
   timestamp = new Intl.DateTimeFormat("en-US").format(timestamp);
   content = content.replace(/&#x27;/g, "'");
-  const userID = userData.uid;
+  const userID = userData.uid || "none";
   // likes is an array containing the UIDs of all users who have liked the post
   const [likesCount, setLikesCount] = useState(likes.length);
   const [isLiked, setIsLiked] = useState(likes.includes(userID));

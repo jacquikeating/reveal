@@ -11,6 +11,7 @@ const PostsContainer = ({ filterType, filterTarget }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const userData = JSON.parse(localStorage.getItem("userData"));
+  console.log(userData);
 
   useEffect(() => {
     const fetchPostsData = async () => {
@@ -67,7 +68,7 @@ const PostsContainer = ({ filterType, filterTarget }) => {
       {postsData.map((post) => {
         return (
           <li className="posts-container__item" key={post.timestamp}>
-            <Post postData={post} userData={userData} />
+            {/* <Post postData={post} userData={userData} /> */}
           </li>
         );
       })}
